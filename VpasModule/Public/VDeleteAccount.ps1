@@ -59,7 +59,7 @@ function VDeleteAccount{
             Write-Verbose "ACCOUNT WAS SUCCESSFULLY DELETED FROM CYBERARK"
             return 0
         }catch{
-            Vout -str $Error[0] -type E
+            Vout -str $_ -type E
             Write-Verbose "UNABLE TO DELETE ACCOUNT FROM CYBERARK"
             return -1
         }  

@@ -106,7 +106,7 @@ function VUpdateSafe{
         return 0
     }catch{
         Write-Verbose "UNABLE TO UPDATE SAFE"
-        Vout -str $Error[0] -type E
+        Vout -str $_ -type E
         return -1
     }
 }

@@ -105,7 +105,7 @@ function VCreateAccount{
         }
     }
     elseif($paccessRestrictedToRemoteMachines -eq ""){
-        $remoteMachinesAccess = "DEFAULT"
+        $remoteMachinesAccess = ""
     }
 
     #AUTOMATIC MANAGEMENT SECTION
@@ -153,7 +153,6 @@ function VCreateAccount{
         $params = @{
             platformId = $platformID;
             safeName = $safeName;
-            name = $name;
             address = $address;
             userName = $userName;
             secretType = $secretType;
@@ -161,7 +160,14 @@ function VCreateAccount{
             platformAccountProperties = $platformAccountProperties;
             secretManagement = $secretManagement;
             remoteMachinesAccess = $remoteMachinesAccess;
-        } | ConvertTo-Json
+        }
+
+        if(![String]::IsNullOrEmpty($pname)){
+            $params += @{name = $name}
+        }
+
+        $params = $params | ConvertTo-Json
+        
         Write-Verbose "MAKING API CALL TO CYBERARK"
         $uri = "https://$PVWA/PasswordVault/api/Accounts"
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method POST -Body $params -ContentType "application/json"
@@ -170,7 +176,7 @@ function VCreateAccount{
         return 0
     }catch{
         Write-Verbose "UNABLE TO ADD ACCOUNT INTO CYBERARK"
-        Vout -str $Error[0] -type E
+        Vout -str $_ -type E
         return -1
     }
 }

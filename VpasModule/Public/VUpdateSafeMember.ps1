@@ -334,7 +334,7 @@ function VUpdateSafeMember{
         return 0
     }catch{
         Write-Verbose "UNABLE TO UPDATE SAFE MEMBER"
-        Vout -str $Error[0] -type E
+        Vout -str $_ -type E
         return -1
     }
 }

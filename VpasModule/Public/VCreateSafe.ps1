@@ -82,7 +82,7 @@ function VCreateSafe{
         return 0
     }catch{
         Write-Verbose "FAILED TO CREATE SAFE IN CYBERARK"
-        Vout -str $Error[0] -type E
+        Vout -str $_ -type E
         return -1
     }
 }

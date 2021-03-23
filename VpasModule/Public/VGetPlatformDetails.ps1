@@ -34,7 +34,7 @@ function VGetPlatformDetails{
         return $response
     }catch{
         Write-Verbose "UNABLE TO RETRIEVE PLATFORM DETAILS"
-        Vout -str $Error[0] -type E
+        Vout -str $_ -type E
         return -1
     }
 }

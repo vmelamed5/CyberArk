@@ -32,7 +32,7 @@ function VDeleteApplication{
         $output = 0
     }catch{
         Write-Verbose "FAILED TO DELETE $AppID, CONFIRM APPID EXISTS IN CYBERARK"
-        Vout -str $Error[0] -type E
+        Vout -str $_ -type E
         $output = -1
     }
 

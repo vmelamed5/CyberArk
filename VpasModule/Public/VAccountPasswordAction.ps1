@@ -98,7 +98,7 @@ function VAccountPasswordAction{
                 return 0
             }catch{
                 Write-Verbose "UNABLE TO TRIGGER VERIFY ACTION ON THE ACCOUNT"
-                Vout -str $Error[0] -type E
+                Vout -str $_ -type E
                 return -1
             }
         }
@@ -112,7 +112,7 @@ function VAccountPasswordAction{
                 return 0
             }catch{
                 Write-Verbose "UNABLE TO TRIGGER RECONCILE ACTION ON THE ACCOUNT"
-                Vout -str $Error[0] -type E
+                Vout -str $_ -type E
                 return -1
             }
         }
@@ -129,7 +129,7 @@ function VAccountPasswordAction{
                 return 0
             }catch{
                 Write-Verbose "UNABLE TO TRIGGER CHANGE PASSWORD IN VAULT ACTION ON THE ACCOUNT"
-                Vout -str $Error[0] -type E
+                Vout -str $_ -type E
                 return -1
             }
         }
@@ -147,7 +147,7 @@ function VAccountPasswordAction{
                 return 0
             }catch{
                 Write-Verbose "UNABLE TO TRIGGER CHANGE PASSWORD SET NEW PASSWORD ACTION ON THE ACCOUNT"
-                Vout -str $Error[0] -type E
+                Vout -str $_ -type E
                 return -1
             }
         }
@@ -161,7 +161,7 @@ function VAccountPasswordAction{
                 return 0
             }catch{
                 Write-Verbose "UNABLE TO TRIGGER CHANGE ACTION ON THE ACCOUNT"
-                Vout -str $Error[0] -type E
+                Vout -str $_ -type E
                 return -1
             }
         }

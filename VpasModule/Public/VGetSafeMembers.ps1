@@ -45,7 +45,7 @@ function VGetSafeMembers{
         return $outputreturn
     }catch{
         Write-Verbose "UNABLE TO GET SAFE MEMBERS"
-        Vout -str $Error[0] -type E
+        Vout -str $_ -type E
         return -1
     }
 }

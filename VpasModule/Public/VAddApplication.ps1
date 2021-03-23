@@ -121,7 +121,7 @@ function VAddApplication{
         return 0
     }catch{
         Write-Verbose "FAILED TO ADD APPLICATION TO CYBERARK"
-        Vout -str $Error[0] -type E
+        Vout -str $_ -type E
         return -1
     }
 }

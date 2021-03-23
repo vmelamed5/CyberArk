@@ -61,7 +61,7 @@ function VDeleteApplicationAuthentication{
             Write-Verbose "AUTHID VALUE WAS DELETED SUCCESSFULLY"
             return 0
         }catch{
-            Vout -str $Error[0] -type E
+            Vout -str $_ -type E
             Write-Verbose "FAILED TO DELETE AUTHID VALUE"
             return -1
         }

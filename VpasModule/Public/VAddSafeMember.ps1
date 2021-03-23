@@ -265,7 +265,7 @@ function VAddSafeMember{
         return 0
     }catch{
         Write-Verbose "UNABLE TO ADD SAFE MEMBER TO SAFE"
-        Vout $Error[0] -type E
+        Vout -str $_ -type E
         return -1
     }
 }

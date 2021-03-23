@@ -176,7 +176,7 @@ function VUpdateAccountFields{
             }
         }catch{
             Write-Verbose "UNABLE TO UPDATE ACCOUNT FIELD"
-            Vout -str $Error[0] -type E
+            Vout -str $_ -type E
             return -1
         }
     }

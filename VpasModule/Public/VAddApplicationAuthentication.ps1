@@ -143,7 +143,7 @@ function VAddApplicationAuthentication{
         return 0
     }catch{
         Write-Verbose "UNABLE TO ADD APPLICATION AUTHENTICATION METHOD"
-        Vout -str $Error[0] -type E
+        Vout -str $_ -type E
         return -1
     }
 }

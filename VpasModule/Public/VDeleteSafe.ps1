@@ -32,7 +32,7 @@ function VDeleteSafe{
         return 0
     }catch{
         Write-Verbose "UNABLE TO DELETE $safe FROM CYBERARK"
-        Vout -str $Error[0] -type E
+        Vout -str $_ -type E
         return -1
     }
 }

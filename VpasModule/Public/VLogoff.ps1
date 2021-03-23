@@ -26,7 +26,7 @@ function VLogoff{
         return 0
     }catch{
         Write-Verbose "UNEXPECTED ERROR DURING LOGOFF PROCESS" 
-        Vout -str $Error[0] -type E
+        Vout -str $_ -type E
         return -1
     }
 }
