@@ -54,6 +54,6 @@ function VGetAccountIDHelper{
         }
     }catch{
         Write-Verbose "UNABLE TO QUERY CYBERARK"
-        Vout -str $Error[0] -type E
+        Vout -str $_ -type E
     }
 }
