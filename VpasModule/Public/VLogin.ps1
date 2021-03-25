@@ -21,6 +21,13 @@ function VLogin{
     
     )
     
+    Vout -str " __      _______          __  __           _       _       " -type G
+    Vout -str " \ \    / /  __ \        |  \/  |         | |     | |      " -type G
+    Vout -str "  \ \  / /| |__) |_ _ ___| \  / | ___   __| |_   _| | ___  " -type G
+    Vout -str "   \ \/ / |  ___/ _`  / __| |\/| |/ _ \ / _`  | | | | |/ _ \ " -type G
+    Vout -str "    \  /  | |  | (_| \__ \ |  | | (_) | (_| | |_| | |  __/ " -type G
+    Vout -str "     \/   |_|   \__,_|___/_|  |_|\___/ \__,_|\__,_|_|\___| " -type G  
+    
     if($AuthType -eq "radius"){
         Write-Verbose "RADIUS AUTHENTICATION SELECTED"
         $uri = "https://$PVWA/PasswordVault/API/auth/RADIUS/Logon"
