@@ -43,8 +43,7 @@ function VDeleteApplicationAuthentication{
     Write-Verbose "AUTHVALUE VALUE SET: $AuthValue"
 
     Write-Verbose "CALLING HELPER FUNCTION TO RETRIEVE AUTH ID"
-    #$AuthID = VGetApplicationAuthIDHelper -PVWA $PVWA -token $token -AppID $AppID -AuthType $AuthType -AuthValue $AuthValue
-    $AuthID = 1
+    $AuthID = VGetApplicationAuthIDHelper -PVWA $PVWA -token $token -AppID $AppID -AuthType $AuthType -AuthValue $AuthValue
     Write-Verbose "HEPER FUNCTION RETURNED VALUE"
 
     if($AuthID -eq -1){
