@@ -56,7 +56,7 @@ function VDeleteApplicationAuthentication{
             write-verbose "FOUND UNIQUE AUTHID"
             $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/$AppID/Authentications/$AuthID"
             $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method DELETE
-            Vout -str $response -type C
+            #Vout -str $response -type C
             Write-Verbose "AUTHID VALUE WAS DELETED SUCCESSFULLY"
             return 0
         }catch{
