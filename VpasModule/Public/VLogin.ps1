@@ -48,6 +48,9 @@ function VLogin{
             username = $username;
             password = $password;
         }
+        
+        if(([Net.SecurityProtocolType].GetEnumNames() -contains "Tls12") -and (-not ([System.Net.ServicePointManager]::SecurityProtocol -match "Tls12"))){[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12}
+        
         if($response = Invoke-WebRequest -Uri $uri -Method POST -Body $params){
             Write-Verbose "TRIMMING LOGIN TOKEN VALUE"
             $token = $response.Content
