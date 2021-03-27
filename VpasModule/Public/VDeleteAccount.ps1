@@ -34,13 +34,21 @@ function VDeleteAccount{
         [String]$username,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=5)]
-        [String]$address
-    
+        [String]$address,
+        
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=6)]
+        [String]$AcctID
     )
-
-    Write-Verbose "INITIATING HELPER FUNCTION"
-    $AcctID = VGetAccountIDHelper -PVWA $PVWA -token $token -safe $safe -platform $platform -username $username -address $address
-    write-verbose "HELPER FUNCTION RETURNED VALUE(S)"
+    
+    if([String]::IsNullOrEmpty($AcctID)){
+        Write-Verbose "INITIATING HELPER FUNCTION"
+        $AcctID = VGetAccountIDHelper -PVWA $PVWA -token $token -safe $safe -platform $platform -username $username -address $address
+        write-verbose "HELPER FUNCTION RETURNED VALUE(S)"
+    }
+    else{
+        write-verbose "ACCTID INCLUDED, SKIPPING HELPER FUNCTION"
+    }
+    
 
     if($AcctID -eq -1){
         Vout -str "COULD NOT FIND UNIQUE ACCOUNT ENTRY TO DELETE, INCLUDE MORE SEARCH PARAMETERS" -type E
