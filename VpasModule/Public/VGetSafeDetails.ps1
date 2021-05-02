@@ -35,6 +35,6 @@ function VGetSafeDetails{
     }catch{
         Write-Verbose "COULD NOT GET DETAILS FOR $safe"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
