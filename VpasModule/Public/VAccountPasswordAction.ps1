@@ -57,7 +57,7 @@ function VAccountPasswordAction{
         if([String]::IsNullOrEmpty($newPass)){
             Write-Verbose "CHANGE PASSWORD IN VAULT MUST BE SUPPLIED WITH A NEW PASSWORD"
             Vout -str "CHANGE PASSWORD IN VAULT MUST BE SUPPLIED WITH A NEW PASSWORD" -type E
-            return -1
+            return $false
         }
     }
     elseif($actionlower -eq "changesetnew"){ 
@@ -66,7 +66,7 @@ function VAccountPasswordAction{
         if([String]::IsNullOrEmpty($newPass)){
             Write-Verbose "CHANGE PASSWORD SET NEW PASSWORD MUST BE SUPPLIED WITH A NEW PASSWORD"
             Vout -str "CHANGE SET NEW PASSWORD MUST BE SUPPLIED WITH A NEW PASSWORD" -type E
-            return -1
+            return $false
         }
     }
     elseif($actionlower -eq "change"){
@@ -80,12 +80,12 @@ function VAccountPasswordAction{
     if($AcctID -eq -1){
         Write-Verbose "COULD NOT FIND UNIQUE ACCOUNT ENTRY, INCLUDE MORE SEARCH PARAMETERS"
         Vout -str "COULD NOT FIND UNIQUE ACCOUNT ENTRY, INCLUDE MORE SEARCH PARAMETERS" -type E
-        return -1
+        return $false
     }
     elseif($AcctID -eq -2){
         Write-Verbose "NO ACCOUNTS FOUND"
         Vout -str "NO ACCOUNTS FOUND" -type E
-        return -1
+        return $false
     }
     else{
         if($triggeraction -eq 1){
@@ -95,11 +95,11 @@ function VAccountPasswordAction{
                 $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method POST
                 Write-Verbose "PARSING DATA FROM CYBERARK"
                 Write-Verbose "RETURNING SUCCESS"
-                return 0
+                return $true
             }catch{
                 Write-Verbose "UNABLE TO TRIGGER VERIFY ACTION ON THE ACCOUNT"
                 Vout -str $_ -type E
-                return -1
+                return $false
             }
         }
         elseif($triggeraction -eq 2){
@@ -109,11 +109,11 @@ function VAccountPasswordAction{
                 $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method POST
                 Write-Verbose "PARSING DATA FROM CYBERARK"
                 Write-Verbose "RETURNING SUCCESS"
-                return 0
+                return $true
             }catch{
                 Write-Verbose "UNABLE TO TRIGGER RECONCILE ACTION ON THE ACCOUNT"
                 Vout -str $_ -type E
-                return -1
+                return $false
             }
         }
         elseif($triggeraction -eq 3){
@@ -126,11 +126,11 @@ function VAccountPasswordAction{
                 $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Body $params -Method POST -ContentType 'application/json'
                 Write-Verbose "PARSING DATA FROM CYBERARK"
                 Write-Verbose "RETURNING SUCCESS"
-                return 0
+                return $true
             }catch{
                 Write-Verbose "UNABLE TO TRIGGER CHANGE PASSWORD IN VAULT ACTION ON THE ACCOUNT"
                 Vout -str $_ -type E
-                return -1
+                return $false
             }
         }
         elseif($triggeraction -eq 4){
@@ -144,11 +144,11 @@ function VAccountPasswordAction{
                 $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Body $params -Method POST -ContentType 'application/json'
                 Write-Verbose "PARSING DATA FROM CYBERARK"
                 Write-Verbose "RETURNING SUCCESS"
-                return 0
+                return $true
             }catch{
                 Write-Verbose "UNABLE TO TRIGGER CHANGE PASSWORD SET NEW PASSWORD ACTION ON THE ACCOUNT"
                 Vout -str $_ -type E
-                return -1
+                return $false
             }
         }
         elseif($triggeraction -eq 5){
@@ -158,11 +158,11 @@ function VAccountPasswordAction{
                 $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method POST
                 Write-Verbose "PARSING DATA FROM CYBERARK"
                 Write-Verbose "RETURNING SUCCESS"
-                return 0
+                return $true
             }catch{
                 Write-Verbose "UNABLE TO TRIGGER CHANGE ACTION ON THE ACCOUNT"
                 Vout -str $_ -type E
-                return -1
+                return $false
             }
         }
     }
