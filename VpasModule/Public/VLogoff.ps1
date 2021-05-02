@@ -23,10 +23,10 @@ function VLogoff{
         Write-Verbose "BEGINNING LOGOFF PROCEDURE"
         $respopnse = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method POST -ContentType 'application/json'
         Write-Verbose "SUCCESSFULLY LOGGED OFF CYBERARK"
-        return 0
+        return $true
     }catch{
         Write-Verbose "UNEXPECTED ERROR DURING LOGOFF PROCESS" 
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
