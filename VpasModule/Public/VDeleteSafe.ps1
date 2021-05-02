@@ -29,10 +29,10 @@ function VDeleteSafe{
         $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes/$safe"
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method DELETE
         Write-Verbose "API CALL SUCCESSFULL, $safe WAS DELETED"
-        return 0
+        return $true
     }catch{
         Write-Verbose "UNABLE TO DELETE $safe FROM CYBERARK"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
