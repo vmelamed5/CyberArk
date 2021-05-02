@@ -61,11 +61,11 @@ function VLogin{
         }
         else{
             Vout -str "UNKOWN ERROR, CONFIRM CORRECT PVWA, USERNAME, AND PASSWORD WAS SUPPLIED" -type E
-            return -1
+            return $false
         }
     }catch{
         Vout -str $_ -type E
-        return -1
+        return $false
     }
     Write-Verbose "RETURNING LOGIN TOKEN"
     return $token
