@@ -140,10 +140,10 @@ function VAddApplicationAuthentication{
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Body $params -Method POST -ContentType 'application/json'
         Write-Verbose "PARSING DATA FROM CYBERARK"
         Write-Verbose "RETURNING SUCCESS"
-        return 0
+        return $true
     }catch{
         Write-Verbose "UNABLE TO ADD APPLICATION AUTHENTICATION METHOD"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
