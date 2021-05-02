@@ -35,6 +35,6 @@ function VGetApplicationDetails{
     }catch{
         Write-Verbose "UNABLE TO RETRIEVE APPLICATION DETAILS"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
