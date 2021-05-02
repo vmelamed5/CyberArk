@@ -76,7 +76,7 @@ function VUpdateAccountFields{
         else{
             Write-Verbose "FIELDVAL CAN ONLY BE true OR false FOR EDITING status FIELD"
             Vout -str "FIELDVAL CAN ONLY BE true OR false FOR EDITING status FIELD" -type E
-            return -1
+            return $false
         }
     }
     elseif($fieldlower -eq "statusreason"){
@@ -97,7 +97,7 @@ function VUpdateAccountFields{
         else{
             Write-Verbose "FIELDVAL CAN ONLY BE true OR false FOR EDITING AccessRestrictedToRemoteMachines FIELD"
             Vout -str "FIELDVAL CAN ONLY BE true OR false FOR EDITING AccessRestrictedToRemoteMachines FIELD" -type E
-            return -1
+            return $false
         }
     }
 
@@ -125,12 +125,12 @@ function VUpdateAccountFields{
     if($AcctID -eq -1){
         Write-Verbose "COULD NOT FIND UNIQUE ACCOUNT ENTRY, INCLUDE MORE SEARCH PARAMETERS"
         Vout -str "COULD NOT FIND UNIQUE ACCOUNT ENTRY, INCLUDE MORE SEARCH PARAMETERS" -type E
-        return -1
+        return $false
     }
     elseif($AcctID -eq -2){
         Write-Verbose "NO ACCOUNT FOUND"
         Vout -str "NO ACCOUNTS FOUND" -type E
-        return -1
+        return $false
     }
     else{
         #PATH
@@ -156,7 +156,7 @@ function VUpdateAccountFields{
                 $uri = "https://$PVWA/PasswordVault/api/Accounts/$AcctID"
                 $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method PATCH -Body $params -ContentType "application/json"
                 Write-Verbose "RETURNING SUCCESS"
-                return 0
+                return $true
             }
             elseif($triggeraction -eq 2){
                 $op = "replace"
@@ -164,7 +164,7 @@ function VUpdateAccountFields{
                 $uri = "https://$PVWA/PasswordVault/api/Accounts/$AcctID"
                 $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method PATCH -Body $params -ContentType "application/json"
                 Write-Verbose "RETURNING SUCCESS"
-                return 0
+                return $true
             }
             elseif($triggeraction -eq 3){
                 $op = "remove"
@@ -172,12 +172,12 @@ function VUpdateAccountFields{
                 $uri = "https://$PVWA/PasswordVault/api/Accounts/$AcctID"
                 $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method PATCH -Body $params -ContentType "application/json"
                 Write-Verbose "RETURNING SUCCESS"
-                return 0
+                return $true
             }
         }catch{
             Write-Verbose "UNABLE TO UPDATE ACCOUNT FIELD"
             Vout -str $_ -type E
-            return -1
+            return $false
         }
     }
 }
