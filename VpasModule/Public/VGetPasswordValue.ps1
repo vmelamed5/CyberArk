@@ -43,12 +43,12 @@ function VGetPasswordValue{
     if($AcctID -eq -1){
         Write-Verbose "COULD NOT FIND UNIQUE ACCOUNT ENTRY WITH SPECIFIED PARAMETERS"
         Vout -str "COULD NOT FIND UNIQUE ACCOUNT ENTRY, INCLUDE MORE SEARCH PARAMETERS" -type E
-        return -1
+        return $false
     }
     elseif($AcctID -eq -2){
         Write-Verbose "COULD NOT FIND ACCOUNT WITH SPECIFIED PARAMETERS"
         Vout -str "NO ACCOUNTS FOUND" -type E
-        return -1
+        return $false
     }
     else{
         try{
@@ -64,7 +64,7 @@ function VGetPasswordValue{
         }catch{
             Write-Verbose "COULD NOT RETRIEVE ACCOUNT DETAILS"
             Vout -str $_ -type E
-            return -1
+            return $false
         }
     }
 }
