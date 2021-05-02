@@ -262,10 +262,10 @@ function VAddSafeMember{
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method POST -Body $params -ContentType 'application/json'
         Write-Verbose "PARSING DATA FROM CYBERARK"
         Write-Verbose "RETURNING SUCCESS"
-        return 0
+        return $true
     }catch{
         Write-Verbose "UNABLE TO ADD SAFE MEMBER TO SAFE"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
