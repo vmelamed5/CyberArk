@@ -88,7 +88,7 @@ function VGetAccountDetails{
         elseif($counter -eq 0){
             Write-Verbose "NO ACCOUNTS FOUND WITH SPECIFIED PARAMETERS"
             Vout -str "NO ACCOUNTS FOUND" -type M
-            return -1
+            return $false
         }
         #-------------------------------------
         if($nofield -eq 1){
@@ -129,6 +129,6 @@ function VGetAccountDetails{
     }catch{
         Write-Verbose "COULD NOT GET ACCOUNT DETAILS"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
