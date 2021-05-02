@@ -29,11 +29,11 @@ function VDeleteApplication{
         $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/$AppID/"
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method DELETE
         Write-Verbose "$AppID DELETED FROM CYBERARK"
-        $output = 0
+        $output = $true
     }catch{
         Write-Verbose "FAILED TO DELETE $AppID, CONFIRM APPID EXISTS IN CYBERARK"
         Vout -str $_ -type E
-        $output = -1
+        $output = $false
     }
 
     return $output
