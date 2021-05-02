@@ -39,6 +39,6 @@ function VGetAllApplications{
     }catch{
         Write-Verbose "UNABLE TO RETRIEVE APPLICATION IDS"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
