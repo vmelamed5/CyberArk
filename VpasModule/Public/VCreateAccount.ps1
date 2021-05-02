@@ -82,14 +82,14 @@ function VCreateAccount{
     if([String]::IsNullOrEmpty($pplatformID)){
         Write-Verbose "PLATFORMID CAN NOT BE NULL"
         Vout -str "PLATFORMID CAN NOT BE NULL" -type E
-        return -1
+        return $false
     }
 
     #SAFENAME SECTION
     if([String]::IsNullOrEmpty($psafeName)){
         Write-Verbose "SAFENAME CAN NOT BE NULL"
         Vout -str "SAFENAME CAN NOT BE NULL" -type E
-        return -1
+        return $false
     }
 
     #RESTRICTED REMOTE MACHINES SECTION
@@ -101,7 +101,7 @@ function VCreateAccount{
         else{
             Write-Verbose "IF accessRestrictedToRemoteMachines PARAMETERS IS PASSED, IT MUST BE EITHER TRUE OR FALSE"
             Vout -str "IF accessRestrictedToRemoteMachines PARAMETER IS PASSED, IT MUST BE EITHER TRUE OR FALSE" -type E
-            return -1
+            return $false
         }
     }
     elseif($paccessRestrictedToRemoteMachines -eq ""){
@@ -117,7 +117,7 @@ function VCreateAccount{
         else{
             Write-Verbose "IF AutomaticManagementEnabled PARAMETERS IS PASSED, IT MUST BE EITHER TRUE OR FALSE"
             Vout -str "IF AutomaticManagementEnabled PARAMETER IS PASSED, IT MUST BE EITHER TRUE OR FALSE" -type E
-            return -1
+            return $false
         }
     }
 
@@ -141,7 +141,7 @@ function VCreateAccount{
         else{
             Write-Verbose "SECRETTYPE CAN ONLY BE OF TYPE password OR OF TYPE key"
             Vout -str "SECRETTYPE CAN ONLY BE OF TYPE password OR OF TYPE key" -type E
-            return -1
+            return $false
         }
     }
     else{
@@ -173,10 +173,10 @@ function VCreateAccount{
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method POST -Body $params -ContentType "application/json"
         Write-Verbose "PARSING DATA FROM CYBERARK"
         Write-Verbose "RETURNING SUCCESS"
-        return 0
+        return $true
     }catch{
         Write-Verbose "UNABLE TO ADD ACCOUNT INTO CYBERARK"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
