@@ -35,6 +35,6 @@ function VGetPlatformDetails{
     }catch{
         Write-Verbose "UNABLE TO RETRIEVE PLATFORM DETAILS"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
