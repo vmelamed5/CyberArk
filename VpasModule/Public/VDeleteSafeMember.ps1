@@ -35,10 +35,10 @@ function VDeleteSafeMember{
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method DELETE
         Write-Verbose "API CALL MADE SUCCESSFULLY"
         Write-Verbose "SAFE MEMBER WAS DELETED, RETURNING SUCCESS"
-        return 0
+        return $true
     }catch{
         Write-Verbose "UNABLE TO DELETE SAFE MEMBER"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
