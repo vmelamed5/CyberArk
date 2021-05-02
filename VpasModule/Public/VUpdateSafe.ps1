@@ -36,7 +36,7 @@ function VUpdateSafe{
     #MISC SECTION
     if([String]::IsNullOrEmpty($field)){
         Vout -str "FIELD VALUE CAN NOT BE NULL, POSSIBLE VALUES: safename, description, olacenabled, managingcpm, numberofversionretention, numberofdaysretention" -type E
-        return -1
+        return $false
     }
     else{
         $fieldlower = $field.ToLower()
@@ -67,7 +67,7 @@ function VUpdateSafe{
         }
         else{
             Write-Verbose "INVALID VALUE FOR FIELD"
-            return -1
+            return $false
         }
     }
 
@@ -103,10 +103,10 @@ function VUpdateSafe{
         Write-Verbose "PARSING DATA FROM CYBERARK"
         
         #return $response.UpdateSafeResult
-        return 0
+        return $true
     }catch{
         Write-Verbose "UNABLE TO UPDATE SAFE"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
