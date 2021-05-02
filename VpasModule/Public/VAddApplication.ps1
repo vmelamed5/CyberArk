@@ -118,10 +118,10 @@ function VAddApplication{
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Body $params -Method POST -ContentType 'application/json'
         Write-Verbose "PARSING DATA FROM CYBERARK"
         Write-Verbose "RETURNING SUCCESS"
-        return 0
+        return $true
     }catch{
         Write-Verbose "FAILED TO ADD APPLICATION TO CYBERARK"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
