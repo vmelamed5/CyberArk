@@ -35,6 +35,6 @@ function VGetSafes{
     }catch{
         Write-Verbose "FAILED TO RETRIEVE SAFES"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
