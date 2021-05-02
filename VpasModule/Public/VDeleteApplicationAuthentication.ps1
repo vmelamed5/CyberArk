@@ -49,7 +49,7 @@ function VDeleteApplicationAuthentication{
     if($AuthID -eq -1){
         Write-Verbose "COULD NOT FIND TARGET AUTHENTICATION METHOD TO DELETE, CONFIRM $AppID, $AuthType, $AuthValue EXISTS"
         Vout -str "COULD NOT FIND TARGET AUTHENTICATION METHOD TO DELETE, CONFIRM $AppID, $AuthType, $AuthValue EXISTS" -type E
-        return -1
+        return $false
     }
     else{
         try{
@@ -58,11 +58,11 @@ function VDeleteApplicationAuthentication{
             $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method DELETE
             #Vout -str $response -type C
             Write-Verbose "AUTHID VALUE WAS DELETED SUCCESSFULLY"
-            return 0
+            return $true
         }catch{
             Vout -str $_ -type E
             Write-Verbose "FAILED TO DELETE AUTHID VALUE"
-            return -1
+            return $false
         }
     }
 }
