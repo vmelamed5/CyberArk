@@ -79,10 +79,10 @@ function VCreateSafe{
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method POST -Body $params -ContentType 'application/json'
         Write-Verbose "PARSING DATA FROM CYBERARK"
         Write-Verbose "RETURNING SUCCESS"
-        return 0
+        return $true
     }catch{
         Write-Verbose "FAILED TO CREATE SAFE IN CYBERARK"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
