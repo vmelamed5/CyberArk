@@ -35,6 +35,6 @@ function VGetApplicationAuthentications{
     }catch{
         Write-Verbose "UNABLE TO RETRIEVE APPLICATION AUTHENTICATION METHODS"
         Vout -str $_ -type E
-        return -1
+        return $false
     }
 }
