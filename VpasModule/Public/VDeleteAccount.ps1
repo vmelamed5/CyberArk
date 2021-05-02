@@ -53,23 +53,23 @@ function VDeleteAccount{
     if($AcctID -eq -1){
         Vout -str "COULD NOT FIND UNIQUE ACCOUNT ENTRY TO DELETE, INCLUDE MORE SEARCH PARAMETERS" -type E
         Write-Verbose "UNABLE TO FIND UNIQUE ACCOUNT ENTRY WITH SPECIFIED PARAMETERS"
-        return -1
+        return $false
     }
     elseif($AcctID -eq -2){
         Write-Verbose "UNABLE TO FIND ANY ACCOUNT WITH SPECIFIED PARAMETERS"
         Vout -str "NO ACCOUNTS FOUND" -type E
-        return -1
+        return $false
     }
     else{
         try{
             $uri = "https://$PVWA/PasswordVault/api/Accounts/$AcctID"
             $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method DELETE
             Write-Verbose "ACCOUNT WAS SUCCESSFULLY DELETED FROM CYBERARK"
-            return 0
+            return $true
         }catch{
             Vout -str $_ -type E
             Write-Verbose "UNABLE TO DELETE ACCOUNT FROM CYBERARK"
-            return -1
+            return $false
         }  
     }
 }
