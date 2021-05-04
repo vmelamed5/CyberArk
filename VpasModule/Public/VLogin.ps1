@@ -7,7 +7,7 @@
 .EXAMPLE
    $token = VLogin -PVWA {PVWA VALUE} -AuthType radius
 .EXAMPLE
-   $token = VLogin -PVWA {PVWA VALUE} -AuthType cyberark 
+   $token = VLogin -PVWA {PVWA VALUE} -AuthType cyberark -creds {PSCredential VALUE}
 #>
 function VLogin{
     [CmdletBinding()]
@@ -17,7 +17,10 @@ function VLogin{
 
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=1)]
         [ValidateSet('cyberark','radius')]
-        [String]$AuthType
+        [String]$AuthType,
+        
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=2)]
+        [PSCredential]$creds
     
     )
     
@@ -37,7 +40,9 @@ function VLogin{
         $uri = "https://$PVWA/PasswordVault/API/auth/cyberark/Logon"
     }
 
-    $creds = Get-Credential -Message 'ENTER CYBERARK CREDENTIALS'
+    if(!$creds){
+         $creds = Get-Credential -Message 'ENTER CYBERARK CREDENTIALS'
+    }
     $username = $creds.GetNetworkCredential().UserName
     $password = $creds.GetNetworkCredential().Password
     Write-Verbose "CYBERARK CREDENTIALS SET"
