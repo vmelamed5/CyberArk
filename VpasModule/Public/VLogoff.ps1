@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    CLEAR CYBERARK LOGIN TOKEN
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -14,10 +14,20 @@ function VLogoff{
         [String]$PVWA,
 
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=1)]
-        [String]$token
+        [String]$token,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=2)]
+        [Switch]$NoSSL
     )
 
-    $uri = "https://$PVWA/PasswordVault/API/Auth/Logoff"
+    if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/API/Auth/Logoff"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/API/Auth/Logoff"
+        }
 
     try{
         Write-Verbose "BEGINNING LOGOFF PROCEDURE"
