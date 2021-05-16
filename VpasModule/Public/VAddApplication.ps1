@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    ADD APPLICATION ID
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -47,7 +47,10 @@ function VAddApplication{
         [String]$BusinessOwnerEmail,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=12)]
-        [String]$BusinessOwnerPhone
+        [String]$BusinessOwnerPhone,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=13)]
+        [Switch]$NoSSL
     )
 
     Write-Verbose "SUCCESSFULLY PARSED PVWA VALUE"
@@ -114,11 +117,18 @@ function VAddApplication{
             }
         } | ConvertTo-Json
 
-        $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/ "
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/"
+        }
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Body $params -Method POST -ContentType 'application/json'
         Write-Verbose "PARSING DATA FROM CYBERARK"
-        Write-Verbose "RETURNING SUCCESS"
-        return $true
+        Write-Verbose "RETURNING JSON OBJECT"
+        return $response
     }catch{
         Write-Verbose "FAILED TO ADD APPLICATION TO CYBERARK"
         Vout -str $_ -type E
