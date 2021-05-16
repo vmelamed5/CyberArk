@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    ACCOUNT PASSWORD ACTION
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -33,7 +33,13 @@ function VAccountPasswordAction{
         [String]$username,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=7)]
-        [String]$address
+        [String]$address,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=8)]
+        [Switch]$NoSSL,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=9)]
+        [String]$AcctID
     )
 
     Write-Verbose "SUCCESSFULLY PARSED PVWA VALUE"
@@ -74,95 +80,149 @@ function VAccountPasswordAction{
         $triggeraction = 5 
     }
 
-    Write-Verbose "INVOKING HELPER FUNCTION TO RETRIEVE UNIQUE ACCOUNT ID"
-    $AcctID = VGetAccountIDHelper -PVWA $PVWA -token $token -safe $safe -platform $platform -username $username -address $address
-    Write-Verbose "RETURNING ACCOUNT ID"
-    if($AcctID -eq -1){
-        Write-Verbose "COULD NOT FIND UNIQUE ACCOUNT ENTRY, INCLUDE MORE SEARCH PARAMETERS"
-        Vout -str "COULD NOT FIND UNIQUE ACCOUNT ENTRY, INCLUDE MORE SEARCH PARAMETERS" -type E
-        return $false
-    }
-    elseif($AcctID -eq -2){
-        Write-Verbose "NO ACCOUNTS FOUND"
-        Vout -str "NO ACCOUNTS FOUND" -type E
-        return $false
+    if([String]::IsNullOrEmpty($AcctID)){
+        Write-Verbose "NO ACCOUNT ID PROVIDED, INVOKING HELPER FUNCTION"
+    
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $AcctID = VGetAccountIDHelper -PVWA $PVWA -token $token -safe $safe -platform $platform -username $username -address $address -NoSSL
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $AcctID = VGetAccountIDHelper -PVWA $PVWA -token $token -safe $safe -platform $platform -username $username -address $address
+        }
+
+        Write-Verbose "RETURNING ACCOUNT ID"
     }
     else{
-        if($triggeraction -eq 1){
-            try{
-                Write-Verbose "MAKING API CALL TO CYBERARK"
-                $uri = "https://$PVWA/PasswordVault/API/Accounts/$AcctID/Verify"
-                $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method POST
-                Write-Verbose "PARSING DATA FROM CYBERARK"
-                Write-Verbose "RETURNING SUCCESS"
-                return $true
-            }catch{
-                Write-Verbose "UNABLE TO TRIGGER VERIFY ACTION ON THE ACCOUNT"
-                Vout -str $_ -type E
-                return $false
-            }
+        Write-Verbose "ACCOUNT ID PROVIDED, SKIPPING HELPER FUNCTION"
+        if($AcctID -eq -1){
+            Write-Verbose "COULD NOT FIND UNIQUE ACCOUNT ENTRY, INCLUDE MORE SEARCH PARAMETERS"
+            Vout -str "COULD NOT FIND UNIQUE ACCOUNT ENTRY, INCLUDE MORE SEARCH PARAMETERS" -type E
+            return $false
         }
-        elseif($triggeraction -eq 2){
-            try{
-                Write-Verbose "MAKING API CALL TO CYBERARK"
-                $uri = "https://$PVWA/PasswordVault/API/Accounts/$AcctID/Reconcile"
-                $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method POST
-                Write-Verbose "PARSING DATA FROM CYBERARK"
-                Write-Verbose "RETURNING SUCCESS"
-                return $true
-            }catch{
-                Write-Verbose "UNABLE TO TRIGGER RECONCILE ACTION ON THE ACCOUNT"
-                Vout -str $_ -type E
-                return $false
-            }
+        elseif($AcctID -eq -2){
+            Write-Verbose "NO ACCOUNTS FOUND"
+            Vout -str "NO ACCOUNTS FOUND" -type E
+            return $false
         }
-        elseif($triggeraction -eq 3){
-            try{
-                Write-Verbose "MAKING API CALL TO CYBERARK"
-                $params = @{
-                    NewCredentials = $newPass
-                } | ConvertTo-Json
-                $uri = "https://$PVWA/PasswordVault/API/Accounts/$AcctID/Password/Update"
-                $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Body $params -Method POST -ContentType 'application/json'
-                Write-Verbose "PARSING DATA FROM CYBERARK"
-                Write-Verbose "RETURNING SUCCESS"
-                return $true
-            }catch{
-                Write-Verbose "UNABLE TO TRIGGER CHANGE PASSWORD IN VAULT ACTION ON THE ACCOUNT"
-                Vout -str $_ -type E
-                return $false
+        else{
+            if($triggeraction -eq 1){
+                try{
+                    Write-Verbose "MAKING API CALL TO CYBERARK"
+                
+                    if($NoSSL){
+                        Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+                        $uri = "http://$PVWA/PasswordVault/API/Accounts/$AcctID/Verify"
+                    }
+                    else{
+                        Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+                        $uri = "https://$PVWA/PasswordVault/API/Accounts/$AcctID/Verify"
+                    }
+                    $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method POST
+                    Write-Verbose "PARSING DATA FROM CYBERARK"
+                    Write-Verbose "RETURNING JSON OBJECT"
+                    return $response
+                }catch{
+                    Write-Verbose "UNABLE TO TRIGGER VERIFY ACTION ON THE ACCOUNT"
+                    Vout -str $_ -type E
+                    return $false
+                }
             }
-        }
-        elseif($triggeraction -eq 4){
-            try{
-                Write-Verbose "MAKING API CALL TO CYBERARK"
-                $params = @{
-                    ChangeImmediately = $true
-                    NewCredentials = $newPass
-                } | ConvertTo-Json
-                $uri = "https://$PVWA/PasswordVault/API/Accounts/$AcctID/SetNextPassword"
-                $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Body $params -Method POST -ContentType 'application/json'
-                Write-Verbose "PARSING DATA FROM CYBERARK"
-                Write-Verbose "RETURNING SUCCESS"
-                return $true
-            }catch{
-                Write-Verbose "UNABLE TO TRIGGER CHANGE PASSWORD SET NEW PASSWORD ACTION ON THE ACCOUNT"
-                Vout -str $_ -type E
-                return $false
+            elseif($triggeraction -eq 2){
+                try{
+                    Write-Verbose "MAKING API CALL TO CYBERARK"
+                
+                    if($NoSSL){
+                        Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+                        $uri = "http://$PVWA/PasswordVault/API/Accounts/$AcctID/Reconcile"
+                    }
+                    else{
+                        Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+                        $uri = "https://$PVWA/PasswordVault/API/Accounts/$AcctID/Reconcile"
+                    }
+                    $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method POST
+                    Write-Verbose "PARSING DATA FROM CYBERARK"
+                    Write-Verbose "RETURNING JSON OBJECT"
+                    return $response
+                }catch{
+                    Write-Verbose "UNABLE TO TRIGGER RECONCILE ACTION ON THE ACCOUNT"
+                    Vout -str $_ -type E
+                    return $false
+                }
             }
-        }
-        elseif($triggeraction -eq 5){
-            try{
-                Write-Verbose "MAKING API CALL TO CYBERARK"
-                $uri = "https://$PVWA/PasswordVault/API/Accounts/$AcctID/Change"
-                $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method POST
-                Write-Verbose "PARSING DATA FROM CYBERARK"
-                Write-Verbose "RETURNING SUCCESS"
-                return $true
-            }catch{
-                Write-Verbose "UNABLE TO TRIGGER CHANGE ACTION ON THE ACCOUNT"
-                Vout -str $_ -type E
-                return $false
+            elseif($triggeraction -eq 3){
+                try{
+                    Write-Verbose "MAKING API CALL TO CYBERARK"
+                    $params = @{
+                        NewCredentials = $newPass
+                    } | ConvertTo-Json
+                
+                    if($NoSSL){
+                        Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+                        $uri = "http://$PVWA/PasswordVault/API/Accounts/$AcctID/Password/Update"
+                    }
+                    else{
+                        Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+                        $uri = "https://$PVWA/PasswordVault/API/Accounts/$AcctID/Password/Update"
+                    }
+                    $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Body $params -Method POST -ContentType 'application/json'
+                    Write-Verbose "PARSING DATA FROM CYBERARK"
+                    Write-Verbose "RETURNING JSON OBJECT"
+                    return $response
+                }catch{
+                    Write-Verbose "UNABLE TO TRIGGER CHANGE PASSWORD IN VAULT ACTION ON THE ACCOUNT"
+                    Vout -str $_ -type E
+                    return $false
+                }
+            }
+            elseif($triggeraction -eq 4){
+                try{
+                    Write-Verbose "MAKING API CALL TO CYBERARK"
+                    $params = @{
+                        ChangeImmediately = $true
+                        NewCredentials = $newPass
+                    } | ConvertTo-Json
+                
+                    if($NoSSL){
+                        Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+                        $uri = "http://$PVWA/PasswordVault/API/Accounts/$AcctID/SetNextPassword"
+                    }
+                    else{
+                        Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+                        $uri = "https://$PVWA/PasswordVault/API/Accounts/$AcctID/SetNextPassword"
+                    }
+                    $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Body $params -Method POST -ContentType 'application/json'
+                    Write-Verbose "PARSING DATA FROM CYBERARK"
+                    Write-Verbose "RETURNING JSON OBJECT"
+                    return $response
+                }catch{
+                    Write-Verbose "UNABLE TO TRIGGER CHANGE PASSWORD SET NEW PASSWORD ACTION ON THE ACCOUNT"
+                    Vout -str $_ -type E
+                    return $false
+                }
+            }
+            elseif($triggeraction -eq 5){
+                try{
+                    Write-Verbose "MAKING API CALL TO CYBERARK"
+                
+                    if($NoSSL){
+                        Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+                        $uri = "http://$PVWA/PasswordVault/API/Accounts/$AcctID/Change"
+                    }
+                    else{
+                        Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+                        $uri = "https://$PVWA/PasswordVault/API/Accounts/$AcctID/Change"
+                    }
+                    $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method POST
+                    Write-Verbose "PARSING DATA FROM CYBERARK"
+                    Write-Verbose "RETURNING JSON OBJECT"
+                    return $response
+                }catch{
+                    Write-Verbose "UNABLE TO TRIGGER CHANGE ACTION ON THE ACCOUNT"
+                    Vout -str $_ -type E
+                    return $false
+                }
             }
         }
     }
