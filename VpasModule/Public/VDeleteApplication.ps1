@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    DELETE APPLICATION ID
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -17,7 +17,10 @@ function VDeleteApplication{
         [String]$token,
 
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=2)]
-        [String]$AppID
+        [String]$AppID,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=3)]
+        [Switch]$NoSSL
     
     )
 
@@ -26,10 +29,18 @@ function VDeleteApplication{
     Write-Verbose "APPID VALUE SET: $AppID"
 
     try{
-        $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/$AppID/"
+        
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/$AppID/"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/$AppID/"
+        }
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method DELETE
         Write-Verbose "$AppID DELETED FROM CYBERARK"
-        $output = $true
+        $output = $response
     }catch{
         Write-Verbose "FAILED TO DELETE $AppID, CONFIRM APPID EXISTS IN CYBERARK"
         Vout -str $_ -type E
