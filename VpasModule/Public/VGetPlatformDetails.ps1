@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    GET PLATFORM DETAILS
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -17,7 +17,10 @@ function VGetPlatformDetails{
         [String]$token,
 
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=2)]
-        [String]$platformID
+        [String]$platformID,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=3)]
+        [Switch]$NoSSL
     
     )
 
@@ -27,7 +30,15 @@ function VGetPlatformDetails{
             
     try{
         Write-Verbose "MAKING API CALL TO CYBERARK"
-        $uri = "https://$PVWA/PasswordVault/API/Platforms/$platformID"
+        
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/API/Platforms/$platformID"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/API/Platforms/$platformID"
+        }
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method GET
         Write-Verbose "PARSING DATA FROM CYBERARK"
         Write-Verbose "RETURNING PLATFORM DETAILS"
