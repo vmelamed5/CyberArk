@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    ADD SAFE MEMBER
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -42,7 +42,10 @@ function VAddSafeMember{
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=29)][Switch]$CreateFolders,
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=30)][Switch]$DeleteFolders,
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=31)][Switch]$MoveAccountsAndFolders,
-        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=32)][ValidateSet(0,1,2)][Int]$RequestsAuthorizationLevel    
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=32)][ValidateSet(0,1,2)][Int]$RequestsAuthorizationLevel,
+        
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=33)]
+        [Switch]$NoSSL   
     )
 
     Write-Verbose "SUCCESSFULLY PARSED PVWA VALUE"
@@ -258,11 +261,18 @@ function VAddSafeMember{
 
     try{
         Write-Verbose "MAKING API CALL TO CYBERARK"
-        $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes/$safe/Members"
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes/$safe/Members"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes/$safe/Members"
+        }
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method POST -Body $params -ContentType 'application/json'
         Write-Verbose "PARSING DATA FROM CYBERARK"
-        Write-Verbose "RETURNING SUCCESS"
-        return $true
+        Write-Verbose "RETURNING JSON OBJECT"
+        return $response
     }catch{
         Write-Verbose "UNABLE TO ADD SAFE MEMBER TO SAFE"
         Vout -str $_ -type E
