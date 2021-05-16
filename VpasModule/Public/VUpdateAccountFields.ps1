@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    UPDATE ACCOUNT FIELDS
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -37,7 +37,13 @@ function VUpdateAccountFields{
         [String]$field,
 
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=8)]
-        [String]$fieldval
+        [String]$fieldval,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=9)]
+        [Switch]$NoSSL,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=10)]
+        [String]$AcctID
     
     )
 
@@ -119,9 +125,22 @@ function VUpdateAccountFields{
         $triggeraction = 3
     }
 
-    Write-Verbose "INVOKING HELPER FUNCTION TO RETRIEVE UNIQUE ACCOUNT ID BASED ON SPECIFIED PARAMETERS"
-    $AcctID = VGetAccountIDHelper -PVWA $PVWA -token $token -safe $safe -platform $platform -username $username -address $address
-    Write-Verbose "RETURNING ACCOUNT ID"
+        
+    if([String]::IsNullOrEmpty($AcctID)){
+        Write-Verbose "NO ACCTID PROVIDED...INVOKING HELPER FUNCTION TO RETRIEVE UNIQUE ACCOUNT ID BASED ON SPECIFIED PARAMETERS"
+        if($NoSSL){
+            $AcctID = VGetAccountIDHelper -PVWA $PVWA -token $token -safe $safe -platform $platform -username $username -address $address -NoSSL
+        }
+        else{
+            $AcctID = VGetAccountIDHelper -PVWA $PVWA -token $token -safe $safe -platform $platform -username $username -address $address
+        }
+        Write-Verbose "RETURNING ACCOUNT ID"
+    }
+    else{
+        Write-Verbose "ACCTID SUPPLIED, SKIPPING HELPER FUNCTION"
+    }
+    
+
     if($AcctID -eq -1){
         Write-Verbose "COULD NOT FIND UNIQUE ACCOUNT ENTRY, INCLUDE MORE SEARCH PARAMETERS"
         Vout -str "COULD NOT FIND UNIQUE ACCOUNT ENTRY, INCLUDE MORE SEARCH PARAMETERS" -type E
@@ -153,26 +172,53 @@ function VUpdateAccountFields{
             if($triggeraction -eq 1){
                 $op = "add"
                 $params = '[{ "op": "'+$op+'","path": "'+$path+'","value": "'+$value+'"}]'
-                $uri = "https://$PVWA/PasswordVault/api/Accounts/$AcctID"
+                
+                if($NoSSL){
+                    Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+                    $uri = "http://$PVWA/PasswordVault/api/Accounts/$AcctID"
+                }
+                else{
+                    Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+                    $uri = "https://$PVWA/PasswordVault/api/Accounts/$AcctID"
+                }
+
                 $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method PATCH -Body $params -ContentType "application/json"
-                Write-Verbose "RETURNING SUCCESS"
-                return $true
+                Write-Verbose "RETURNING JSON OBJECT"
+                return $response
             }
             elseif($triggeraction -eq 2){
                 $op = "replace"
                 $params = '[{ "op": "'+$op+'","path": "'+$path+'","value": "'+$value+'"}]'
-                $uri = "https://$PVWA/PasswordVault/api/Accounts/$AcctID"
+
+                if($NoSSL){
+                    Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+                    $uri = "http://$PVWA/PasswordVault/api/Accounts/$AcctID"
+                }
+                else{
+                    Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+                    $uri = "https://$PVWA/PasswordVault/api/Accounts/$AcctID"
+                }
+
                 $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method PATCH -Body $params -ContentType "application/json"
-                Write-Verbose "RETURNING SUCCESS"
-                return $true
+                Write-Verbose "RETURNING JSON OBJECT"
+                return $response
             }
             elseif($triggeraction -eq 3){
                 $op = "remove"
                 $params = '[{ "op": "'+$op+'","path": "'+$path+'"}]'
-                $uri = "https://$PVWA/PasswordVault/api/Accounts/$AcctID"
+                
+                if($NoSSL){
+                    Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+                    $uri = "http://$PVWA/PasswordVault/api/Accounts/$AcctID"
+                }
+                else{
+                    Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+                    $uri = "https://$PVWA/PasswordVault/api/Accounts/$AcctID"
+                }
+
                 $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method PATCH -Body $params -ContentType "application/json"
-                Write-Verbose "RETURNING SUCCESS"
-                return $true
+                Write-Verbose "RETURNING JSON OBJECT"
+                return $response
             }
         }catch{
             Write-Verbose "UNABLE TO UPDATE ACCOUNT FIELD"
