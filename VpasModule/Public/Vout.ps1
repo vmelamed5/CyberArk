@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    OUTPUT MESSAGES FOR VpasModule
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
