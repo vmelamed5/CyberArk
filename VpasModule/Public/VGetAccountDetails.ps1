@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    GET ACCOUNT DETAILS
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -30,7 +30,13 @@ function VGetAccountDetails{
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=6)]
         [ValidateSet('id','username','name','address','safe','platform')]
-        [String]$field
+        [String]$field,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=7)]
+        [Switch]$NoSSL,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=8)]
+        [String]$AcctID
     )
 
     write-verbose "SUCCESSFULLY PARSED PVWA VALUE"
@@ -72,59 +78,83 @@ function VGetAccountDetails{
     
 
     try{
-        Write-Verbose "BUILDING SEARCH QUERY"
-        $searchQuery = "$safe $platform $username $address"
-        Write-verbose "MAKING API CALL TO CYBERARK"
-        $uri = "https://$PVWA/PasswordVault/api/Accounts?search=$searchQuery"
-        $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method GET
-        $result = $response.Content | ConvertFrom-Json
-        Write-Verbose "PARSING DATA FROM CYBERARK"
+        if([String]::IsNullOrEmpty($AcctID)){
+            Write-Verbose "NO ACCTID SUPPLIED"
+            Write-Verbose "BUILDING SEARCH QUERY"
+            $searchQuery = "$safe $platform $username $address"
+            Write-verbose "MAKING API CALL TO CYBERARK"
         
-        $counter = $result.count
-        if($counter -gt 1){
-            Vout -str "MULTIPLE ENTRIES FOUND, ADD MORE SEARCH FIELDS TO NARROW DOWN RESULTS" -type M
-            Write-Verbose "MULTIPLE RECORDS WERE RETURNED, ADD MORE SEARCH FIELDS TO NARROW DOWN RESULTS"
-        }
-        elseif($counter -eq 0){
-            Write-Verbose "NO ACCOUNTS FOUND WITH SPECIFIED PARAMETERS"
-            Vout -str "NO ACCOUNTS FOUND" -type M
-            return $false
-        }
-        #-------------------------------------
-        if($nofield -eq 1){
-            Write-Verbose "RETURNING ACCOUNTS IDS"
-            return $result.Value.id
-        }
-        elseif($nofield -eq 2){
-            Write-Verbose "RETURNING ACCOUNTS USERNAMES"
-            return $result.Value.userName
-        }
-        elseif($nofield -eq 3){
-            write-verbose "RETURNING ACCOUNTS NAMES"
-            return $result.Value.name
-        }
-        elseif($nofield -eq 4){
-            $counter = $counter - 1
-            $Output = ""
-            while($counter -gt -1){
-                $str = $result.Value[$counter].Address
-                $Output = $Output + $str + ";"
-                $counter = $counter - 1
+            if($NoSSL){
+                Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+                $uri = "http://$PVWA/PasswordVault/api/Accounts?search=$searchQuery"
             }
-            Write-Verbose "RETURNING ACCOUNTS ADDRESSES"
-            return $Output
-        }
-        elseif($nofield -eq 5){
-            Write-Verbose "RETURNING ACCOUNTS SAFENAMES"
-            return $result.Value.safeName
-        }
-        elseif($nofield -eq 6){
-            Write-Verbose "RETURNING ACCOUNTS PLATFORMS"
-            return $result.Value.platformId
+            else{
+                Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+                $uri = "https://$PVWA/PasswordVault/api/Accounts?search=$searchQuery"
+            }
+            $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method GET
+            $result = $response.Content | ConvertFrom-Json
+            Write-Verbose "PARSING DATA FROM CYBERARK"
+        
+            $counter = $result.count
+            if($counter -gt 1){
+                Vout -str "MULTIPLE ENTRIES FOUND, ADD MORE SEARCH FIELDS TO NARROW DOWN RESULTS" -type M
+                Write-Verbose "MULTIPLE RECORDS WERE RETURNED, ADD MORE SEARCH FIELDS TO NARROW DOWN RESULTS"
+            }
+            elseif($counter -eq 0){
+                Write-Verbose "NO ACCOUNTS FOUND WITH SPECIFIED PARAMETERS"
+                Vout -str "NO ACCOUNTS FOUND" -type M
+                return $false
+            }
+            #-------------------------------------
+            if($nofield -eq 1){
+                Write-Verbose "RETURNING ACCOUNTS IDS"
+                return $result.Value.id
+            }
+            elseif($nofield -eq 2){
+                Write-Verbose "RETURNING ACCOUNTS USERNAMES"
+                return $result.Value.userName
+            }
+            elseif($nofield -eq 3){
+                write-verbose "RETURNING ACCOUNTS NAMES"
+                return $result.Value.name
+            }
+            elseif($nofield -eq 4){
+                $counter = $counter - 1
+                $Output = ""
+                while($counter -gt -1){
+                    $str = $result.Value[$counter].Address
+                    $Output = $Output + $str + ";"
+                    $counter = $counter - 1
+                }
+                Write-Verbose "RETURNING ACCOUNTS ADDRESSES"
+                return $Output
+            }
+            elseif($nofield -eq 5){
+                Write-Verbose "RETURNING ACCOUNTS SAFENAMES"
+                return $result.Value.safeName
+            }
+            elseif($nofield -eq 6){
+                Write-Verbose "RETURNING ACCOUNTS PLATFORMS"
+                return $result.Value.platformId
+            }
+            else{
+                Write-Verbose "RETURNING ALL DATA FOR ACCOUNTS"
+                return $result.Value
+            }
         }
         else{
-            Write-Verbose "RETURNING ALL DATA FOR ACCOUNTS"
-            return $result.Value
+            Write-Verbose "ACCTID SUPPLIED, SKIPPING SEARCH QUERY"
+            if($NoSSL){
+                Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+                $uri = "http://$PVWA/PasswordVault/api/Accounts/$AcctID"
+            }
+            else{
+                Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+                $uri = "https://$PVWA/PasswordVault/api/Accounts/$AcctID"
+            }
+            $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method GET -ContentType 'application/json'
+            return $response
         }
     }catch{
         Write-Verbose "COULD NOT GET ACCOUNT DETAILS"
