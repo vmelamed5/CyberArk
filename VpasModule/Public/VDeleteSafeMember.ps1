@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    DELETE SAFE MEMBER
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -20,7 +20,10 @@ function VDeleteSafeMember{
         [String]$safe,
 
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=3)]
-        [String]$member
+        [String]$member,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=4)]
+        [Switch]$NoSSL
     
     )
 
@@ -31,7 +34,15 @@ function VDeleteSafeMember{
 
     try{
         write-verbose "MAKING API CALL TO DELETE SAFE MEMBER"
-        $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes/$safe/Members/$member"
+        
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes/$safe/Members/$member"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes/$safe/Members/$member"
+        }
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method DELETE
         Write-Verbose "API CALL MADE SUCCESSFULLY"
         Write-Verbose "SAFE MEMBER WAS DELETED, RETURNING SUCCESS"
