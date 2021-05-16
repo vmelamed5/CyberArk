@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    UPDATE SAFE
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -24,7 +24,10 @@ function VUpdateSafe{
         [String]$field,
 
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=4)]
-        [String]$fieldval
+        [String]$fieldval,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=5)]
+        [Switch]$NoSSL
     )
 
     Write-Verbose "SUCCESSFULLY PARSED PVWA VALUE"
@@ -98,12 +101,20 @@ function VUpdateSafe{
     
     try{
         Write-Verbose "MAKING API CALL TO CYBERARK"
-        $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes/$safe"
+        
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes/$safe"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes/$safe"
+        }
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Body $params -Method PUT -ContentType 'application/json'
         Write-Verbose "PARSING DATA FROM CYBERARK"
-        
+        Write-Verbose "RETURNING JSON OBJECT"
         #return $response.UpdateSafeResult
-        return $true
+        return $response
     }catch{
         Write-Verbose "UNABLE TO UPDATE SAFE"
         Vout -str $_ -type E
