@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    ADD APPLICATION ID AUTHENTICATION METHOD
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -30,7 +30,11 @@ function VAddApplicationAuthentication{
         [Switch]$IsFolder,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=6)]
-        [Switch]$AllowInternalScripts
+        [Switch]$AllowInternalScripts,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=7)]
+        [Switch]$NoSSL
+
     )
 
     Write-Verbose "SUCCESSFULLY PARSED PVWA VALUE"
@@ -136,11 +140,19 @@ function VAddApplicationAuthentication{
 
     try{
         Write-Verbose "MAKING API CALL TO CYBERARK"
-        $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/$AppID/Authentications/"
+        
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/$AppID/Authentications/"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/$AppID/Authentications/"
+        }
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Body $params -Method POST -ContentType 'application/json'
         Write-Verbose "PARSING DATA FROM CYBERARK"
-        Write-Verbose "RETURNING SUCCESS"
-        return $true
+        Write-Verbose "RETURNING JSON OBJECT"
+        return $response
     }catch{
         Write-Verbose "UNABLE TO ADD APPLICATION AUTHENTICATION METHOD"
         Vout -str $_ -type E
