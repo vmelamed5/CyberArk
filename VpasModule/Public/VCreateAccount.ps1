@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    CREATE ACCOUNT
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -53,7 +53,10 @@ function VCreateAccount{
         [String]$username,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=13)]
-        [String]$secret
+        [String]$secret,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=14)]
+        [Switch]$NoSSL
     
     )
 
@@ -169,11 +172,19 @@ function VCreateAccount{
         $params = $params | ConvertTo-Json
         
         Write-Verbose "MAKING API CALL TO CYBERARK"
-        $uri = "https://$PVWA/PasswordVault/api/Accounts"
+
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/api/Accounts"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/api/Accounts"
+        }
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method POST -Body $params -ContentType "application/json"
         Write-Verbose "PARSING DATA FROM CYBERARK"
-        Write-Verbose "RETURNING SUCCESS"
-        return $true
+        Write-Verbose "RETURNING JSON OBJECT"
+        return $response
     }catch{
         Write-Verbose "UNABLE TO ADD ACCOUNT INTO CYBERARK"
         Vout -str $_ -type E
