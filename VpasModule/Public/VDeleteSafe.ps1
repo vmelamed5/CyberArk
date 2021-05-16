@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    DELETE SAFE IN CYBERARK
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -17,7 +17,10 @@ function VDeleteSafe{
         [String]$token,
         
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=2)]
-        [String]$safe
+        [String]$safe,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=3)]
+        [Switch]$NoSSL
     )
 
     Write-Verbose "SUCCESSFULLY PARSED PVWA VALUE"
@@ -26,7 +29,15 @@ function VDeleteSafe{
 
     try{
         Write-Verbose "MAKING API CALL TO CYBERARK"
-        $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes/$safe"
+        
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes/$safe"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes/$safe"
+        }
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method DELETE
         Write-Verbose "API CALL SUCCESSFULL, $safe WAS DELETED"
         return $true
