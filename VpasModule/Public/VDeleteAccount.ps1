@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    DELETE ACCOUNT IN CYBERARK
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -37,12 +37,22 @@ function VDeleteAccount{
         [String]$address,
         
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=6)]
-        [String]$AcctID
+        [String]$AcctID,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=7)]
+        [Switch]$NoSSL
+
     )
     
     if([String]::IsNullOrEmpty($AcctID)){
         Write-Verbose "INITIATING HELPER FUNCTION"
-        $AcctID = VGetAccountIDHelper -PVWA $PVWA -token $token -safe $safe -platform $platform -username $username -address $address
+        
+        if($NoSSL){
+            $AcctID = VGetAccountIDHelper -PVWA $PVWA -token $token -safe $safe -platform $platform -username $username -address $address -NoSSL
+        }
+        else{
+            $AcctID = VGetAccountIDHelper -PVWA $PVWA -token $token -safe $safe -platform $platform -username $username -address $address
+        }
         write-verbose "HELPER FUNCTION RETURNED VALUE(S)"
     }
     else{
@@ -62,7 +72,14 @@ function VDeleteAccount{
     }
     else{
         try{
-            $uri = "https://$PVWA/PasswordVault/api/Accounts/$AcctID"
+            if($NoSSL){
+                Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+                $uri = "http://$PVWA/PasswordVault/api/Accounts/$AcctID"
+            }
+            else{
+                Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+                $uri = "https://$PVWA/PasswordVault/api/Accounts/$AcctID"
+            }
             $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method DELETE
             Write-Verbose "ACCOUNT WAS SUCCESSFULLY DELETED FROM CYBERARK"
             return $true
