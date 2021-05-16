@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    RETRIEVE AUTHID FOR APPLICATIONID
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -32,14 +32,24 @@ function VGetApplicationAuthIDHelper{
         [String]$AuthType,
 
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=4)]
-        [String]$AuthValue
+        [String]$AuthValue,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=5)]
+        [Switch]$NoSSL
     
     )
 
     try{
         Write-Verbose "HELPER FUNCTION INITIATED"
 
-        $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/$AppID/Authentications"
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/$AppID/Authentications"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/$AppID/Authentications"
+        }
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method GET
     
         $outputflag = 0
