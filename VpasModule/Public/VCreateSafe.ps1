@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    CREATE SAFE
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -32,7 +32,10 @@ function VCreateSafe{
         [Switch]$OLACEnabled,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=7)]
-        [String]$Description
+        [String]$Description,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=8)]
+        [Switch]$NoSSL
     )
 
     Write-Verbose "SUCCESSFULLY PARSED PVWA VALUE"
@@ -65,7 +68,15 @@ function VCreateSafe{
 
     try{
         Write-Verbose "MAKING API CALL TO CYBERARK"
-        $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes"
+
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes"
+        }
         $params = @{
             "safe" = @{
                 SafeName = $safe;
@@ -78,8 +89,8 @@ function VCreateSafe{
         } | ConvertTo-Json
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method POST -Body $params -ContentType 'application/json'
         Write-Verbose "PARSING DATA FROM CYBERARK"
-        Write-Verbose "RETURNING SUCCESS"
-        return $true
+        Write-Verbose "RETURNING JSON OBJECT"
+        return $response
     }catch{
         Write-Verbose "FAILED TO CREATE SAFE IN CYBERARK"
         Vout -str $_ -type E
