@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    GET ALL APPLICATIONS
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -14,8 +14,10 @@ function VGetAllApplications{
         [String]$PVWA,
 
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=1)]
-        [String]$token
-    
+        [String]$token,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=2)]
+        [Switch]$NoSSL    
     )
 
     write-verbose "SUCCESFULLY PARSED PVWA VALUE"
@@ -24,7 +26,14 @@ function VGetAllApplications{
     try{
         $outputreturn = @()
         write-verbose "MAKING API CALL TO CYBERARK"
-        $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/"
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Applications/"
+        }
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method GET
         Write-Verbose "PARSING DATA FROM CYBERARK"
         $output = $response.application
