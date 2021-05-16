@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    GET ACCOUNT ID
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -24,14 +24,25 @@ function VGetAccountIDHelper{
         [String]$username,
 
         [Parameter(ValueFromPipelineByPropertyName=$true,Position=5)]
-        [String]$address
+        [String]$address,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=6)]
+        [Switch]$NoSSL
     
     )
 
     try{
         Write-Verbose "CONSTRUCTING SEARCH STRING TO QUERY CYBERARK"
         $searchQuery = "$safe $platform $username $address"
-        $uri = "https://$PVWA/PasswordVault/api/Accounts?search=$searchQuery"
+        
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/api/Accounts?search=$searchQuery"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/api/Accounts?search=$searchQuery"
+        }
         write-verbose "MAKING API CALL"
         $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method GET
         $result = $response.Content | ConvertFrom-Json
