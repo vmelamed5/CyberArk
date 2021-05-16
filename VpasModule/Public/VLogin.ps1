@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    GET CYBERARK LOGIN TOKEN
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
@@ -20,7 +20,10 @@ function VLogin{
         [String]$AuthType,
         
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=2)]
-        [PSCredential]$creds
+        [PSCredential]$creds,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=3)]
+        [Switch]$NoSSL
     
     )
     
@@ -33,11 +36,27 @@ function VLogin{
     
     if($AuthType -eq "radius"){
         Write-Verbose "RADIUS AUTHENTICATION SELECTED"
-        $uri = "https://$PVWA/PasswordVault/API/auth/RADIUS/Logon"
+        
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/API/auth/RADIUS/Logon"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/API/auth/RADIUS/Logon"
+        }
     }
     if($AuthType -eq "cyberark"){
         Write-Verbose "CYBERARK AUTHENTICATION SELECTED"
-        $uri = "https://$PVWA/PasswordVault/API/auth/cyberark/Logon"
+
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/API/auth/cyberark/Logon"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/API/auth/cyberark/Logon"
+        }
     }
 
     if(!$creds){
