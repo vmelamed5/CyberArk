@@ -58,63 +58,114 @@ function VAddApplication{
     Write-Verbose "SUCCESSFULLY PARSED APPID VALUE"
 
     #MISC SECTION
+    $permissions = @{}
     if([String]::IsNullOrEmpty($Description)){ 
         Vout -str "NO DESCRIPTION FIELD SET, SKIPPING" -type M 
         Write-Verbose "NO DESCRIPTION FIELD SET, LEAVING FIELD BLANK"
     }
+    else{
+        $targetVal = @{"Key"="Description";"Value"=$Description}
+        $permissions+=$targetVal
+    }
+
     if([String]::IsNullOrEmpty($Location)){
         Vout -str "NO LOCATION FIELD SET, SKIPPING" -type M
         Write-Verbose "NO LOCATION FIELD SET, LEAVING FIELD BLANK" 
     }
+    else{
+        $targetVal = @{"Key"="Location";"Value"=$Location}
+        $permissions+=$targetVal
+    }
+
     if([String]::IsNullOrEmpty($AccessPermittedFrom)){
         Vout -str "NO ACCESSPERMITTEDFROM FIELD SET, SKIPPING" -type M
         Write-Verbose "NO ACCESS PERMITTED FROM FIELD SET, LEAVING FIELD BLANK" 
     }
+    else{
+        $targetVal = @{"Key"="AccessPermittedFrom";"Value"=$AccessPermittedFrom}
+        $permissions+=$targetVal
+    }
+
     if([String]::IsNullOrEmpty($AccessPermittedTo)){
         Vout -str "NO ACCESSPERMITTEDTO FIELD SET, SKIPPING" -type M
         Write-Verbose "NO ACCESS PERMITTED TO FIELD SET, LEAVING FIELD BLANK" 
     }
+    else{
+        $targetVal = @{"Key"="AccessPermittedTo";"Value"=$AccessPermittedTo}
+        $permissions+=$targetVal
+    }
+
     if([String]::IsNullOrEmpty($ExpirationDate)){
         Vout -str "NO EXPIRATIONDATE FIELD SET, SKIPPING" -type M 
         Write-Verbose "NO EXPIRATION DATE FIELD SET, LEAVING FIELD BLANK"
     }
+    else{
+        $targetVal = @{"Key"="ExpirationDate";"Value"=$ExpirationDate}
+        $permissions+=$targetVal
+    }
+
     if([String]::IsNullOrEmpty($Disabled)){
         Vout -str "NO DISABLED FIELD SET, SETTING DEFAULT VALUE: FALSE" -type M
         Write-Verbose "NO DISABLED FIELD SET, LEAVING ENABLED AS DEFAULT" 
     }
+    else{
+        $targetVal = @{"Key"="Disabled";"Value"=$Disabled}
+        $permissions+=$targetVal
+    }
+
     if([String]::IsNullOrEmpty($BusinessOwnerFName)){
         Vout -str "NO BUSINESSOWNERFNAME FIELD SET, SKIPPING" -type M
         Write-Verbose "NO BUSINESS OWNER FIRST NAME FIELD SET, LEAVING FIELD BLANK" 
     }
+    else{
+        $targetVal = @{"Key"="BusinessOwnerFName";"Value"=$BusinessOwnerFName}
+        $permissions+=$targetVal
+    }
+
     if([String]::IsNullOrEmpty($BusinessOwnerLName)){
         Vout -str "NO BUSINESSOWNERLNAME FIELD SET, SKIPPING" -type M 
         Write-Verbose "NO BUSINESS OWNER LAST NAME FIELD SET, LEAVING FIELD BLANK"
     }
+    else{
+        $targetVal = @{"Key"="BusinessOwnerLName";"Value"=$BusinessOwnerLName}
+        $permissions+=$targetVal
+    }
+
     if([String]::IsNullOrEmpty($BusinessOwnerEmail)){
         Vout -str "NO BUSINESSOWNEREMAIL FIELD SET, SKIPPING" -type M
         Write-Verbose "NO BUSINESS OWNER EMAIL FIELD SET, LEAVING FIELD BLANK" 
     }
+    else{
+        $targetVal = @{"Key"="BusinessOwnerEmail";"Value"=$BusinessOwnerEmail}
+        $permissions+=$targetVal
+    }
+
     if([String]::IsNullOrEmpty($BusinessOwnerPhone)){
         Vout -str "NO BUSINESSOWNERPHONE FIELD SET, SKIPPING" -type M 
         Write-Verbose "NO BUSINESS OWNER PHONE FIELD SET, LEAVING FIELD BLANK"
+    }
+    else{
+        $targetVal = @{"Key"="BusinessOwnerPhone";"Value"=$BusinessOwnerPhone}
+        $permissions+=$targetVal
     }
 
     try{
         Write-Verbose "MAKING API CALL TO CYBERARK"
         $params = @{
-            application = @{
-                AppID = $AppID;
-                Description = $Description;
-                Location = $Location;
-                AccessPermittedFrom = $AccessPermittedFrom;
-                AccessPermittedTo = $AccessPermittedTo;
-                ExpirationDate = $ExpirationDate;
-                Disabled = $Disabled;
-                BusinessOwnerFName = $BusinessOwnerFName;
-                BusinessOwnerLName = $BusinessOwnerLName;
-                BusinessOwnerEmail = $BusinessOwnerEmail;
-                BusinessOwnerPhone = $BusinessOwnerPhone;
-            }
+            application = @(
+                #AppID = $AppID;
+                #Description = $Description;
+                #Location = $Location;
+                #AccessPermittedFrom = $AccessPermittedFrom;
+                #AccessPermittedTo = $AccessPermittedTo;
+                #ExpirationDate = $ExpirationDate;
+                #Disabled = $Disabled;
+                #BusinessOwnerFName = $BusinessOwnerFName;
+                #BusinessOwnerLName = $BusinessOwnerLName;
+                #BusinessOwnerEmail = $BusinessOwnerEmail;
+                #BusinessOwnerPhone = $BusinessOwnerPhone;
+                $permissions
+            )
         } | ConvertTo-Json
 
         if($NoSSL){
@@ -128,7 +179,7 @@ function VAddApplication{
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Body $params -Method POST -ContentType 'application/json'
         Write-Verbose "PARSING DATA FROM CYBERARK"
         Write-Verbose "RETURNING JSON OBJECT"
-        return $response
+        return $true
     }catch{
         Write-Verbose "FAILED TO ADD APPLICATION TO CYBERARK"
         Vout -str $_ -type E
