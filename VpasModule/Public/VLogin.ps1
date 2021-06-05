@@ -16,7 +16,7 @@ function VLogin{
         [String]$PVWA,
 
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=1)]
-        [ValidateSet('cyberark','radius')]
+        [ValidateSet('cyberark','radius','saml')]
         [String]$AuthType,
         
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=2)]
@@ -44,6 +44,18 @@ function VLogin{
         else{
             Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
             $uri = "https://$PVWA/PasswordVault/API/auth/RADIUS/Logon"
+        }
+    }
+    if($AuthType -eq "saml"){
+        Write-Verbose "SAML AUTHENTICATION SELECTED"
+        
+        if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/API/auth/SAML/Logon"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/API/auth/SAML/Logon"
         }
     }
     if($AuthType -eq "cyberark"){
