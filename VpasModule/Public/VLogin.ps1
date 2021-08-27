@@ -22,7 +22,7 @@ function VLogin{
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=2)]
         [PSCredential]$creds,
 	
-	[Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=3)]
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=3)]
         [Switch]$HideAscii
     )
     
