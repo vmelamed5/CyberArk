@@ -20,15 +20,23 @@ function VLogin{
         [String]$AuthType,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=2)]
-        [PSCredential]$creds
+        [PSCredential]$creds,
+	
+	[Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=3)]
+        [Switch]$HideAscii
     )
     
-    Vout -str " __      _______          __  __           _       _       " -type G
-    Vout -str " \ \    / /  __ \        |  \/  |         | |     | |      " -type G
-    Vout -str "  \ \  / /| |__) |_ _ ___| \  / | ___   __| |_   _| | ___  " -type G
-    Vout -str "   \ \/ / |  ___/ _`  / __| |\/| |/ _ \ / _`  | | | | |/ _ \ " -type G
-    Vout -str "    \  /  | |  | (_| \__ \ |  | | (_) | (_| | |_| | |  __/ " -type G
-    Vout -str "     \/   |_|   \__,_|___/_|  |_|\___/ \__,_|\__,_|_|\___| " -type G  
+    if($HideAscii){
+    	#DO NOTHING
+    }
+    else{
+        Vout -str " __      _______          __  __           _       _       " -type G
+        Vout -str " \ \    / /  __ \        |  \/  |         | |     | |      " -type G
+        Vout -str "  \ \  / /| |__) |_ _ ___| \  / | ___   __| |_   _| | ___  " -type G
+        Vout -str "   \ \/ / |  ___/ _`  / __| |\/| |/ _ \ / _`  | | | | |/ _ \ " -type G
+        Vout -str "    \  /  | |  | (_| \__ \ |  | | (_) | (_| | |_| | |  __/ " -type G
+        Vout -str "     \/   |_|   \__,_|___/_|  |_|\___/ \__,_|\__,_|_|\___| " -type G  
+    }
     
     if($AuthType -eq "radius"){
         Write-Verbose "RADIUS AUTHENTICATION SELECTED"
