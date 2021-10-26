@@ -76,5 +76,6 @@ function VGetEPVUserDetails{
     }catch{
         Write-Verbose "UNABLE TO FIND EPVUSER VIA $LookupBy : $LookupVal"
         Vout -str $_ -type E
+        return $false
     }
 }
