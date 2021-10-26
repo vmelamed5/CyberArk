@@ -16,20 +16,20 @@ function VAddEPVUser{
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=1)]
         [String]$token,
 		
-		[Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=2)]
+	[Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=2)]
         [String]$Username,
 		
-		[Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=3)]
+	[Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=3)]
         [ValidateSet('EPVUser','AIMAccount','CPM','PVWA','PSMHTML5Gateway','PSM','AppProvider','OPMProvider','CCPEndpoints','PSMUser','IBVUser','AutoIBVUser','CIFS','FTP','SFE','DCAUser','DCAInstance','SecureEpClientUser','ClientlessUser','AdHocRecipient','SecureEmailUser','SEG','PSMPADBridge','PSMPServer','AllUsers','DR_USER','BizUser','PTA','DiscoveryApp','xRayAdminApp','PSMWeb','EPMUser','DAPService')]
         [String]$UserType,
 
-		[Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=4)]
+	[Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=4)]
         [String]$Location,
 		
-		[Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=5)]
+	[Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=5)]
         [String]$InitialPassword,
 		
-		[Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=6)]
+	[Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=6)]
         [Switch]$PasswordNeverExpires,
 		
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=7)]
@@ -38,7 +38,7 @@ function VAddEPVUser{
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=8)]
         [Switch]$DisableUser,
         
-		[Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=9)]
+	[Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=9)]
         [String]$Description,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=10)]
