@@ -37,7 +37,6 @@ function VGetEPVUserIDHelper{
         write-verbose "MAKING API CALL"
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method GET
         
-        $response.Users.username
         $counter = $response.Total
         if($counter -gt 1){
             Vout -str "MULTIPLE ENTRIES FOUND, ADD MORE TO THE SEARCH TO NARROW DOWN RESULTS" -type E
