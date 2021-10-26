@@ -26,7 +26,7 @@ function VAddEPVUser{
 		[Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=4)]
         [String]$Location,
 		
-		[Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=5)]
+		[Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=5)]
         [String]$InitialPassword,
 		
 		[Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=6)]
