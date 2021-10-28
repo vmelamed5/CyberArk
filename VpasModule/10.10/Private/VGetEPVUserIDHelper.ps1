@@ -39,7 +39,7 @@ function VGetEPVUserIDHelper{
         
         $counter = $response.Total
         if($counter -gt 1){
-            Vout -str "MULTIPLE ENTRIES FOUND, NARROWING DOWN RESULTS" -type E
+            Vout -str "MULTIPLE ENTRIES FOUND, NARROWING DOWN RESULTS" -type M
             Write-Verbose "MULTIPLE ACCOUNT ENTRIES WERE RETURNED, NARROWING DOWN RESULTS"
 
             $output = -1
