@@ -1,12 +1,12 @@
 <#
 .Synopsis
-   ADD MEMBER TO EPV GROUP
+   EXPORT PLATFORM FROM CYBERARK
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
 .DESCRIPTION
-   USE THIS FUNCTION TO ADD A MEMBER TO AN EPV GROUP
+   USE THIS FUNCTION TO EXPORT A PLATFORM FROM CYBERARK
 .EXAMPLE
-   $output = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupName -GroupLookupVal {GROUPNAME VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn domain -DomainDNS vman
-   $output = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupID -GroupLookupVal {GROUPID VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn vault -DomainDNS vault
+   $output = VExportPlatform -PVWA {PVWA VALUE} -token {TOKEN VALUE} -PlatformName {PLATFORMNAME VALUE}
+   $output = VExportPlatform -PVWA {PVWA VALUE} -token {TOKEN VALUE} -PlatformName {PLATFORMNAME VALUE} -Directory {C:\ExampleDir}
 #>
 function VExportPlatform{
     [CmdletBinding()]
