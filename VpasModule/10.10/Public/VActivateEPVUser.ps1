@@ -5,8 +5,11 @@
 .DESCRIPTION
    USE THIS FUNCTION TO ACTIVATE A SUSPENDED EPV USER...DOES NOT ACTIVATE A DISABLED USER
 .EXAMPLE
-   $output = VActivateEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy Username -LookupVal {USERNAME VALUE}
-   $output = VActivateEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy UserID -LookupVal {USERID VALUE}
+   $EPVUserStatus = VActivateEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy Username -LookupVal {USERNAME VALUE}
+   $EPVUserStatus = VActivateEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy UserID -LookupVal {USERID VALUE}
+.OUTPUTS
+   $true if successful
+   $false if failed
 #>
 function VActivateEPVUser{
     [CmdletBinding()]
