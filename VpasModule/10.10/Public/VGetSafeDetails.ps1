@@ -5,7 +5,7 @@
 .DESCRIPTION
    USE THIS FUNCTION TO GET SAFE DETAILS FOR A SPECIFIED SAFE
 .EXAMPLE
-   $out = VGetSafeDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE}
+   $output = VGetSafeDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE}
 #>
 function VGetSafeDetails{
     [CmdletBinding()]
