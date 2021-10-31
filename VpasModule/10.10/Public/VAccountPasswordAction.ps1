@@ -5,7 +5,7 @@
 .DESCRIPTION
    USE THIS FUNCTION TO TRIGGER A VERIFY/RECONCILE/CHANGE/CHANGE SPECIFY NEXT PASSWORD/CHANGE ONLY IN VAULT ACTIONS ON AN ACCOUNT IN CYBERARK 
 .EXAMPLE
-   $AcctJson = VAccountPasswordAction -PVWA {PVWA VALUE} -token {TOKEN VALUE} -action {ACTION VALUE} -safe {SAFE VALUE} -address {ADDRESS VALUE} -username {USERNAME VALUE}
+   $AccountPasswordActionJSON = VAccountPasswordAction -PVWA {PVWA VALUE} -token {TOKEN VALUE} -action {ACTION VALUE} -safe {SAFE VALUE} -address {ADDRESS VALUE} -username {USERNAME VALUE}
 .OUTPUTS
    JSON Object (AccountDetails) if successful
    $false if failed
