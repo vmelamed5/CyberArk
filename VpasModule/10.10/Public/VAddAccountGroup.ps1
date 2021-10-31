@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO ADD ACCOUNT GROUP
 .EXAMPLE
-   $output = VAddAccountGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupName {GROUPNAME VALUE} -GroupPlatformID {GROUPPLATFORMID VALUE} -Safe {SAFE VALUE}
+   $AddAccountGroupStatus = VAddAccountGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupName {GROUPNAME VALUE} -GroupPlatformID {GROUPPLATFORMID VALUE} -Safe {SAFE VALUE}
+.OUTPUTS
+   $true if successful
+   $false if failed
 #>
 function VAddAccountGroup{
     [CmdletBinding()]
