@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO GET ACCOUNT GROUPS BY SAFE
 .EXAMPLE
-   $output = VGetAccountGroups -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE}
+   $AccountGroupsJSON = VGetAccountGroups -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE}
+.OUTPUTS
+   JSON Object (AccountGroups) if successful
+   $false if failed
 #>
 function VGetAccountGroups{
     [CmdletBinding()]
