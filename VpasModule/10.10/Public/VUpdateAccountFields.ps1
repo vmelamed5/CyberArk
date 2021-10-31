@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO UPDATE AN ACCOUNT FIELD FOR AN ACCOUNT IN CYBERARK
 .EXAMPLE
-   $output = VUpdateAccountFields -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -username {USERNAME VALUE} -action {ACTION VALUE} -field {FIELD VALUE} -fieldval {FIELDVAL VALUE}
+   $UpdateAccountFieldsJSON = VUpdateAccountFields -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -username {USERNAME VALUE} -action {ACTION VALUE} -field {FIELD VALUE} -fieldval {FIELDVAL VALUE}
+.OUTPUTS
+   JSON Object (AccountDetails) if successful
+   $false if failed
 #>
 function VUpdateAccountFields{
     [CmdletBinding()]
