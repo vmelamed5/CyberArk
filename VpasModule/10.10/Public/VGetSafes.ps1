@@ -5,7 +5,7 @@
 .DESCRIPTION
    USE THIS FUNCTION TO RETRIEVE SAFES BASED ON A SEARCH QUERY
 .EXAMPLE
-   $out = VGetSafes -PVWA {PVWA VALUE} -token {TOKEN VALUE} -searchQuery {SEARCHQUERY VALUE}
+   $output = VGetSafes -PVWA {PVWA VALUE} -token {TOKEN VALUE} -searchQuery {SEARCHQUERY VALUE}
 #>
 function VGetSafes{
     [CmdletBinding()]
