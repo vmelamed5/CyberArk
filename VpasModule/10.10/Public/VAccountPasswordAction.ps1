@@ -7,7 +7,7 @@
 .EXAMPLE
    $AcctJson = VAccountPasswordAction -PVWA {PVWA VALUE} -token {TOKEN VALUE} -action {ACTION VALUE} -safe {SAFE VALUE} -address {ADDRESS VALUE} -username {USERNAME VALUE}
 .OUTPUTS
-   AccountDetails JSON Object if successful
+   JSON Object (AccountDetails) if successful
    $false if failed
 #>
 function VAccountPasswordAction{
