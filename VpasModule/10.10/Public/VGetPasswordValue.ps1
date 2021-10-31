@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO GET PASSWORD VALUE OF AN ACCOUNT IN CYBERARK
 .EXAMPLE
-   $output = VGetPasswordValue -PVWA {PVWA VALUE} -token {TOKEN VALUE} -reason {REASON VALUE} -safe {SAFE VALUE} -address {ADDRESS VALUE} 
+   $AccountPassword = VGetPasswordValue -PVWA {PVWA VALUE} -token {TOKEN VALUE} -reason {REASON VALUE} -safe {SAFE VALUE} -address {ADDRESS VALUE} 
+.OUTPUTS
+   Password of target account if successful
+   $false if failed
 #>
 function VGetPasswordValue{
     [CmdletBinding()]
