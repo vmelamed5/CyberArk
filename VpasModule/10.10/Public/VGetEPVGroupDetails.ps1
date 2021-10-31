@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO GET EPV GROUP(s) DETAILS
 .EXAMPLE
-   $output = VGetEPVGroupDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupName {GROUPNAME VALUE}
+   $EPVGroupDetailsJSON = VGetEPVGroupDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupName {GROUPNAME VALUE}
+.OUTPUTS
+   JSON Object (EPVGroupDetails) if successful
+   $false if failed
 #>
 function VGetEPVGroupDetails{
     [CmdletBinding()]
