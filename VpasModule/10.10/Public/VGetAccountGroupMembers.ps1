@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO GET ACCOUNT GROUP MEMBERS
 .EXAMPLE
-   $output = VGetAccountGroupMembers -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupID {GROUPID VALUE}
+   $AccountGroupMembersJSON = VGetAccountGroupMembers -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupID {GROUPID VALUE}
+.OUTPUTS
+   JSON Object (AccountGroupMembers) if successful
+   $false if failed
 #>
 function VGetAccountGroupMembers{
     [CmdletBinding()]
