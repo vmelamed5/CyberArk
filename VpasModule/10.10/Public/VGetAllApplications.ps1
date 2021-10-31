@@ -5,7 +5,7 @@
 .DESCRIPTION
    USE THIS FUNCTION TO RETURN ALL APPLICATION IDS IN CYBERARK
 .EXAMPLE
-   $out = VGetAllApplications -PVWA {PVWA VALUE} -token {TOKEN VALUE}
+   $output = VGetAllApplications -PVWA {PVWA VALUE} -token {TOKEN VALUE}
 #>
 function VGetAllApplications{
     [CmdletBinding()]
