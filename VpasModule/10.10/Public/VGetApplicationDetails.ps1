@@ -5,7 +5,7 @@
 .DESCRIPTION
    USE THIS FUNCTION TO GET SPECIFIED APPLICATION ID DETAILS
 .EXAMPLE
-   $out = VGetApplicationDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE}
+   $output = VGetApplicationDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE}
 #>
 function VGetApplicationDetails{
     [CmdletBinding()]
