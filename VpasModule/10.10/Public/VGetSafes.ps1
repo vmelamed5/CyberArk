@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO RETRIEVE SAFES BASED ON A SEARCH QUERY
 .EXAMPLE
-   $output = VGetSafes -PVWA {PVWA VALUE} -token {TOKEN VALUE} -searchQuery {SEARCHQUERY VALUE}
+   $SafesJSON = VGetSafes -PVWA {PVWA VALUE} -token {TOKEN VALUE} -searchQuery {SEARCHQUERY VALUE}
+.OUTPUTS
+   JSON Object (Safes) if successful
+   $false if failed
 #>
 function VGetSafes{
     [CmdletBinding()]
@@ -41,7 +44,7 @@ function VGetSafes{
         }
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method GET
         Write-Verbose "PARSING DATA FROM CYBERARK"
-        Write-Verbose "RETURNING ARRAY OF SAFE VALUES"
+        Write-Verbose "RETURNING JSON OBJECT"
         return $response
     }catch{
         Write-Verbose "FAILED TO RETRIEVE SAFES"
