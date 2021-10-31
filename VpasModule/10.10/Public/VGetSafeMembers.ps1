@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO RETRIEVE SAFE MEMBERS FROM A SPECIFIED SAFE AND SAFE PERMISSIONS
 .EXAMPLE
-   $output = VGetSafeMembers -PVWA {PVWA VALUE} -token {TOKEN VALUE} =safe {SAFE VALUE}
+   $SafeMembersArray = VGetSafeMembers -PVWA {PVWA VALUE} -token {TOKEN VALUE} =safe {SAFE VALUE}
+.OUTPUTS
+   ARRAY Object (SafeMembers) if successful
+   $false if failed
 #>
 function VGetSafeMembers{
     [CmdletBinding()]
