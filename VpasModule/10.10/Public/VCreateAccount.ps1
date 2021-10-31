@@ -5,7 +5,7 @@
 .DESCRIPTION
    USE THIS FUNCTION TO CREATE A NEW ACCOUNT IN CYBERARK
 .EXAMPLE
-   $out = VCreateAccount -PVWA {PVWA VALUE} -token {TOKEN VALUE} -platformID {PLATFORMID VALUE} -safeName {SAFENAME VALUE} -address {ADDRESS VALUE} -username {USERNAME VALUE}
+   $output = VCreateAccount -PVWA {PVWA VALUE} -token {TOKEN VALUE} -platformID {PLATFORMID VALUE} -safeName {SAFENAME VALUE} -address {ADDRESS VALUE} -username {USERNAME VALUE}
 #>
 function VCreateAccount{
     [CmdletBinding()]
