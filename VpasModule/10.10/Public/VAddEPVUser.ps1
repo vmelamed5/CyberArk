@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO ADD EPV USERS INTO CYBERARK
 .EXAMPLE
-   $output = VAddEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Username {USERNAME VALUE}
+   $EPVUser = VAddEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Username {USERNAME VALUE}
+.OUTPUTS
+   JSON Object (EPVUserDetails) if successful
+   $false if failed
 #>
 function VAddEPVUser{
     [CmdletBinding()]
