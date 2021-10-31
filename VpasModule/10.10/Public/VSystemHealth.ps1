@@ -5,9 +5,12 @@
 .DESCRIPTION
    USE THIS FUNCTION TO GET SYSTEMHEALTH INFORMATION FROM CYBERARK
 .EXAMPLE
-   $SystemDetails = VSystemHealth -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Component AIM
+   $SystemHealthJSON = VSystemHealth -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Component AIM
 .EXAMPLE
-   $SystemDetails = VSystemHealth -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Component PVWA
+   $SystemHealthJSON = VSystemHealth -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Component PVWA
+.OUTPUTS
+   JSON Object (SystemHealth) if successful
+   $false if failed
 #>
 function VSystemHealth{
     [CmdletBinding()]
