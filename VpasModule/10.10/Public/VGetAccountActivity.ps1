@@ -5,8 +5,11 @@
 .DESCRIPTION
    USE THIS FUNCTION TO GET THE ACTIVITY OF AN ACCOUNT
 .EXAMPLE
-   $output = VGetAccountActivity -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -username {USERNAME VALUE} -platform {PLATFORM VALUE} -address {ADDRESS VALUE}
-   $output = VGetAccountActivity -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AcctID {ACCTID VALUE}
+   $AccountActivityJSON = VGetAccountActivity -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -username {USERNAME VALUE} -platform {PLATFORM VALUE} -address {ADDRESS VALUE}
+   $AccountActivityJSON = VGetAccountActivity -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AcctID {ACCTID VALUE}
+.OUTPUTS
+   JSON Object (AccountActivity) if successful
+   $false if failed
 #>
 function VGetAccountActivity{
     [CmdletBinding()]
