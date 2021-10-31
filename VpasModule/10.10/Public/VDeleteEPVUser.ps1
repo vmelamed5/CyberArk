@@ -5,8 +5,11 @@
 .DESCRIPTION
    USE THIS FUNCTION TO DELETE AN EPV USER
 .EXAMPLE
-   $output = VDeleteEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Username {USERNAME VALUE}
-   $output = VDeleteEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Username {USERNAME VALUE} -Confirm
+   $DeleteEPVUserStatus = VDeleteEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Username {USERNAME VALUE}
+   $DeleteEPVUserStatus = VDeleteEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Username {USERNAME VALUE} -Confirm
+.OUTPUTS
+   $true if successful
+   $false if failed
 #>
 function VDeleteEPVUser{
     [CmdletBinding()]
