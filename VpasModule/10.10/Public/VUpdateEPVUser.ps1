@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO UPDATE AN EPV USER
 .EXAMPLE
-   $output = VUpdateEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Username {USERNAME VALUE} -Location {LOCATION VALUE} -ChangePasswordOnNextLogon true
+   $UpdateEPVUserJSON = VUpdateEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Username {USERNAME VALUE} -Location {LOCATION VALUE} -ChangePasswordOnNextLogon true
+.OUTPUTS
+   JSON Object (EPVUserDetails) if successful
+   $false if failed
 #>
 function VUpdateEPVUser{
     [CmdletBinding()]
