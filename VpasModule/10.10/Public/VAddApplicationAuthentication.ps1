@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO ADD AN AUTHENTICATION METHOD TO AN EXISTING APPLICATION ID
 .EXAMPLE
-   $output = VAddApplicationAuthentication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE} -AuthType {AUTHTYPE VALUE} -AuthValue {AUTHVALUE VALUE}
+   $AddApplicationAuthenticationStatus = VAddApplicationAuthentication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE} -AuthType {AUTHTYPE VALUE} -AuthValue {AUTHVALUE VALUE}
+.OUTPUTS
+   $true if successful
+   $false if failed
 #>
 function VAddApplicationAuthentication{
     [CmdletBinding()]
