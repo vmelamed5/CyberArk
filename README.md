@@ -5,6 +5,7 @@ CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
 10.10
 
 # Functions
+
 ```
 FUNCTION:
 	VAccountPasswordAction
@@ -19,8 +20,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (AccountDetails) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VActivateEPVUser
 SYNOPSIS:
@@ -34,8 +36,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VAddAccountGroup
 SYNOPSIS:
@@ -49,8 +52,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VAddAccountToAccountGroup
 SYNOPSIS:
@@ -64,8 +68,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VAddApplication
 SYNOPSIS:
@@ -79,8 +84,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VAddApplicationAuthentication
 SYNOPSIS:
@@ -94,8 +100,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VAddEPVUser
 SYNOPSIS:
@@ -109,8 +116,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (EPVUserDetails) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VAddMemberEPVGroup
 SYNOPSIS:
@@ -124,8 +132,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VAddSafeMember
 SYNOPSIS:
@@ -139,8 +148,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (SafeMember) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VCreateAccount
 SYNOPSIS:
@@ -154,8 +164,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (Account) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VCreateSafe
 SYNOPSIS:
@@ -169,8 +180,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (Safe) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VDeleteAccount
 SYNOPSIS:
@@ -188,8 +200,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VDeleteAccountFromAccountGroup
 SYNOPSIS:
@@ -203,8 +216,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VDeleteApplication
 SYNOPSIS:
@@ -218,8 +232,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VDeleteApplicationAuthentication
 SYNOPSIS:
@@ -237,8 +252,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VDeleteEPVUser
 SYNOPSIS:
@@ -252,8 +268,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VDeleteMemberEPVGroup
 SYNOPSIS:
@@ -267,8 +284,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VDeleteSafe
 SYNOPSIS:
@@ -282,8 +300,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VDeleteSafeMember
 SYNOPSIS:
@@ -297,8 +316,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VExportPlatform
 SYNOPSIS:
@@ -312,8 +332,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetAccountActivity
 SYNOPSIS:
@@ -327,8 +348,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (AccountActivity) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetAccountDetails
 SYNOPSIS:
@@ -342,8 +364,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (AccountDetails) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetAccountGroupMembers
 SYNOPSIS:
@@ -357,8 +380,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (AccountGroupMembers) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetAccountGroups
 SYNOPSIS:
@@ -372,8 +396,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (AccountGroups) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetAllApplications
 SYNOPSIS:
@@ -387,8 +412,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (Applications) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetApplicationAuthentications
 SYNOPSIS:
@@ -402,8 +428,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (ApplicationAuthentications) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetApplicationDetails
 SYNOPSIS:
@@ -417,8 +444,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (ApplicationDetails) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetEPVGroupDetails
 SYNOPSIS:
@@ -432,8 +460,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (EPVGroupDetails) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetEPVUserDetails
 SYNOPSIS:
@@ -447,8 +476,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (EPVUserDetails) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetPasswordValue
 SYNOPSIS:
@@ -462,8 +492,9 @@ EXAMPLES:
 RETURNS:
 	Password of target account if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetPlatformDetails
 SYNOPSIS:
@@ -477,8 +508,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (PlatformDetails) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetSafeAccountGroups
 SYNOPSIS:
@@ -492,8 +524,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (SafeAccountGroups) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetSafeDetails
 SYNOPSIS:
@@ -507,8 +540,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (SafeDetails) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetSafeMembers
 SYNOPSIS:
@@ -522,8 +556,9 @@ EXAMPLES:
 RETURNS:
 	ARRAY Object (SafeMembers) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VGetSafes
 SYNOPSIS:
@@ -537,8 +572,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (Safes) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VLogin
 SYNOPSIS:
@@ -553,8 +589,9 @@ EXAMPLES:
 RETURNS:
 	Cyberark Login Token if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VLogoff
 SYNOPSIS:
@@ -568,8 +605,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	Vout
 SYNOPSIS:
@@ -586,8 +624,9 @@ EXAMPLES:
 RETURNS:
 	String if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VResetEPVUserPassword
 SYNOPSIS:
@@ -601,8 +640,9 @@ EXAMPLES:
 RETURNS:
 	$true if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VSystemComponents
 SYNOPSIS:
@@ -616,8 +656,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (SystemComponents) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VSystemHealth
 SYNOPSIS:
@@ -632,8 +673,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (SystemHealth) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VUpdateAccountFields
 SYNOPSIS:
@@ -647,8 +689,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (AccountDetails) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VUpdateEPVUser
 SYNOPSIS:
@@ -662,8 +705,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (EPVUserDetails) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VUpdateSafe
 SYNOPSIS:
@@ -677,8 +721,9 @@ EXAMPLES:
 RETURNS:
 	JSON Object (SafeDetails) if successful
 	$false if failed
+```
 
-
+```
 FUNCTION:
 	VUpdateSafeMember
 SYNOPSIS:
@@ -695,3 +740,5 @@ RETURNS:
 	JSON Object (SafeMemberDetails) if successful
 	$false if failed
 ```
+
+
