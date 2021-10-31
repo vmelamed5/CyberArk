@@ -5,7 +5,7 @@
 .DESCRIPTION
    USE THIS FUNCTION TO ADD A SAFE MEMBER TO AN EXISTING SAFE IN CYBERARK WITH SPECIFIED PERMISSIONS
 .EXAMPLE
-   $SafeMember = VAddSafeMember -PVWA {PVWA VALUE} -token {TOKEN VALUE} -member {MEMBER VALUE} -searchin (SEARCHIN VALUE} -safe {SAFE VALUE} -AllPerms
+   $SafeMemberJSON = VAddSafeMember -PVWA {PVWA VALUE} -token {TOKEN VALUE} -member {MEMBER VALUE} -searchin (SEARCHIN VALUE} -safe {SAFE VALUE} -AllPerms
 .OUTPUTS
    JSON Object (SafeMember) if successful
    $false if failed
