@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO UPDATE SAFE VALUES IN CYBERARK
 .EXAMPLE
-   $output = VUpdateSafe -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -field {FIELD VALUE} -fieldval {FIELDVAL VALUE}
+   $UpdateSafeJSON = VUpdateSafe -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -field {FIELD VALUE} -fieldval {FIELDVAL VALUE}
+.OUTPUTS
+   JSON Object (SafeDetails) if successful
+   $false if failed
 #>
 function VUpdateSafe{
     [CmdletBinding()]
