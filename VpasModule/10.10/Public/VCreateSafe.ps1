@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO CREATE A SAFE IN CYBERARK
 .EXAMPLE
-   $output = VCreateSafe -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -passwordManager {PASSWORDMANAGER VALUE} -OLACENabled -Description {DESCRIPTION VALUE}
+   $Safe = VCreateSafe -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -passwordManager {PASSWORDMANAGER VALUE} -OLACENabled -Description {DESCRIPTION VALUE}
+.OUTPUTS
+   JSON Object (Safe) if successful
+   $false if failed
 #>
 function VCreateSafe{
     [CmdletBinding()]
