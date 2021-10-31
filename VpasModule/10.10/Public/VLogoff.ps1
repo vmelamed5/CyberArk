@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO LOGOFF CYBERARK AND INVALIDATE THE LOGIN TOKEN
 .EXAMPLE
-   $output = VLogoff -PVWA {PVWA VALUE} -token {VALID TOKEN VALUE} 
+   $LogoffStatus = VLogoff -PVWA {PVWA VALUE} -token {VALID TOKEN VALUE} 
+.OUTPUTS
+   $true if successful
+   $false if failed
 #>
 function VLogoff{
     [CmdletBinding()]
