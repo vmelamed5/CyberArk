@@ -1,11 +1,14 @@
-﻿<#
+<#
 .Synopsis
    GET CYBERARK SYSTEM COMPONENTS
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
 .DESCRIPTION
    USE THIS FUNCTION TO GET SYSTEMHEALTH INFORMATION FROM CYBERARK
 .EXAMPLE
-   $SystemComponents = VSystemComponents -PVWA {PVWA VALUE} -token {TOKEN VALUE}
+   $SystemComponentsJSON = VSystemComponents -PVWA {PVWA VALUE} -token {TOKEN VALUE}
+.OUTPUTS
+   JSON Object (SystemComponents) if successful
+   $false if failed
 #>
 function VSystemComponents{
     [CmdletBinding()]
