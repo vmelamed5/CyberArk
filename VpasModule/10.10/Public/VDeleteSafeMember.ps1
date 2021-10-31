@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO DELETE A SAFE MEMBER FROM A SAFE IN CYBERARK
 .EXAMPLE
-   $output = VDeleteSafeMember -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -member {MEMBER VALUE}
+   $DeleteSafeMemberStatus = VDeleteSafeMember -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -member {MEMBER VALUE}
+.OUTPUTS
+   $true if successful
+   $false if failed
 #>
 function VDeleteSafeMember{
     [CmdletBinding()]
