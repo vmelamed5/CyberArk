@@ -1,8 +1,9 @@
 # VPasModule
-CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
+- CREATED BY: Vadim Melamed
+- EMAIL: vmelamed5@gmail.com
 
 # Version
-10.10
+- 10.10
 
 # Functions
 
