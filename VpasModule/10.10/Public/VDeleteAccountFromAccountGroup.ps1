@@ -5,8 +5,11 @@
 .DESCRIPTION
    USE THIS FUNCTION TO DELETE ACCOUNT FROM ACCOUNT GROUP
 .EXAMPLE
-   $output = VDeleteAccountFromAccountGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupID {GROUPID VALUE} -AcctID {ACCTID VALUE}
-   $output = VDeleteAccountFromAccountGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupID {GROUPID VALUE} -safe {SAFE VALUE} -platform {PLATFORM VALUE} -username {USERNAME VALUE} -address {ADDRESS VALUE}
+   $DeleteAccountFromAccountGroupStatus = VDeleteAccountFromAccountGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupID {GROUPID VALUE} -AcctID {ACCTID VALUE}
+   $DeleteAccountFromAccountGroupStatus = VDeleteAccountFromAccountGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupID {GROUPID VALUE} -safe {SAFE VALUE} -platform {PLATFORM VALUE} -username {USERNAME VALUE} -address {ADDRESS VALUE}
+.OUTPUTS
+   $true if successful
+   $false if failed
 #>
 function VDeleteAccountFromAccountGroup{
     [CmdletBinding()]
