@@ -5,11 +5,11 @@
 .DESCRIPTION
    USE THIS FUNCTION TO UPDATE A SAFE MEMBER OF A SAFE IN CYBERARK
 .EXAMPLE
-   $out = VUpdateSafeMember -PVWA {PVWA VALUE} -token {TOKEN VALUE} -member {MEMBER VALUE} -safe {SAFE VALUE} -AllPerms
+   $output = VUpdateSafeMember -PVWA {PVWA VALUE} -token {TOKEN VALUE} -member {MEMBER VALUE} -safe {SAFE VALUE} -AllPerms
 .EXAMPLE
-   $out = VUpdateSafeMember -PVWA {PVWA VALUE} -token {TOKEN VALUE} -member {MEMBER VALUE} -safe {SAFE VALUE} -AllAccess -AllMonitor
+   $output = VUpdateSafeMember -PVWA {PVWA VALUE} -token {TOKEN VALUE} -member {MEMBER VALUE} -safe {SAFE VALUE} -AllAccess -AllMonitor
 .EXAMPLE
-   $out = VUpdateSafeMember -PVWA {PVWA VALUE} -token {TOKEN VALUE} -member {MEMBER VALUE} -safe {SAFE VALUE} -UseAccounts -RetrieveAccounts -AllMonitor
+   $output = VUpdateSafeMember -PVWA {PVWA VALUE} -token {TOKEN VALUE} -member {MEMBER VALUE} -safe {SAFE VALUE} -UseAccounts -RetrieveAccounts -AllMonitor
 #>
 function VUpdateSafeMember{
     [CmdletBinding()]
