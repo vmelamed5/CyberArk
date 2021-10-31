@@ -5,8 +5,11 @@
 .DESCRIPTION
    USE THIS FUNCTION TO RESET THE PASSWORD OF AN EPV USER
 .EXAMPLE
-   $output = VResetEPVUserPassword -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy Username -LookupVal {USERNAME VALUE} -NewPassword {NEWPASSWORD VALUE}
-   $output = VResetEPVUserPassword -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy UserID -LookupVal {USERID VALUE} -NewPassword {NEWPASSWORD VALUE}
+   $ResetEPVUserPasswordStatus = VResetEPVUserPassword -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy Username -LookupVal {USERNAME VALUE} -NewPassword {NEWPASSWORD VALUE}
+   $ResetEPVUserPasswordStatus = VResetEPVUserPassword -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy UserID -LookupVal {USERID VALUE} -NewPassword {NEWPASSWORD VALUE}
+.OUTPUTS
+   $true if successful
+   $false if failed
 #>
 function VResetEPVUserPassword{
     [CmdletBinding()]
