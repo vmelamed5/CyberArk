@@ -8,6 +8,9 @@
    $token = VLogin -PVWA {PVWA VALUE} -AuthType radius
 .EXAMPLE
    $token = VLogin -PVWA {PVWA VALUE} -AuthType cyberark 
+.OUTPUTS
+   Cyberark Login Token if successful
+   $false if failed
 #>
 function VLogin{
     [CmdletBinding()]
