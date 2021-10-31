@@ -5,15 +5,18 @@
 .DESCRIPTION
    USE THIS FUNCTION TO DELETE AN ACCOUNT IN CYBERARK
 .EXAMPLE
-   $output = VDeleteAccount -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE}
+   $DeleteAccountStatus = VDeleteAccount -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE}
 .EXAMPLE
-   $output = VDeleteAccount -PVWA {PVWA VALUE} -token {TOKEN VALUE} -platform {PLATFORM VALUE}
+   $DeleteAccountStatus = VDeleteAccount -PVWA {PVWA VALUE} -token {TOKEN VALUE} -platform {PLATFORM VALUE}
 .EXAMPLE
-   $output = VDeleteAccount -PVWA {PVWA VALUE} -token {TOKEN VALUE} -username {USERNAME VALUE}
+   $DeleteAccountStatus = VDeleteAccount -PVWA {PVWA VALUE} -token {TOKEN VALUE} -username {USERNAME VALUE}
 .EXAMPLE
-   $output = VDeleteAccount -PVWA {PVWA VALUE} -token {TOKEN VALUE} -address {ADDRESS VALUE}
+   $DeleteAccountStatus = VDeleteAccount -PVWA {PVWA VALUE} -token {TOKEN VALUE} -address {ADDRESS VALUE}
 .EXAMPLE
-   $output = VDeleteAccount -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -username {USERNAME VALUE} -address {ADDRESS VALUE}
+   $DeleteAccountStatus = VDeleteAccount -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -username {USERNAME VALUE} -address {ADDRESS VALUE}
+.OUTPUTS
+   $true if successful
+   $false if failed
 #>
 function VDeleteAccount{
     [CmdletBinding()]
