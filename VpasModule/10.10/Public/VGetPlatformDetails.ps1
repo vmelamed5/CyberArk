@@ -5,7 +5,7 @@
 .DESCRIPTION
    USE THIS FUNCTION TO GET DETAILS ABOUT A PLATFORM IN CYBERARK
 .EXAMPLE
-   $out = VGetPlatformDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -platformID {PLATFORMID VALUE}
+   $output = VGetPlatformDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -platformID {PLATFORMID VALUE}
 #>
 function VGetPlatformDetails{
     [CmdletBinding()]
