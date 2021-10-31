@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO GET SAFE DETAILS FOR A SPECIFIED SAFE
 .EXAMPLE
-   $output = VGetSafeDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE}
+   $SafeDetailsJSON = VGetSafeDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE}
+.OUTPUTS
+   JSON Object (SafeDetails) if successful
+   $false if failed
 #>
 function VGetSafeDetails{
     [CmdletBinding()]
