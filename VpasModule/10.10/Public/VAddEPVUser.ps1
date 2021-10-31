@@ -1,4 +1,4 @@
-﻿<#
+<#
 .Synopsis
    ADD EPV USERS TO CYBERARK
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
