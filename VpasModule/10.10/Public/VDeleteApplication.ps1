@@ -5,7 +5,10 @@
 .DESCRIPTION
    THIS FUNCTION DELETES AN APPLICATION ID FROM CYBERARK
 .EXAMPLE
-   $output = VDeleteApplication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPLICATION ID VALUE}
+   $DeleteApplicationStatus = VDeleteApplication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPLICATION ID VALUE}
+.OUTPUTS
+   $true if successful
+   $false if failed
 #>
 function VDeleteApplication{
     [CmdletBinding()]
