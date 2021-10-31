@@ -5,15 +5,18 @@
 .DESCRIPTION
    USE THIS FUNCTION TO DELETE AN EXISTING APPLICATION AUTHENTICATION METHOD
 .EXAMPLE
-   $output = VDeleteApplicationAuthentication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE} -AuthType path -AuthValue {AUTHVALUE VALUE}
+   $DeleteApplicationAuthenticationStatus = VDeleteApplicationAuthentication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE} -AuthType path -AuthValue {AUTHVALUE VALUE}
 .EXAMPLE
-   $output = VDeleteApplicationAuthentication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE} -AuthType hash -AuthValue {AUTHVALUE VALUE}
+   $DeleteApplicationAuthenticationStatus = VDeleteApplicationAuthentication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE} -AuthType hash -AuthValue {AUTHVALUE VALUE}
 .EXAMPLE
-   $output = VDeleteApplicationAuthentication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE} -AuthType osuser -AuthValue {AUTHVALUE VALUE}
+   $DeleteApplicationAuthenticationStatus = VDeleteApplicationAuthentication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE} -AuthType osuser -AuthValue {AUTHVALUE VALUE}
 .EXAMPLE
-   $output = VDeleteApplicationAuthentication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE} -AuthType machineaddress -AuthValue {AUTHVALUE VALUE}
+   $DeleteApplicationAuthenticationStatus = VDeleteApplicationAuthentication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE} -AuthType machineaddress -AuthValue {AUTHVALUE VALUE}
 .EXAMPLE
-   $output = VDeleteApplicationAuthentication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE} -AuthType certificateserialnumber -AuthValue {AUTHVALUE VALUE}
+   $DeleteApplicationAuthenticationStatus = VDeleteApplicationAuthentication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE} -AuthType certificateserialnumber -AuthValue {AUTHVALUE VALUE}
+.OUTPUTS
+   $true if successful
+   $false if failed
 #>
 function VDeleteApplicationAuthentication{
     [CmdletBinding()]
