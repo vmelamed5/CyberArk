@@ -5,13 +5,16 @@
 .DESCRIPTION
    OUTPUTS MESSAGES
 .EXAMPLE
-   Vout -str "EXAMPLE ERROR MESSAGE" -type E
+   $str = Vout -str "EXAMPLE ERROR MESSAGE" -type E
 .EXAMPLE
-   Vout -str "EXAMPLE RESPONSE MESSAGE" -type C
+   $str = Vout -str "EXAMPLE RESPONSE MESSAGE" -type C
 .EXAMPLE
-   Vout -str "EXAMPLE GENERAL MESSAGE" -type M
+   $str = Vout -str "EXAMPLE GENERAL MESSAGE" -type M
 .EXAMPLE
-   Vout -str "EXAMPLE HEADER MESSAGE" -type G
+   $str = Vout -str "EXAMPLE HEADER MESSAGE" -type G
+.OUTPUTS
+   String if successful
+   $false if failed
 #>
 function Vout{
     [CmdletBinding()]
