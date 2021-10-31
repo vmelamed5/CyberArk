@@ -5,8 +5,11 @@
 .DESCRIPTION
    USE THIS FUNCTION TO GET EPV USER(s) DETAILS
 .EXAMPLE
-   $output = VGetEPVUserDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy Username -LookupVal {USERNAME VALUE}
-   $output = VGetEPVUserDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy UserID -LookupVal {USERID VALUE}
+   $EPVUserDetailsJSON = VGetEPVUserDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy Username -LookupVal {USERNAME VALUE}
+   $EPVUserDetailsJSON = VGetEPVUserDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy UserID -LookupVal {USERID VALUE}
+.OUTPUTS
+   JSON Object (EPVUserDetails) if successful
+   $false if failed
 #>
 function VGetEPVUserDetails{
     [CmdletBinding()]
