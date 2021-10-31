@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO GET ALL THE AUTHENTICATION METHODS FOR A SPECIFIED APPLICATION ID
 .EXAMPLE
-   $output = VGetApplicationAuthentications -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE}
+   $ApplicationAuthenticationsJSON = VGetApplicationAuthentications -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE}
+.OUTPUTS
+   JSON Object (ApplicationAuthentications) if successful
+   $false if failed
 #>
 function VGetApplicationAuthentications{
     [CmdletBinding()]
