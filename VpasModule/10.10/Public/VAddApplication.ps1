@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO ADD A NEW APPLICATION ID TO CYBERARK
 .EXAMPLE
-   $output = VAddApplication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE} -Description {DESCRIPTION VALUE}
+   $AddApplicationStatus = VAddApplication -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE} -Description {DESCRIPTION VALUE}
+.OUTPUTS
+   $true if successful
+   $false if failed
 #>
 function VAddApplication{
     [CmdletBinding()]
