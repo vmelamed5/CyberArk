@@ -5,7 +5,10 @@
 .DESCRIPTION
    USE THIS FUNCTION TO GET DETAILS OF AN ACCOUNT IN CYBERARK
 .EXAMPLE
-   $output = VGetAccountDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -username {USERNAME VALUE} -field {FIELD VALUE}
+   $AccountDetailsJSON = VGetAccountDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -username {USERNAME VALUE} -field {FIELD VALUE}
+.OUTPUTS
+   JSON Object (AccountDetails) if successful
+   $false if failed
 #>
 function VGetAccountDetails{
     [CmdletBinding()]
