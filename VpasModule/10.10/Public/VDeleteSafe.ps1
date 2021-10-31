@@ -5,7 +5,7 @@
 .DESCRIPTION
    USE THIS FUNCTION TO DELETE A SAFE IN CYBERARK
 .EXAMPLE
-   $out = VDeleteSafe -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE NAME}
+   $output = VDeleteSafe -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE NAME}
 #>
 function VDeleteSafe{
     [CmdletBinding()]
