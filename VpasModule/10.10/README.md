@@ -7,7 +7,7 @@
 
 # How To Use VPasModule
 - Step1: Install VPasModule from github
-- Step2: Import VPasModule Required Version into Powershell via
+- Step2: Import VPasModule Required Version 10.10 into Powershell
 - Step3: Initiate the $PVWA variable as it will be used often
 - Step4: Retrieve Cyberark Login Token via VLogin
 - Step5: Run desired API calls
