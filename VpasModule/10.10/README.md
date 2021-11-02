@@ -603,6 +603,8 @@ SYNTAX:
 EXAMPLES:
 	$token = VLogin -PVWA {PVWA VALUE} -AuthType radius
 	$token = VLogin -PVWA {PVWA VALUE} -AuthType cyberark
+	$token = VLogin -PVWA {PVWA VALUE} -AuthType windows
+	$token = VLogin -PVWA {PVWA VALUE} -AuthType ldap
 RETURNS:
 	Cyberark Login Token if successful
 	$false if failed
