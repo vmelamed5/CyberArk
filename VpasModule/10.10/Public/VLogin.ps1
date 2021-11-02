@@ -3,11 +3,15 @@
    GET CYBERARK LOGIN TOKEN
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
 .DESCRIPTION
-   USE THIS FUNCTION TO AUTHENTICATE INTO CYBERARK VIA RADIUS OR CYBERARK AUTH
+   USE THIS FUNCTION TO AUTHENTICATE INTO CYBERARK VIA RADIUS, CYBERARK, WINDOWS, OR LDAP AUTH
 .EXAMPLE
    $token = VLogin -PVWA {PVWA VALUE} -AuthType radius
 .EXAMPLE
-   $token = VLogin -PVWA {PVWA VALUE} -AuthType cyberark 
+   $token = VLogin -PVWA {PVWA VALUE} -AuthType cyberark
+.EXAMPLE
+   $token = VLogin -PVWA {PVWA VALUE} -AuthType windows 
+.EXAMPLE
+   $token = VLogin -PVWA {PVWA VALUE} -AuthType ldap 
 .OUTPUTS
    Cyberark Login Token if successful
    $false if failed
@@ -19,7 +23,7 @@ function VLogin{
         [String]$PVWA,
 
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=1)]
-        [ValidateSet('cyberark','radius')]
+        [ValidateSet('cyberark','radius','windows','ldap')]
         [String]$AuthType,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=2)]
@@ -67,6 +71,32 @@ function VLogin{
         else{
             Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
             $uri = "https://$PVWA/PasswordVault/API/auth/cyberark/Logon"
+        }
+    }
+
+    if($AuthType -eq "windows"){
+        Write-Verbose "WINDOWS AUTHENTICATION SELECTED"
+
+	if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/API/auth/Windows/Logon"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/API/auth/Windows/Logon"
+        }
+    }
+
+    if($AuthType -eq "ldap"){
+        Write-Verbose "LDAP AUTHENTICATION SELECTED"
+
+	if($NoSSL){
+            Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+            $uri = "http://$PVWA/PasswordVault/API/auth/LDAP/Logon"
+        }
+        else{
+            Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+            $uri = "https://$PVWA/PasswordVault/API/auth/LDAP/Logon"
         }
     }
 
