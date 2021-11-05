@@ -6,6 +6,7 @@
    USE THIS FUNCTION TO DELETE AN EPV USER
 .EXAMPLE
    $DeleteEPVUserStatus = VDeleteEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Username {USERNAME VALUE}
+.EXAMPLE
    $DeleteEPVUserStatus = VDeleteEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Username {USERNAME VALUE} -Confirm
 .OUTPUTS
    $true if successful
