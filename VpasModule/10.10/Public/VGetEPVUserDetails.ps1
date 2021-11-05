@@ -6,6 +6,7 @@
    USE THIS FUNCTION TO GET EPV USER(s) DETAILS
 .EXAMPLE
    $EPVUserDetailsJSON = VGetEPVUserDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy Username -LookupVal {USERNAME VALUE}
+.EXAMPLE
    $EPVUserDetailsJSON = VGetEPVUserDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy UserID -LookupVal {USERID VALUE}
 .OUTPUTS
    JSON Object (EPVUserDetails) if successful
