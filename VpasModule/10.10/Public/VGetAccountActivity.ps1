@@ -6,6 +6,7 @@
    USE THIS FUNCTION TO GET THE ACTIVITY OF AN ACCOUNT
 .EXAMPLE
    $AccountActivityJSON = VGetAccountActivity -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -username {USERNAME VALUE} -platform {PLATFORM VALUE} -address {ADDRESS VALUE}
+.EXAMPLE
    $AccountActivityJSON = VGetAccountActivity -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AcctID {ACCTID VALUE}
 .OUTPUTS
    JSON Object (AccountActivity) if successful
