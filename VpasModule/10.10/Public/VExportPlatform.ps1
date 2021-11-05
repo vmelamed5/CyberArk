@@ -6,6 +6,7 @@
    USE THIS FUNCTION TO EXPORT A PLATFORM FROM CYBERARK
 .EXAMPLE
    $ExportPlatformStatus = VExportPlatform -PVWA {PVWA VALUE} -token {TOKEN VALUE} -PlatformName {PLATFORMNAME VALUE}
+.EXAMPLE
    $ExportPlatformStatus = VExportPlatform -PVWA {PVWA VALUE} -token {TOKEN VALUE} -PlatformName {PLATFORMNAME VALUE} -Directory {C:\ExampleDir}
 .OUTPUTS
    $true if successful
