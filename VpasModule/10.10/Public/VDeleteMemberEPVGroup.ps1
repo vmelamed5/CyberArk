@@ -1,13 +1,13 @@
 <#
 .Synopsis
-   ADD MEMBER TO EPV GROUP
+   DELETE MEMBER FROM EPV GROUP
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
 .DESCRIPTION
-   USE THIS FUNCTION TO ADD A MEMBER TO AN EPV GROUP
+   USE THIS FUNCTION TO DELETE A MEMBER FROM AN EPV GROUP
 .EXAMPLE
-   $AddMemberEPVGroupStatus = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupName -GroupLookupVal {GROUPNAME VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn domain -DomainDNS vman
+   $DeleteMemberEPVGroupStatus = VDeleteMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupName -GroupLookupVal {GROUPNAME VALUE} -EPVUserName {USERNAME VALUE}
 .EXAMPLE
-   $AddMemberEPVGroupStatus = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupID -GroupLookupVal {GROUPID VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn vault -DomainDNS vault
+   $DeleteMemberEPVGroupStatus = VDeleteMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupID -GroupLookupVal {GROUPID VALUE} -EPVUserName {USERNAME VALUE}
 .OUTPUTS
    $true if successful
    $false if failed
