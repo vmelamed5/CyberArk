@@ -6,6 +6,7 @@
    USE THIS FUNCTION TO ADD A MEMBER TO AN EPV GROUP
 .EXAMPLE
    $AddMemberEPVGroupStatus = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupName -GroupLookupVal {GROUPNAME VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn domain -DomainDNS vman
+.EXAMPLE
    $AddMemberEPVGroupStatus = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupID -GroupLookupVal {GROUPID VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn vault -DomainDNS vault
 .OUTPUTS
    $true if successful
