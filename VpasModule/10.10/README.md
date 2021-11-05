@@ -178,6 +178,7 @@ SYNTAX:
 	VCheckInAccount [-PVWA] <String> [-token] <String> [[-safe] <String>] [[-platform] <String>] [[-username] <String>] [[-address] <String>] [[-NoSSL]] [[-AcctID] <String>] [<CommonParameters>]
 EXAMPLES:
 	$CheckInAccountStatus = VCheckInAccount -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -username {USERNAME VALUE} -address {ADDRESS VALUE}
+	$CheckInAccountStatus = VCheckInAccount -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AcctID {ACCTID VALUE}
 RETURNS:
 	$true if successful
 	$false if failed
