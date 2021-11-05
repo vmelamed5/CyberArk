@@ -50,6 +50,7 @@ SYNTAX:
 	VActivateEPVUser [-PVWA] <String> [-token] <String> [-LookupBy] <String> [-LookupVal] <String> [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
 	$EPVUserStatus = VActivateEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy Username -LookupVal {USERNAME VALUE}
+	$EPVUserStatus = VActivateEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy UserID -LookupVal {USERID VALUE}
 RETURNS:
 	$true if successful
 	$false if failed
@@ -82,6 +83,7 @@ SYNTAX:
 	VAddAccountToAccountGroup [-PVWA] <String> [-token] <String> [-GroupID] <String> [[-safe] <String>] [[-platform] <String>] [[-username] <String>] [[-address] <String>] [[-AcctID] <String>] [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
 	$AddAccountToAccountGroupStatus = VAddAccountToAccountGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupID {GROUPID VALUE} -AcctID {ACCTID VALUE}
+	$AddAccountToAccountGroupStatus = VAddAccountToAccountGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupID {GROUPID VALUE} -safe {SAFE VALUE} -platform {PLATFORM VALUE} -username {USERNAME VALUE} -address {ADDRESS VALUE}
 RETURNS:
 	$true if successful
 	$false if failed
@@ -146,6 +148,7 @@ SYNTAX:
 	VAddMemberEPVGroup [-PVWA] <String> [-token] <String> [-GroupLookupBy] <String> [-GroupLookupVal] <String> [-EPVUserName] <String> [-UserSearchIn] <String> [-DomainDNS] <String> [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
 	$AddMemberEPVGroupStatus = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupName -GroupLookupVal {GROUPNAME VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn domain -DomainDNS vman
+	$AddMemberEPVGroupStatus = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupID -GroupLookupVal {GROUPID VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn vault -DomainDNS vault
 RETURNS:
 	$true if successful
 	$false if failed
@@ -247,6 +250,7 @@ SYNTAX:
 	VDeleteAccountFromAccountGroup [-PVWA] <String> [-token] <String> [-GroupID] <String> [[-safe] <String>] [[-platform] <String>] [[-username] <String>] [[-address] <String>] [[-AcctID] <String>] [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
 	$DeleteAccountFromAccountGroupStatus = VDeleteAccountFromAccountGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupID {GROUPID VALUE} -AcctID {ACCTID VALUE}
+	$DeleteAccountFromAccountGroupStatus = VDeleteAccountFromAccountGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupID {GROUPID VALUE} -safe {SAFE VALUE} -platform {PLATFORM VALUE} -username {USERNAME VALUE} -address {ADDRESS VALUE}
 RETURNS:
 	$true if successful
 	$false if failed
@@ -299,6 +303,7 @@ SYNTAX:
 	VDeleteEPVUser [-PVWA] <String> [-token] <String> [-Username] <String> [[-Confirm]] [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
 	$DeleteEPVUserStatus = VDeleteEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Username {USERNAME VALUE}
+	$DeleteEPVUserStatus = VDeleteEPVUser -PVWA {PVWA VALUE} -token {TOKEN VALUE} -Username {USERNAME VALUE} -Confirm
 RETURNS:
 	$true if successful
 	$false if failed
@@ -315,6 +320,7 @@ SYNTAX:
 	VDeleteMemberEPVGroup [-PVWA] <String> [-token] <String> [-GroupLookupBy] <String> [-GroupLookupVal] <String> [-EPVUserName] <String> [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
 	$AddMemberEPVGroupStatus = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupName -GroupLookupVal {GROUPNAME VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn domain -DomainDNS vman
+	$AddMemberEPVGroupStatus = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupID -GroupLookupVal {GROUPID VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn vault -DomainDNS vault
 RETURNS:
 	$true if successful
 	$false if failed
@@ -363,6 +369,7 @@ SYNTAX:
 	VExportPlatform [-PVWA] <String> [-token] <String> [-PlatformName] <String> [[-Directory] <String>] [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
 	$ExportPlatformStatus = VExportPlatform -PVWA {PVWA VALUE} -token {TOKEN VALUE} -PlatformName {PLATFORMNAME VALUE}
+	$ExportPlatformStatus = VExportPlatform -PVWA {PVWA VALUE} -token {TOKEN VALUE} -PlatformName {PLATFORMNAME VALUE} -Directory {C:\ExampleDir}
 RETURNS:
 	$true if successful
 	$false if failed
@@ -379,6 +386,7 @@ SYNTAX:
 	VGetAccountActivity [-PVWA] <String> [-token] <String> [[-safe] <String>] [[-platform] <String>] [[-username] <String>] [[-address] <String>] [[-NoSSL]] [[-AcctID] <String>] [<CommonParameters>]
 EXAMPLES:
 	$AccountActivityJSON = VGetAccountActivity -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -username {USERNAME VALUE} -platform {PLATFORM VALUE} -address {ADDRESS VALUE}
+	$AccountActivityJSON = VGetAccountActivity -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AcctID {ACCTID VALUE}
 RETURNS:
 	JSON Object (AccountActivity) if successful
 	$false if failed
@@ -507,6 +515,7 @@ SYNTAX:
 	VGetEPVUserDetails [-PVWA] <String> [-token] <String> [-LookupBy] <String> [-LookupVal] <String> [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
 	$EPVUserDetailsJSON = VGetEPVUserDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy Username -LookupVal {USERNAME VALUE}
+	$EPVUserDetailsJSON = VGetEPVUserDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy UserID -LookupVal {USERID VALUE}
 RETURNS:
 	JSON Object (EPVUserDetails) if successful
 	$false if failed
@@ -614,7 +623,7 @@ FUNCTION:
 SYNOPSIS:
 	GET CYBERARK LOGIN TOKEN
 DESCRIPTION:
-	USE THIS FUNCTION TO AUTHENTICATE INTO CYBERARK VIA RADIUS OR CYBERARK AUTH
+	USE THIS FUNCTION TO AUTHENTICATE INTO CYBERARK VIA RADIUS, CYBERARK, WINDOWS, OR LDAP AUTH
 SYNTAX:
 	VLogin [-PVWA] <String> [-AuthType] <String> [[-creds] <PSCredential>] [[-HideAscii]] [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
@@ -673,6 +682,7 @@ SYNTAX:
 	VResetEPVUserPassword [-PVWA] <String> [-token] <String> [-LookupBy] <String> [-LookupVal] <String> [-NewPassword] <String> [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
 	$ResetEPVUserPasswordStatus = VResetEPVUserPassword -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy Username -LookupVal {USERNAME VALUE} -NewPassword {NEWPASSWORD VALUE}
+	$ResetEPVUserPasswordStatus = VResetEPVUserPassword -PVWA {PVWA VALUE} -token {TOKEN VALUE} -LookupBy UserID -LookupVal {USERID VALUE} -NewPassword {NEWPASSWORD VALUE}
 RETURNS:
 	$true if successful
 	$false if failed
