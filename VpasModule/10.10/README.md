@@ -147,7 +147,7 @@ DESCRIPTION:
 SYNTAX:
 	VAddMemberEPVGroup [-PVWA] <String> [-token] <String> [-GroupLookupBy] <String> [-GroupLookupVal] <String> [-EPVUserName] <String> [-UserSearchIn] <String> [-DomainDNS] <String> [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
-	$AddMemberEPVGroupStatus = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupName -GroupLookupVal {GROUPNAME VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn domain -DomainDNS vman
+	$AddMemberEPVGroupStatus = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupName -GroupLookupVal {GROUPNAME VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn domain -DomainDNS {DOMAIN DNS VALUE}
 	$AddMemberEPVGroupStatus = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupID -GroupLookupVal {GROUPID VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn vault -DomainDNS vault
 RETURNS:
 	$true if successful
@@ -313,14 +313,14 @@ RETURNS:
 FUNCTION:
 	VDeleteMemberEPVGroup
 SYNOPSIS:
-	ADD MEMBER TO EPV GROUP
+	DELETE MEMBER FROM EPV GROUP
 DESCRIPTION:
-	USE THIS FUNCTION TO ADD A MEMBER TO AN EPV GROUP
+	USE THIS FUNCTION TO DELETE A MEMBER FROM AN EPV GROUP
 SYNTAX:
 	VDeleteMemberEPVGroup [-PVWA] <String> [-token] <String> [-GroupLookupBy] <String> [-GroupLookupVal] <String> [-EPVUserName] <String> [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
-	$AddMemberEPVGroupStatus = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupName -GroupLookupVal {GROUPNAME VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn domain -DomainDNS vman
-	$AddMemberEPVGroupStatus = VAddMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupID -GroupLookupVal {GROUPID VALUE} -EPVUserName {USERNAME VALUE} -UserSearchIn vault -DomainDNS vault
+	$DeleteMemberEPVGroupStatus = VDeleteMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupName -GroupLookupVal {GROUPNAME VALUE} -EPVUserName {USERNAME VALUE}
+	$DeleteMemberEPVGroupStatus = VDeleteMemberEPVGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE} -GroupLookupBy GroupID -GroupLookupVal {GROUPID VALUE} -EPVUserName {USERNAME VALUE}
 RETURNS:
 	$true if successful
 	$false if failed
@@ -786,5 +786,3 @@ RETURNS:
 	JSON Object (SafeMemberDetails) if successful
 	$false if failed
 ```
-
-
