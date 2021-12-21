@@ -48,9 +48,9 @@ function VExportPlatform{
 
         if([String]::IsNullOrEmpty($Directory)){
             $curUser = $env:UserName
+            $outpath = "C:\Users\$curUser\AppData\Local\VPASModuleOutputs"
             Write-Verbose "NO DIRECTORY SPECIFIED, USING THE FOLLOWING OUTPUT DIRECTORY:"
-            Write-Verbose "C:\VpasModuleTemp"
-            $outpath = "C:\VpasModuleTemp"
+            Write-Verbose $outpath
         }
         else{
             Write-Verbose "SUPPLIED DIRECTORY VALUE: $Directory"
