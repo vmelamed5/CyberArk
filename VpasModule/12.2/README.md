@@ -23,6 +23,7 @@
 
 # Functions
 
+
 ```
 FUNCTION:
 	VAccountPasswordAction
@@ -232,6 +233,54 @@ EXAMPLES:
 	$SafeMemberJSON = VAddSafeMember -PVWA {PVWA VALUE} -token {TOKEN VALUE} -member {MEMBER VALUE} -searchin (SEARCHIN VALUE} -safe {SAFE VALUE} -AllPerms
 RETURNS:
 	JSON Object (SafeMember) if successful
+	$false if failed
+```
+
+```
+FUNCTION:
+	VBulkAddUpdateSafeMembers
+SYNOPSIS:
+	BULK ADD/UPDATE SAFE MEMBERS
+DESCRIPTION:
+	USE THIS FUNCTION TO ADD OR UPDATE SAFE MEMBERS IN BULK VIA CSV FILE
+SYNTAX:
+	VBulkAddUpdateSafeMembers [-PVWA] <String> [-token] <String> [-CSVFile] <String> [[-SkipConfirmation]] [[-NoSSL]] [<CommonParameters>]
+EXAMPLES:
+	$BulkAddUpdateSafeMembers = VBulkAddUpdateSafeMembers -PVWA {PVWA VALUE} -token {TOKEN VALUE} -CSVFile {CSVFILE VALUE}
+RETURNS:
+	$true if successful
+	$false if failed
+```
+
+```
+FUNCTION:
+	VBulkCreateAccounts
+SYNOPSIS:
+	BULK CREATE ACCOUNTS
+DESCRIPTION:
+	USE THIS FUNCTION TO CREATE ACCOUNTS IN BULK VIA CSV FILE
+SYNTAX:
+	VBulkCreateAccounts [-PVWA] <String> [-token] <String> [-CSVFile] <String> [[-NoSSL]] [<CommonParameters>]
+EXAMPLES:
+	$BulkCreateAccounts = VBulkCreateAccounts -PVWA {PVWA VALUE} -token {TOKEN VALUE} -CSVFile {CSVFILE VALUE}
+RETURNS:
+	$true if successful
+	$false if failed
+```
+
+```
+FUNCTION:
+	VBulkCreateSafes
+SYNOPSIS:
+	BULK CREATE SAFES
+DESCRIPTION:
+	USE THIS FUNCTION TO CREATE SAFES IN BULK VIA CSV FILE
+SYNTAX:
+	VBulkCreateSafes [-PVWA] <String> [-token] <String> [-CSVFile] <String> [[-NoSSL]] [<CommonParameters>]
+EXAMPLES:
+	$BulkCreateSafes = VBulkCreateSafes -PVWA {PVWA VALUE} -token {TOKEN VALUE} -CSVFile {CSVFILE VALUE}
+RETURNS:
+	$true if successful
 	$false if failed
 ```
 
@@ -839,6 +888,22 @@ EXAMPLES:
 	$ApplicationDetailsJSON = VGetApplicationDetails -PVWA {PVWA VALUE} -token {TOKEN VALUE} -AppID {APPID VALUE}
 RETURNS:
 	JSON Object (ApplicationDetails) if successful
+	$false if failed
+```
+
+```
+FUNCTION:
+	VGetBulkTemplateFiles
+SYNOPSIS:
+	GET BULK TEMPLATE FILES
+DESCRIPTION:
+	USE THIS FUNCTION TO GENERATE BULK TEMPLATE FILES
+SYNTAX:
+	VGetBulkTemplateFiles [-BulkTemplate] <String> [[-OutputDirectory] <String>] [<CommonParameters>]
+EXAMPLES:
+	$TemplateFile = VGetBulkTemplateFiles -BulkTemplate {BULKTEMPLATE VALUE}
+RETURNS:
+	$true if successful
 	$false if failed
 ```
 
