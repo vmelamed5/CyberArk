@@ -5,7 +5,7 @@
 .DESCRIPTION
    USE THIS FUNCTION TO VALIDATE CSV FILES FOR BULK OPERATIONS
 .EXAMPLE
-   $CSVFileValidate = VBulkValidateFiles -BulkOperation {BULKOPERATION VALUE} -CSVFile {CSVFILE LOCATION}
+   $CSVFileValidate = VBulkValidateFile -BulkOperation {BULKOPERATION VALUE} -CSVFile {CSVFILE LOCATION}
 .OUTPUTS
    $true if successful
    $false if failed
