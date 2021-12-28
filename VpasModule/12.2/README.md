@@ -23,7 +23,6 @@
 
 # Functions
 
-
 ```
 FUNCTION:
 	VAccountPasswordAction
@@ -279,6 +278,22 @@ SYNTAX:
 	VBulkCreateSafes [-PVWA] <String> [-token] <String> [-CSVFile] <String> [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
 	$BulkCreateSafes = VBulkCreateSafes -PVWA {PVWA VALUE} -token {TOKEN VALUE} -CSVFile {CSVFILE VALUE}
+RETURNS:
+	$true if successful
+	$false if failed
+```
+
+```
+FUNCTION:
+	VBulkValidateFile
+SYNOPSIS:
+	VALIDATE CSV FILES FOR BULK OPERATIONS
+DESCRIPTION:
+	USE THIS FUNCTION TO VALIDATE CSV FILES FOR BULK OPERATIONS
+SYNTAX:
+	VBulkValidateFile [-BulkOperation] <String> [-CSVFile] <String> [[-HideOutput]] [<CommonParameters>]
+EXAMPLES:
+	$CSVFileValidate = VBulkValidateFiles -BulkOperation {BULKOPERATION VALUE} -CSVFile {CSVFILE LOCATION}
 RETURNS:
 	$true if successful
 	$false if failed
@@ -1415,3 +1430,4 @@ RETURNS:
 	JSON Object (SafeMemberDetails) if successful
 	$false if failed
 ```
+
