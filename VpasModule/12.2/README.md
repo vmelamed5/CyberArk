@@ -293,7 +293,7 @@ DESCRIPTION:
 SYNTAX:
 	VBulkValidateFile [-BulkOperation] <String> [-CSVFile] <String> [[-HideOutput]] [<CommonParameters>]
 EXAMPLES:
-	$CSVFileValidate = VBulkValidateFiles -BulkOperation {BULKOPERATION VALUE} -CSVFile {CSVFILE LOCATION}
+	$CSVFileValidate = VBulkValidateFile -BulkOperation {BULKOPERATION VALUE} -CSVFile {CSVFILE LOCATION}
 RETURNS:
 	$true if successful
 	$false if failed
