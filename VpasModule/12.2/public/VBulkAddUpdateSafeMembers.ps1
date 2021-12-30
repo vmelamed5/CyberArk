@@ -623,11 +623,11 @@ function VBulkAddUpdateSafeMembers{
                     Write-Verbose "MAKING API CALL TO CYBERARK TO CHECK IF SAFE AND MEMBER EXISTS"
                     if($NoSSL){
                         Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
-                        $uri = "http://$PVWA//PasswordVault/api/Safes/$pSafeName"
+                        $uri = "http://$PVWA/PasswordVault/api/Safes/$pSafeName"
                     }
                     else{
                         Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
-                        $uri = "https://$PVWA//PasswordVault/api/Safes/$pSafeName"
+                        $uri = "https://$PVWA/PasswordVault/api/Safes/$pSafeName"
                     }
                     $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method GET
                     Write-Verbose "PARSING DATA FROM CYBERARK"
@@ -660,11 +660,11 @@ function VBulkAddUpdateSafeMembers{
                         Write-Verbose "MAKING API CALL TO CYBERARK"
                         if($NoSSL){
                             Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
-                            $uri = "http://$PVWA/PasswordVault/api/Safes/$pSafeName/Members"
+                            $uri = "http://$PVWA/PasswordVault/api/Safes/$pSafeName/Members?filter=includePredefinedUsers eq true"
                         }
                         else{
                             Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
-                            $uri = "https://$PVWA/PasswordVault/api/Safes/$pSafeName/Members"
+                            $uri = "https://$PVWA/PasswordVault/api/Safes/$pSafeName/Members?filter=includePredefinedUsers eq true"
                         }
                         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method GET
                         Write-Verbose "RETRIEVED DATA FROM API CALL"
