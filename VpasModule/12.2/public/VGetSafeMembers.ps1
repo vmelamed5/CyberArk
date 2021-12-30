@@ -5,7 +5,9 @@
 .DESCRIPTION
    USE THIS FUNCTION TO RETRIEVE SAFE MEMBERS FROM A SPECIFIED SAFE AND SAFE PERMISSIONS
 .EXAMPLE
-   $SafeMembersJSON = VGetSafeMembers -PVWA {PVWA VALUE} -token {TOKEN VALUE} =safe {SAFE VALUE}
+   $SafeMembersJSON = VGetSafeMembers -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE}
+.EXAMPLE
+   $SafeMembersJSON = VGetSafeMembers -PVWA {PVWA VALUE} -token {TOKEN VALUE} -safe {SAFE VALUE} -IncludePredefinedMembers
 .OUTPUTS
    JSON Object (SafeMembers) if successful
    $false if failed
@@ -23,6 +25,9 @@ function VGetSafeMembers{
         [String]$safe,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=3)]
+        [Switch]$IncludePredefinedMembers,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=4)]
         [Switch]$NoSSL
     
     )
@@ -37,11 +42,21 @@ function VGetSafeMembers{
         
         if($NoSSL){
             Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
-            $uri = "http://$PVWA/PasswordVault/api/Safes/$safe/Members"
+            if($IncludePredefinedMembers){
+                $uri = "http://$PVWA/PasswordVault/api/Safes/$safe/Members?filter=includePredefinedUsers eq true"
+            }
+            else{
+                $uri = "http://$PVWA/PasswordVault/api/Safes/$safe/Members"
+            }
         }
         else{
             Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
-            $uri = "https://$PVWA/PasswordVault/api/Safes/$safe/Members"
+            if($IncludePredefinedMembers){
+                $uri = "https://$PVWA/PasswordVault/api/Safes/$safe/Members?filter=includePredefinedUsers eq true"
+            }
+            else{
+                $uri = "https://$PVWA/PasswordVault/api/Safes/$safe/Members"
+            }
         }
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method GET
         Write-Verbose "RETRIEVED DATA FROM API CALL"
