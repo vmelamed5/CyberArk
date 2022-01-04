@@ -1292,7 +1292,7 @@ DESCRIPTION:
 SYNTAX:
 	VReporting [-PVWA] <String> [-token] <String> [-ReportType] <String> [-ReportFormat] <String> [[-OutputDirectory] <String>] [[-SearchQuery] <String>] [[-WildCardSearch]] [[-IncludePredefinedSafeMembers]] [[-Confirm]] [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
-	$VReporting = VDeleteAccountFromAccountGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE}
+	$VReporting = VReporting -PVWA {PVWA VALUE} -token {TOKEN VALUE} -ReportType {REPORTTYPE VALUE} -ReportFormat {REPORTFORMAT VALUE} -SearchQuery {SEARCHQUERY VALUE} -OutputDirectory {OUTPUTDIRECTORY VALUE}
 RETURNS:
 	$true if successful
 	$false if failed
