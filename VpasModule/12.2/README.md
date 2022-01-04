@@ -293,7 +293,7 @@ DESCRIPTION:
 SYNTAX:
 	VBulkValidateFile [-BulkOperation] <String> [-CSVFile] <String> [[-HideOutput]] [<CommonParameters>]
 EXAMPLES:
-	$CSVFileValidate = VBulkValidateFile -BulkOperation {BULKOPERATION VALUE} -CSVFile {CSVFILE LOCATION}
+	$CSVFileValidate = VBulkValidateFiles -BulkOperation {BULKOPERATION VALUE} -CSVFile {CSVFILE LOCATION}
 RETURNS:
 	$true if successful
 	$false if failed
@@ -1139,7 +1139,7 @@ SYNOPSIS:
 DESCRIPTION:
 	USE THIS FUNCTION TO RETRIEVE SAFE MEMBERS FROM A SPECIFIED SAFE AND SAFE PERMISSIONS
 SYNTAX:
-	VGetSafeMembers [-PVWA] <String> [-token] <String> [-safe] <String> [[-NoSSL]] [<CommonParameters>]
+	VGetSafeMembers [-PVWA] <String> [-token] <String> [-safe] <String> [[-IncludePredefinedMembers]] [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
 	$SafeMembersJSON = VGetSafeMembers -PVWA {PVWA VALUE} -token {TOKEN VALUE} =safe {SAFE VALUE}
 RETURNS:
@@ -1279,6 +1279,22 @@ EXAMPLES:
 	$str = Vout -str "EXAMPLE HEADER MESSAGE" -type G
 RETURNS:
 	String if successful
+	$false if failed
+```
+
+```
+FUNCTION:
+	VReporting
+SYNOPSIS:
+	RUN VARIOUS REPORTS FROM CYBERARK
+DESCRIPTION:
+	USE THIS FUNCTION TO GENERATE VARIOUS REPORTS FROM CYBERARK
+SYNTAX:
+	VReporting [-PVWA] <String> [-token] <String> [-ReportType] <String> [-ReportFormat] <String> [[-OutputDirectory] <String>] [[-SearchQuery] <String>] [[-WildCardSearch]] [[-IncludePredefinedSafeMembers]] [[-Confirm]] [[-NoSSL]] [<CommonParameters>]
+EXAMPLES:
+	$VReporting = VDeleteAccountFromAccountGroup -PVWA {PVWA VALUE} -token {TOKEN VALUE}
+RETURNS:
+	$true if successful
 	$false if failed
 ```
 
