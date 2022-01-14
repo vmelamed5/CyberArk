@@ -39,7 +39,10 @@ function VGetAccountDetails{
         [Switch]$NoSSL,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=8)]
-        [String]$AcctID
+        [String]$AcctID,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=9)]
+        [Switch]$HideWarnings
     )
 
     write-verbose "SUCCESSFULLY PARSED PVWA VALUE"
@@ -47,7 +50,9 @@ function VGetAccountDetails{
 
 
     if([String]::IsNullOrEmpty($field)){
-        Vout -str "NO FIELD SPECIFIED, RETURNING ALL FIELDS" -type M
+        if(!$HideWarnings){
+            Vout -str "NO FIELD SPECIFIED, RETURNING ALL FIELDS" -type M
+        }
         $nofield = 0
         Write-Verbose "NO FIELD SELECTED, RETURNING ALL FIELDS"
     }
@@ -101,12 +106,16 @@ function VGetAccountDetails{
         
             $counter = $result.count
             if($counter -gt 1){
-                Vout -str "MULTIPLE ENTRIES FOUND, ADD MORE SEARCH FIELDS TO NARROW DOWN RESULTS" -type M
+                if(!$HideWarnings){
+                    Vout -str "MULTIPLE ENTRIES FOUND, ADD MORE SEARCH FIELDS TO NARROW DOWN RESULTS" -type M
+                }
                 Write-Verbose "MULTIPLE RECORDS WERE RETURNED, ADD MORE SEARCH FIELDS TO NARROW DOWN RESULTS"
             }
             elseif($counter -eq 0){
                 Write-Verbose "NO ACCOUNTS FOUND WITH SPECIFIED PARAMETERS"
-                Vout -str "NO ACCOUNTS FOUND" -type M
+                if(!$HideWarnings){
+                    Vout -str "NO ACCOUNTS FOUND" -type M
+                }
                 return $false
             }
             #-------------------------------------
