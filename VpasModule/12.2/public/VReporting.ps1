@@ -206,10 +206,10 @@ function VReporting{
                         }
 
                         $EpochTime = $rec.secretManagement.lastModifiedTime
-                        $AcctLastModifiedTime = (([System.DateTimeOffset]::FromUnixTimeSeconds($EpochTime)).DateTime).ToString()
+                        $AcctLastModifiedTime = (([System.DateTimeOffset]::FromUnixTimeSeconds($EpochTime)).DateTime.toLocalTime()).ToString()
 
                         $CreatedTime = $rec.createdTime
-                        $AcctCreatedTime = (([System.DateTimeOffset]::FromUnixTimeSeconds($CreatedTime)).DateTime).ToString()
+                        $AcctCreatedTime = (([System.DateTimeOffset]::FromUnixTimeSeconds($CreatedTime)).DateTime.toLocalTime()).ToString()
 
                         if($SearchQuery -eq "all"){
                             $temparr = @{
