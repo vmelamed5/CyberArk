@@ -94,11 +94,11 @@ function VGetAccountDetails{
         
             if($NoSSL){
                 Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
-                $uri = "http://$PVWA/PasswordVault/api/Accounts?search=$searchQuery"
+                $uri = "http://$PVWA/PasswordVault/api/Accounts?limit=1000&search=$searchQuery"
             }
             else{
                 Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
-                $uri = "https://$PVWA/PasswordVault/api/Accounts?search=$searchQuery"
+                $uri = "https://$PVWA/PasswordVault/api/Accounts?limit=1000&search=$searchQuery"
             }
             $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method GET
             $result = $response.Content | ConvertFrom-Json
