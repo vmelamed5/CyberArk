@@ -34,11 +34,11 @@ function VGetPSMSessions{
     try{
         if($NoSSL){
             Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
-            $uri = "http://$PVWA/PasswordVault/api/recordings?limit=5000&Search=$SearchQuery"
+            $uri = "http://$PVWA/PasswordVault/api/recordings?limit=1000&Search=$SearchQuery"
         }
         else{
             Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
-            $uri = "https://$PVWA/PasswordVault/api/recordings?limit=5000&Search=$SearchQuery"
+            $uri = "https://$PVWA/PasswordVault/api/recordings?limit=1000&Search=$SearchQuery"
         }
 
         write-verbose "MAKING API CALL TO CYBERARK"
