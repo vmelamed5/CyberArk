@@ -120,11 +120,13 @@ function VUpdateSafe{
     }
     elseif($trigger -eq 5){
         Write-Verbose "ADDING NEW SAFE NUMBER OF VERSIONS RETENTION TO PARAMETERS"
-        $params.NumberOfVersionsRetention = $fieldval 
+        $params.NumberOfVersionsRetention = $fieldval
+        $params.Remove('numberOfDaysRetention')
     }
     elseif($trigger -eq 6){
         Write-Verbose "ADDING NEW SAFE NUMBER OF DAYS RETENTION TO PARAMETERS"
-        $params.NumberOfDaysRetention = $fieldval 
+        $params.NumberOfDaysRetention = $fieldval
+        $params.Remove('numberOfVersionsRetention')
     }
     $params = $params | ConvertTo-Json
 
