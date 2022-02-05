@@ -23,6 +23,12 @@ function VGetSafes{
         [String]$searchQuery,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=3)]
+        [String]$limit,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=4)]
+        [String]$offset,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=5)]
         [Switch]$NoSSL
     
     )
@@ -36,11 +42,23 @@ function VGetSafes{
         
         if($NoSSL){
             Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
-            $uri = "http://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes?query=$searchQuery"
+            $uri = "http://$PVWA/PasswordVault/api/safes?search=$searchQuery"
+            if(![String]::IsNullOrEmpty($limit)){
+                $uri += "&limit=$limit"
+            }
+            if(![String]::IsNullOrEmpty($offset)){
+                $uri += "&offset=$offset"
+            }
         }
         else{
             Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
-            $uri = "https://$PVWA/PasswordVault/WebServices/PIMServices.svc/Safes?query=$searchQuery"
+            $uri = "https://$PVWA/PasswordVault/api/safes?search=$searchQuery"
+            if(![String]::IsNullOrEmpty($limit)){
+                $uri += "&limit=$limit"
+            }
+            if(![String]::IsNullOrEmpty($offset)){
+                $uri += "&offset=$offset"
+            }
         }
         $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method GET
         Write-Verbose "PARSING DATA FROM CYBERARK"
