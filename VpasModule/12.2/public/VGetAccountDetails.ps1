@@ -36,12 +36,18 @@ function VGetAccountDetails{
         [String]$field,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=7)]
-        [Switch]$NoSSL,
+        [String]$limit,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=8)]
-        [String]$AcctID,
+        [String]$offset,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=9)]
+        [Switch]$NoSSL,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=10)]
+        [String]$AcctID,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=11)]
         [Switch]$HideWarnings
     )
 
@@ -95,10 +101,22 @@ function VGetAccountDetails{
             if($NoSSL){
                 Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
                 $uri = "http://$PVWA/PasswordVault/api/Accounts?limit=1000&search=$searchQuery"
+                if(![String]::IsNullOrEmpty($limit)){
+                    $uri += "&limit=$limit"
+                }
+                if(![String]::IsNullOrEmpty($offset)){
+                    $uri += "&offset=$offset"
+                }
             }
             else{
                 Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
                 $uri = "https://$PVWA/PasswordVault/api/Accounts?limit=1000&search=$searchQuery"
+                if(![String]::IsNullOrEmpty($limit)){
+                    $uri += "&limit=$limit"
+                }
+                if(![String]::IsNullOrEmpty($offset)){
+                    $uri += "&offset=$offset"
+                }
             }
             $response = Invoke-WebRequest -Headers @{"Authorization"=$token} -Uri $uri -Method GET
             $result = $response.Content | ConvertFrom-Json
