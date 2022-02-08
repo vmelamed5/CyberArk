@@ -14,3 +14,6 @@
 
 # Documentation
 - Find version specific README.md inside a specific version for more documentation
+
+# Work In Progress
+- Version 12.2.1 of VPasModule is a work in progress that will replace version 12.2, same commands just being reworked to support inserting cookies
