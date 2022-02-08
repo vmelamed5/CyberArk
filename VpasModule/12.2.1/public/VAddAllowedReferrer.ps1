@@ -68,10 +68,10 @@ function VAddAllowedReferrer{
         write-verbose "MAKING API CALL TO CYBERARK"
 
         if($sessionval){
-            $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -ContentType "application/json" -WebSession $sessionval
+            $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -Body $params -ContentType "application/json" -WebSession $sessionval
         }
         else{
-            $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -ContentType "application/json"  
+            $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -Body $params -ContentType "application/json"  
         }
         Write-Verbose "SUCCESSFULLY ADDED ALLOWED REFERRER: $ReferrerURL"
         return $true
