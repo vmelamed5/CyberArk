@@ -739,10 +739,10 @@ function VBulkAddUpdateSafeMembers{
                             }
 
                             if($sessionval){
-                                $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method PUT -ContentType "application/json" -WebSession $sessionval
+                                $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method PUT -Body $params -ContentType "application/json" -WebSession $sessionval
                             }
                             else{
-                                $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method PUT -ContentType "application/json"  
+                                $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method PUT -Body $params -ContentType "application/json"  
                             }
 
                             Write-Verbose "SUCCESSFULLY UPDATED SAFE PERMISSIONS FOR SAFEMEMBER: $pSafeMember ON SAFE: $pSafeName...FOR RECORD #$counter"
@@ -760,10 +760,10 @@ function VBulkAddUpdateSafeMembers{
                             }
                             
                             if($sessionval){
-                                $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -ContentType "application/json" -WebSession $sessionval
+                                $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -Body $params -ContentType "application/json" -WebSession $sessionval
                             }
                             else{
-                                $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -ContentType "application/json"  
+                                $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -Body $params -ContentType "application/json"  
                             }
                             Write-Verbose "SUCCESSFULLY ADDED SAFEMEMBER: $pSafeMember ON SAFE: $pSafeName...FOR RECORD #$counter"
                             Vout -str "SUCCESSFULLY ADDED SAFEMEMBER: $pSafeMember ON SAFE: $pSafeName...FOR RECORD #$counter" -type G
