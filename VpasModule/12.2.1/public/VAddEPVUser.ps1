@@ -432,10 +432,10 @@ function VAddEPVUser{
 
 
         if($sessionval){
-            $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -ContentType "application/json" -WebSession $sessionval
+            $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -Body $Params -ContentType "application/json" -WebSession $sessionval
         }
         else{
-            $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -ContentType "application/json"  
+            $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -Body $Params -ContentType "application/json"  
         }
         Write-Verbose "PARSING DATA FROM CYBERARK"
         Write-Verbose "OPERATION COMPLETED SUCCESSFULLY, RETURNING JSON OBJECT"
