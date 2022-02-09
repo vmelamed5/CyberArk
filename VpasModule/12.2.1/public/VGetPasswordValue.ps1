@@ -90,10 +90,10 @@ function VGetPasswordValue{
                 }
 
                 if($sessionval){
-                    $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Body $params -Method GET -ContentType "application/json" -WebSession $sessionval
+                    $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Body $params -Method POST -ContentType "application/json" -WebSession $sessionval
                 }
                 else{
-                    $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Body $params -Method GET -ContentType "application/json"  
+                    $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Body $params -Method POST -ContentType "application/json"  
                 }
                 Write-Verbose "PARSING DATA FROM CYBERARK"
                 Write-Verbose "RETURNING ACCOUNT DETAILS"      
