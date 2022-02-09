@@ -314,7 +314,7 @@ function VUpdateSafeMember{
             Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
             $uri = "https://$PVWA/PasswordVault/api/Safes/$safe/Members/$member"
         }
-        $response = Invoke-RestMethod -Headers @{"Authorization"=$token} -Uri $uri -Method PUT -Body $params -ContentType 'application/json'
+        
         if($sessionval){
             $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method PUT -Body $params -ContentType "application/json" -WebSession $sessionval
         }
