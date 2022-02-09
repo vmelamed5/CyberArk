@@ -72,10 +72,10 @@ function VExportPlatform{
         Write-Verbose "MAKING API CALL TO CYBERARK"
         
         if($sessionval){
-            $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -ContentType "application/json" -WebSession $sessionval
+            $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -ContentType "application/json" -WebSession $sessionval -OutFile "$outpath\$PlatformName.zip"
         }
         else{
-            $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -ContentType "application/json"  
+            $response = Invoke-RestMethod -Headers @{"Authorization"=$tokenval} -Uri $uri -Method POST -ContentType "application/json" -OutFile "$outpath\$PlatformName.zip"
         }
         Write-Verbose "SUCCESSFULLY EXPORTED $PlatformName TO $outpath"
         Vout -str "SUCCESSFULLY EXPORTED $PlatformName TO $outpath" -type M
