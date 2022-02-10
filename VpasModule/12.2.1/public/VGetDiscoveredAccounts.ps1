@@ -23,6 +23,12 @@ function VGetDiscoveredAccounts{
         [String]$SearchQuery,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=3)]
+        [String]$limit,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=4)]
+        [String]$offset,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=5)]
         [Switch]$NoSSL
     
     )
@@ -38,10 +44,22 @@ function VGetDiscoveredAccounts{
         if($NoSSL){
             Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
             $uri = "http://$PVWA/passwordvault/api/DiscoveredAccounts?search=$SearchQuery"
+            if(![String]::IsNullOrEmpty($limit)){
+                $uri += "&limit=$limit"
+            }
+            if(![String]::IsNullOrEmpty($offset)){
+                $uri += "&offset=$offset"
+            }
         }
         else{
             Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
             $uri = "https://$PVWA/passwordvault/api/DiscoveredAccounts?search=$SearchQuery"
+            if(![String]::IsNullOrEmpty($limit)){
+                $uri += "&limit=$limit"
+            }
+            if(![String]::IsNullOrEmpty($offset)){
+                $uri += "&offset=$offset"
+            }
         }
 
         write-verbose "MAKING API CALL TO CYBERARK"
