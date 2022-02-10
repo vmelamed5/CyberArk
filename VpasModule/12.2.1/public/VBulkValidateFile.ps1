@@ -237,6 +237,8 @@ function VBulkValidateFile{
         elseif($BulkOperation -eq "BulkSafeMembers"){
             $counter = 1
             foreach($line in $input){
+                $requestlvl = 0
+
                 $errorflag = $false
                 $errorstr = ""
                 if(!$HideOutput){
@@ -475,6 +477,9 @@ function VBulkValidateFile{
                         $errorstr += "RequestsAuthorizationLevel1 CAN ONLY BE True OR False; "
                         $processrun = $false
                     }
+                    else{
+                        $requestlvl += 1
+                    }
                 }
 
                 if(![String]::IsNullOrEmpty($RequestsAuthorizationLevel2)){
@@ -484,6 +489,15 @@ function VBulkValidateFile{
                         $errorstr += "RequestsAuthorizationLevel2 CAN ONLY BE True OR False; "
                         $processrun = $false
                     }
+                    else{
+                        $requestlvl +=1
+                    }
+                }
+
+                if($requestlvl -ge 2){
+                    $errorflag = $true
+                    $errorstr += "EITHER RequestsAuthorizationLevel1 OR RequestsAuthorizationLevel2 CAN BE SELECTED...NOT BOTH; "
+                    $processrun = $false
                 }
 
 
