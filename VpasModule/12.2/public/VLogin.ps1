@@ -34,10 +34,10 @@ function VLogin{
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=3)]
         [Switch]$HideAscii,
 	
-	    [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=4)]
+	[Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=4)]
         [Switch]$NoSSL,
 
-        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=4)]
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=5)]
         [Switch]$InitiateCookie
     )
     
