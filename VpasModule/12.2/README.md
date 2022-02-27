@@ -3,18 +3,18 @@
 - EMAIL: vmelamed5@gmail.com
 
 # Version
-- 12.2.1
+- 12.2
 
 # How To Use VPasModule
-- Step1: Install VPasModule from github
-- Step2: Import VPasModule Required Version 12.2.1 into Powershell
+- Step1: Install VPasModule from github, or from here: https://www.powershellgallery.com/packages/VpasModule/12.2
+- Step2: Import VPasModule Required Version 12.2 into Powershell
 - Step3: Initiate the $PVWA variable as it will be used often
 - Step4: Retrieve Cyberark Login Token via VLogin
 - Step5: Run desired API calls
 - Step6: Invalidate Cyberark Login Token via VLogoff
   - Example:
     ```
-    Import-Module VPasModule -RequiredVersion 12.2.1
+    Import-Module VPasModule -RequiredVersion 12.2
     $PVWA = "MyPVWAServer.domain.com"
     $token = VLogin -PVWA $PVWA -AuthType cyberark
     $SafeResults = VGetSafes -PVWA $PVWA -token $token -searchQuery "TestSafe"
