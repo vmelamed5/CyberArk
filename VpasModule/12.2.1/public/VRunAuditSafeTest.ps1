@@ -5,9 +5,7 @@
 .DESCRIPTION
    USE THIS FUNCTION TO RUN AUDIT TESTS FOR SAFES
 .EXAMPLE
-   $RunAuditSafeTests = VRunAuditSafeTest
-.EXAMPLE
-   $RunAuditSafeTests = VRunAuditSafeTest
+   $RunAuditSafeTests = VRunAuditSafeTest -PVWA {PVWA VALUE} -token {TOKEN VALUE}
 .OUTPUTS
    $true if successful
    $false if failed
