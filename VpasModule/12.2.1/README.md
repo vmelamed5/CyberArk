@@ -1415,13 +1415,46 @@ RETURNS:
 
 ```
 FUNCTION:
+	VRunAuditSafeTest
+SYNOPSIS:
+	RUN AUDIT SAFE TESTS
+DESCRIPTION:
+	USE THIS FUNCTION TO RUN AUDIT TESTS FOR SAFES
+SYNTAX:
+	VRunAuditSafeTest [-PVWA] <String> [-token] <Hashtable> [[-NoSSL]] [<CommonParameters>]
+EXAMPLES:
+	$RunAuditSafeTests = VRunAuditSafeTest -PVWA {PVWA VALUE} -token {TOKEN VALUE}
+RETURNS:
+	$true if successful
+	$false if failed
+```
+
+```
+FUNCTION:
+	VSetAuditSafeTest
+SYNOPSIS:
+	CONFIGURE AUDIT SAFE TESTS
+DESCRIPTION:
+	USE THIS FUNCTION TO CONFIGURE AUDIT TESTS FOR SAFES
+SYNTAX:
+	VSetAuditSafeTest [[-SafeNamingConvention] <String>] [[-AmtMembers] <Int32>] [[-CPMName] <String>] [[-IgnoreInternalSafes]] [[-NoSSL]] [<CommonParameters>]
+EXAMPLES:
+	$SetAuditSafeTests = VSetAuditSafeTest
+	$SetAuditSafeTests = VSetAuditSafeTest -SafeNamingConvention {SAFE NAMING CONVENTION VALUE} -AmtMembers {AMOUNT MEMBERS VALUE} -CPMName {CPMNAME VALUE} -IgnoreInternalSafes
+RETURNS:
+	$true if successful
+	$false if failed
+```
+
+```
+FUNCTION:
 	VSetSQLConnectionDetails
 SYNOPSIS:
 	SET SQL CONNECTION DETAILS
 DESCRIPTION:
 	USE THIS FUNCTION TO SET THE DATABASE CONNECTION DETAILS
 SYNTAX:
-	VSetSQLConnectionDetails [[-SQLServer] <String>] [[-SQLDatabase] <String>] [[-SQLUsername] <String>] [[-SQLPassword] <String>] [[-AAM] <String>] [[-AppID] <String>] [[-Folder] <String>] [[-SafeID] <String>] [[-ObjectName] <String>] [[-AIMServer] <String>] [[-PasswordSDKPath] <String>] [[-SkipConfirmation]] [[-NoSSL]] [<CommonParameters>]
+	VSetSQLConnectionDetails [[-SQLServer] <String>] [[-SQLDatabase] <String>] [[-SQLUsername] <String>] [[-SQLPassword] <String>] [[-AAM] <String>] [[-AppID] <String>] [[-Folder] <String>] [[-SafeID] <String>] [[-ObjectName] <String>] [[-AIMServer] <String>] [[-CertificateTP] <String>] [[-PasswordSDKPath] <String>] [[-SkipConfirmation]] [[-NoSSL]] [<CommonParameters>]
 EXAMPLES:
 	$SetSQLConnectionDetails = VSetSQLConnectionDetails -SQLServer {SQLSERVER VALUE} -SQLDatabase {SQLDATABASE VALUE} -SQLUsername {SQLUSERNAME VALUE} -AAM {AAM VALUE} -AppID {APPID VALUE} -Folder {FOLDER VALUE} -SafeID {SAFEID VALUE} -ObjectName {OBJECTNAME VALUE} -AIMServer {AIMSERVER VALUE}
 	$SetSQLConnectionDetails = VSetSQLConnectionDetails
