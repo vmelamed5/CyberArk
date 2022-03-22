@@ -6,7 +6,7 @@
 - 12.2.1
 
 # How To Use VPasModule
-- Step1: Install VPasModule from github or from Powershell Gallery https://www.powershellgallery.com/packages/VpasModule/12.2
+- Step1: Install VPasModule from github or from Powershell Gallery https://www.powershellgallery.com/packages/VpasModule/12.2.1
 - Step2: Import VPasModule Required Version 12.2.1 into Powershell
 - Step3: Initiate the $PVWA variable as it will be used often
 - Step4: Retrieve Cyberark Login Token via VLogin
