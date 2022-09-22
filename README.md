@@ -11,6 +11,7 @@
 - 11.5
 - 11.6
 - 12.2
+- 12.6
 
 # Documentation
 - Find version specific README.md inside a specific version for more documentation
