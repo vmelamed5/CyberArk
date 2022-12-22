@@ -1634,7 +1634,7 @@ EXAMPLES:
 	$token = VLogin -PVWA {PVWA VALUE} -AuthType cyberark
 	$token = VLogin -PVWA {PVWA VALUE} -AuthType windows
 	$token = VLogin -PVWA {PVWA VALUE} -AuthType ldap
-	$token = VLogin -PVWA {PVWA VALUE} -AuthType saml
+	$token = VLogin -PVWA {PVWA VALUE} -AuthType saml -IDPLogin {IDPLogin URL}
 RETURNS:
 	Cyberark Login Token if successful
 	$false if failed
