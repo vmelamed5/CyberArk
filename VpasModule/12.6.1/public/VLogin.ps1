@@ -192,15 +192,13 @@ function VLogin{
  
                     if($InitializeWeb.DocumentText -match $targetExp){
                         $LoginForm.Close()
-                        $SAMLToken = $(($Matches[1] -replace '&#x2b;', '+') -replace '&#x3d;', '=')
+                        $Script:SAMLToken = $(($Matches[1] -replace '&#x2b;', '+') -replace '&#x3d;', '=')
                     }
                 }
             })
-
             if($LoginForm.ShowDialog() -ne "OK"){
-                if($null -ne $SAMLToken){
+                if($null -ne $Script:SAMLToken){
                     $LoginForm.Close()
-                    Remove-Variable -Name SAMLToken -Scope Script -ErrorAction SilentlyContinue
                 }
                 else{
                     throw "SAMLResponse not matched"
@@ -220,7 +218,7 @@ function VLogin{
             $params = @{
                 concurrentSession='true'
                 apiUse='true'
-                SAMLResponse=$SamlToken
+                SAMLResponse=$SAMLToken
             }
             Write-Verbose "API PARAMETERS SET"
 
