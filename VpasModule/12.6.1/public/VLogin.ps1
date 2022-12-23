@@ -163,10 +163,11 @@ function VLogin{
     }
     elseif($AuthType -eq "saml"){
         if([String]::IsNullOrEmpty($IDPLogin)){
-            write-host "SAML SELECTED BUT NO IDPLogin PROVIDED, PLEASE ENTER IDPLogin URL (Example: https://auth.vman.com/app/vman_cyberark/lkadjlk67843HJdkJ/sso/saml: " -ForegroundColor Yellow -NoNewline
+            write-host "SAML SELECTED BUT NO IDPLogin PROVIDED, PLEASE ENTER IDPLogin URL (Example: https://auth.vman.com/app/vman_cyberark/lkadjlk67843HJdkJ/sso/saml): " -ForegroundColor Yellow -NoNewline
             $IDPLogin = Read-host
         }
         try{
+	    write-host "NOTE - WEB FORM MAY OPEN BEHIND YOUR ACTIVE POWERSHELL WINDOW, PLEASE CONFIRM AND CONTINUE THROUGH THE PROCESS" -ForegroundColor Magenta
             $targetExp = '(?i)name="SAMLResponse"(?: type="hidden")? value=\"(.*?)\"(?:.*)?\/>' 
             Add-Type -AssemblyName System.Windows.Forms 
             Add-Type -AssemblyName System.Web
