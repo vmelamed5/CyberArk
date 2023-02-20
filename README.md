@@ -12,6 +12,7 @@
 - 11.6
 - 12.2
 - 12.6
+- 13.0 (SelfHosted + PrivilegeCloud)
 
 # Documentation
 - Find version specific README.md inside a specific version for more documentation
