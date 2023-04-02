@@ -12,7 +12,7 @@
    $true if successful
    $false if failed
 #>
-function VEnablePVUser{
+function VEnableEPVUser{
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,Position=0)]
