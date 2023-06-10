@@ -17,7 +17,7 @@
     $PVWA = "MyPVWAServer.domain.com"
     New-VPASToken -PVWA $PVWA -AuthType cyberark
     Get-VPASSafes -searchQuery "TestSafe"
-    Remove-VPASToken -token $token 
+    Remove-VPASToken
     ```
 
 # Functions
