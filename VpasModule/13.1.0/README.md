@@ -16,7 +16,7 @@
     Import-Module VPasModule
     $PVWA = "MyPVWAServer.domain.com"
     New-VPASToken -PVWA $PVWA -AuthType cyberark
-    Get-VPASSafes -token $token -searchQuery "TestSafe"
+    Get-VPASSafes -searchQuery "TestSafe"
     Remove-VPASToken -token $token 
     ```
 
