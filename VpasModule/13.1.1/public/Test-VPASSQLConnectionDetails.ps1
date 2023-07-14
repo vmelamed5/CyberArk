@@ -7,8 +7,6 @@
 .PARAMETER NoSSL
    If the environment is not set up for SSL, API calls will be made via HTTP not HTTPS (Not Recommended!)
 .EXAMPLE
-   $CheckSQLConnectionDetails = Test-VPASSQLConnectionDetails -SQLServer {SQLSERVER VALUE} -SQLDatabase {SQLDATABASE VALUE} -SQLUsername {SQLUSERNAME VALUE} -AAM {AAM VALUE} -AppID {APPID VALUE} -Folder {FOLDER VALUE} -SafeID {SAFEID VALUE} -ObjectName {OBJECTNAME VALUE} -AIMServer {AIMSERVER VALUE}
-.EXAMPLE
    $CheckSQLConnectionDetails = Test-VPASSQLConnectionDetails
 .OUTPUTS
    $true if successful
