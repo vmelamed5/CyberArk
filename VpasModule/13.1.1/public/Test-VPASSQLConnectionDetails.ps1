@@ -40,8 +40,8 @@ function Test-VPASSQLConnectionDetails{
                 Write-Verbose "SQLConfigFile DIRECTORY EXISTS"
             }
             else{
-                Write-Verbose "SQLConfigFile DIRECTORY DOES NOT EXIST...RERUN VSetSQLConnectionDetails"
-                Write-VPASOutput -str "SQLConfigFile DIRECTORY DOES NOT EXIST...RERUN VSetSQLConnectionDetails" -type E
+                Write-Verbose "SQLConfigFile DIRECTORY DOES NOT EXIST...RERUN Set-VPASSQLConnectionDetails"
+                Write-VPASOutput -str "SQLConfigFile DIRECTORY DOES NOT EXIST...RERUN Set-VPASSQLConnectionDetails" -type E
                 return $false
             }
 
@@ -50,8 +50,8 @@ function Test-VPASSQLConnectionDetails{
                 Write-Verbose "SQLConfigFile FILE EXISTS"
             }
             else{
-                Write-Verbose "SQLConfigFile FILE DOES NOT EXIST...RERUN VSetSQLConnectionDetails"
-                Write-VPASOutput -str "SQLConfigFile FILE DOES NOT EXIST...RERUN VSetSQLConnectionDetails" -type E
+                Write-Verbose "SQLConfigFile FILE DOES NOT EXIST...RERUN Set-VPASSQLConnectionDetails"
+                Write-VPASOutput -str "SQLConfigFile FILE DOES NOT EXIST...RERUN Set-VPASSQLConnectionDetails" -type E
                 return $false
             }
         }catch{
@@ -121,7 +121,7 @@ function Test-VPASSQLConnectionDetails{
                 }
             }
         }catch{
-            Write-VPASOutput -str "ERROR PARSING SQLConfigFile...RERUN VSetSQLConnectionDetails" -type E
+            Write-VPASOutput -str "ERROR PARSING SQLConfigFile...RERUN Set-VPASSQLConnectionDetails" -type E
             Write-VPASOutput -str $_ -type E
             return $false
         }
@@ -150,11 +150,11 @@ function Test-VPASSQLConnectionDetails{
                     Write-VPASOutput -str "CCP TEST SUCCESSFULL" -type C
                 }
                 else{
-                    Write-VPASOutput -str "FAILED TO RETRIEVE SQL SECRET...PLEASE CONFIRM CCP FUNCTIONALITY AND RERUN VSetSQLConnectionDetails" -type E
+                    Write-VPASOutput -str "FAILED TO RETRIEVE SQL SECRET...PLEASE CONFIRM CCP FUNCTIONALITY AND RERUN Set-VPASSQLConnectionDetails" -type E
                     return $false
                 }
             }catch{
-                Write-VPASOutput -str "FAILED TO RETRIEVE SQL SECRET...PLEASE CONFIRM CCP FUNCTIONALITY AND RERUN VSetSQLConnectionDetails" -type E
+                Write-VPASOutput -str "FAILED TO RETRIEVE SQL SECRET...PLEASE CONFIRM CCP FUNCTIONALITY AND RERUN Set-VPASSQLConnectionDetails" -type E
                 Write-VPASOutput -str $_ -type E
                 return $false
             }
@@ -166,11 +166,11 @@ function Test-VPASSQLConnectionDetails{
                     Write-VPASOutput -str "CP TEST SUCCESSFULL" -type C
                 }
                 else{
-                    Write-VPASOutput -str "FAILED TO RETRIEVE SQL SECRET...PLEASE CONFIRM CP FUNCTIONALITY AND RERUN VSetSQLConnectionDetails" -type E
+                    Write-VPASOutput -str "FAILED TO RETRIEVE SQL SECRET...PLEASE CONFIRM CP FUNCTIONALITY AND RERUN Set-VPASSQLConnectionDetails" -type E
                     return $false
                 }
             }catch{
-                Write-VPASOutput -str "FAILED TO RETRIEVE SQL SECRET...PLEASE CONFIRM CP FUNCTIONALITY AND RERUN VSetSQLConnectionDetails" -type E
+                Write-VPASOutput -str "FAILED TO RETRIEVE SQL SECRET...PLEASE CONFIRM CP FUNCTIONALITY AND RERUN Set-VPASSQLConnectionDetails" -type E
                 Write-VPASOutput -str $_ -type E
                 return $false
             }
@@ -192,7 +192,7 @@ function Test-VPASSQLConnectionDetails{
                 Write-VPASOutput -str $strsplit -type E
             }
 
-            Write-VPASOutput -str "DOWNLOAD THE MODULE BY TYPING IN 'Install-Module -Name SqlServer' THEN RERUN VSetSQLConnectionDetails" -type E
+            Write-VPASOutput -str "DOWNLOAD THE MODULE BY TYPING IN 'Install-Module -Name SqlServer' THEN RERUN Set-VPASSQLConnectionDetails" -type E
             Write-VPASOutput -str "YOU CAN ALSO VIEW THIS LINK FOR MORE INFORMATION: 'https://www.powershellgallery.com/packages/SqlServer/21.1.18256'" -type E
             Write-VPASOutput -str "PROCESS TERMINATED" -type E
             return $false
@@ -207,12 +207,12 @@ function Test-VPASSQLConnectionDetails{
                 Write-VPASOutput -str "SQL CONNECTIVITY TEST SUCCESSFUL" -type C
             }
             else{
-                Write-VPASOutput -str "FAILED TO CONNECT TO SQL DATABASE...PLEASE RERUN VSetSQLConnectionDetails" -type E
+                Write-VPASOutput -str "FAILED TO CONNECT TO SQL DATABASE...PLEASE RERUN Set-VPASSQLConnectionDetails" -type E
                 return $false
             }
         }catch{
             Write-VPASOutput -str $_ -type E
-            Write-VPASOutput -str "FAILED TO CONNECT TO SQL DATABASE...PLEASE RERUN VSetSQLConnectionDetails" -type E
+            Write-VPASOutput -str "FAILED TO CONNECT TO SQL DATABASE...PLEASE RERUN Set-VPASSQLConnectionDetails" -type E
             return $false
         }
 
