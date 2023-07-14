@@ -47,13 +47,13 @@ function Get-VPASSQLPlatforms{
                 Write-Verbose "FOUND SQL CONFIG FILE...PARSING DATA"
             }
             else{
-                Write-Verbose "FAILED TO FIND SQL CONFIG FILE...RERUN VSetSQLConnectionDetails"
-                Write-VPASOutput -str "FAILED TO FIND SQL CONFIG FILE...RERUN VSetSQLConnectionDetails" -type E
+                Write-Verbose "FAILED TO FIND SQL CONFIG FILE...RERUN Set-VPASSQLConnectionDetails"
+                Write-VPASOutput -str "FAILED TO FIND SQL CONFIG FILE...RERUN Set-VPASSQLConnectionDetails" -type E
                 return $false
             }
         }catch{
-            Write-Verbose "FAILED TO FIND SQL CONFIG FILE...RERUN VSetSQLConnectionDetails"
-            Write-VPASOutput -str "FAILED TO FIND SQL CONFIG FILE...RERUN VSetSQLConnectionDetails" -type E
+            Write-Verbose "FAILED TO FIND SQL CONFIG FILE...RERUN Set-VPASSQLConnectionDetails"
+            Write-VPASOutput -str "FAILED TO FIND SQL CONFIG FILE...RERUN Set-VPASSQLConnectionDetails" -type E
             return $false
         }
 
@@ -228,7 +228,7 @@ function Get-VPASSQLPlatforms{
                 Write-VPASOutput -str $strsplit -type E
             }
 
-            Write-VPASOutput -str "DOWNLOAD THE MODULE BY TYPING IN 'Install-Module -Name SqlServer' THEN RERUN VSetSQLConnectionDetails" -type E
+            Write-VPASOutput -str "DOWNLOAD THE MODULE BY TYPING IN 'Install-Module -Name SqlServer' THEN RERUN Set-VPASSQLConnectionDetails" -type E
             Write-VPASOutput -str "YOU CAN ALSO VIEW THIS LINK FOR MORE INFORMATION: 'https://www.powershellgallery.com/packages/SqlServer/21.1.18256'" -type E
             Write-VPASOutput -str "PROCESS TERMINATED" -type E
             return $false
