@@ -1,9 +1,9 @@
 <#
 .Synopsis
-   IMPORT PLATFORM FROM CYBERARK
+   IMPORT PLATFORM TO CYBERARK
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
 .DESCRIPTION
-   USE THIS FUNCTION TO IMPORT A PLATFORM FROM CYBERARK
+   USE THIS FUNCTION TO IMPORT A PLATFORM INTO CYBERARK
 .PARAMETER NoSSL
    If the environment is not set up for SSL, API calls will be made via HTTP not HTTPS (Not Recommended!)
 .PARAMETER token
