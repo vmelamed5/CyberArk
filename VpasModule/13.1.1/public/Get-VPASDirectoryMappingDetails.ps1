@@ -19,7 +19,7 @@
 .EXAMPLE
    $DirectoryMappingJSON = Get-VPASDirectoryMappingDetails -DirectoryMethodId {DIRECTORY MAPPING ID VALUE}
 .OUTPUTS
-   JSON Object (DirectoryMappingJ) if successful
+   JSON Object (DirectoryMappingDetails) if successful
    $false if failed
 #>
 function Get-VPASDirectoryMappingDetails{
