@@ -67,7 +67,7 @@ function Get-VPASIdentityAllUsers{
                 return $false
             }
         }catch{
-            Write-Verbose "FAILED TO QUERY ADMIN SECURITY QUESTIONS"
+            Write-Verbose "FAILED TO QUERY IDENTITY FOR USERS"
             Write-VPASOutput -str $_ -type E
             return $false
         }
