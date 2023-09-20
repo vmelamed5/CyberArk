@@ -82,11 +82,11 @@ function Get-VPASAccountGroupMembers{
 
             if($NoSSL){
                 Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
-                $uri = "https://$PVWA/PasswordVault/API/AccountGroups/$GroupID/Members"
+                $uri = "http://$PVWA/PasswordVault/API/AccountGroups/$GroupID/Members"
             }
             else{
                 Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
-                $uri = "http://$PVWA/PasswordVault/API/AccountGroups/$GroupID/Members"
+                $uri = "https://$PVWA/PasswordVault/API/AccountGroups/$GroupID/Members"
             }
 
             write-verbose "MAKING API CALL TO CYBERARK"
