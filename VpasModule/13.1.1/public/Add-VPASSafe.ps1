@@ -106,8 +106,10 @@ function Add-VPASSafe{
             if(!$HideWarnings){
                 Write-VPASOutput -str "NO DAYS RETENTION SPECIFIED, SAFE WILL BE CREATED WITH DEFAULT VALUE OF 7 DAYS" -type M
             }
-            $numberOfDaysRetention = 7
-            $params += @{ NumberofDaysRetention = $numberOfDaysRetention }
+            if(!$numberOfVersionsRetention){
+                $numberOfDaysRetention = 7
+                $params += @{ NumberofDaysRetention = $numberOfDaysRetention }
+            }
         }
         else{
             $params += @{ NumberofDaysRetention = $numberOfDaysRetention }
