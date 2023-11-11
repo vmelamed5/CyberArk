@@ -14,6 +14,7 @@
 - 12.6
 - 13.0 (SelfHosted + PrivilegeCloud)
 - 13.1 (SelfHosted + PrivilegeCloud + Identity)
+- 13.2 (SelfHosted + PrivilegeCloud + Identity)
 
 # Documentation
 - Find version specific README.md inside a specific version for more documentation
