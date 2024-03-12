@@ -83,8 +83,8 @@ function Get-VPASAllAccounts{
                 }
                 $log = Write-VPASTextRecorder -inputval $response -token $token -LogType RETURN
 
-                $output.count += $response.count
-                $output.value = $response.value
+                $output.count = $response.count
+                $output.value += $response.value
                 $nextlink = $response.nextLink
             }
 
