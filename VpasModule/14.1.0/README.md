@@ -30,7 +30,7 @@ SYNOPSIS:
 DESCRIPTION:
 	USE THIS FUNCTION TO CREATE A NEW ACCOUNT IN CYBERARK
 SYNTAX:
-	Add-VPASAccount [-platformID] <String> [-safeName] <String> [[-accessRestrictedToRemoteMachines] <String>] [[-remoteMachines] <String>] [[-automaticManagementEnabled] <String>] [[-manualManagementReason] <String>] [[-extraProps] <String>] [[-secretType] <String>] [[-name] <String>] [-address] <String> [-username] <String> [[-secret] <String>] [[-token] <Hashtable>] [<CommonParameters>]
+	Add-VPASAccount [-platformID] <String> [-safeName] <String> [[-accessRestrictedToRemoteMachines] <String>] [[-remoteMachines] <String>] [[-automaticManagementEnabled] <String>] [[-manualManagementReason] <String>] [[-extraProps] <Hashtable>] [[-secretType] <String>] [[-name] <String>] [-address] <String> [-username] <String> [[-secret] <String>] [[-token] <Hashtable>] [<CommonParameters>]
 PARAMETERS:
 	-platformID <String>
 		PlatformID that will be assigned to the new account
@@ -88,10 +88,10 @@ PARAMETERS:
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
 
-	-extraProps <String>
+	-extraProps <Hashtable>
 		Include extra properties that can be defined based on platform settings and configurations
-		Pass extra properties in an array following this pattern: @('OptionalProperty1Tag','OptionalProperty1Value','OptionalProperty2Tag','OptionalProperty2Value')
-		Oracle Example: -extraProps @('DatabaseName','VmanDB','Port','1521')
+		Pass extra properties in a hashtable following this pattern: @{ OptionalProperty1Tag = "OptionalProperty1Value" }
+		Oracle Example: -extraProps @{ Database = "VmanDB" }
 
 		Required?					false
 		Position?					7
@@ -163,6 +163,7 @@ PARAMETERS:
 
 EXAMPLES:
 	$CreateAccountJSON = Add-VPASAccount -platformID {PLATFORMID VALUE} -safeName {SAFENAME VALUE} -address {ADDRESS VALUE} -username {USERNAME VALUE}
+	$props = @{
 RETURNS:
 	JSON Object (Account) if successful
 	$false if failed
@@ -228,6 +229,153 @@ EXAMPLES:
 	$AddAccountGroupStatus = Add-VPASAccountGroup -GroupName {GROUPNAME VALUE} -GroupPlatformID {GROUPPLATFORMID VALUE} -Safe {SAFE VALUE}
 RETURNS:
 	$true if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
+	Add-VPASAccountRequest
+SYNOPSIS:
+	CREATE A NEW ACCOUNT REQUEST
+DESCRIPTION:
+	USE THIS FUNCTION TO CREATE A NEW ACCOUNT REQUEST THAT UTILIZES DUAL CONTROL
+SYNTAX:
+	Add-VPASAccountRequest [[-safe] <String>] [[-platform] <String>] [[-username] <String>] [[-address] <String>] [[-AcctID] <String>] [-Reason] <String> [[-MultipleAccess]] [[-FromDateTime] <String>] [[-ToDateTime] <String>] [[-UseConnect]] [[-ConnectionComponent] <String>] [[-Hostname] <String>] [[-token] <Hashtable>] [<CommonParameters>]
+PARAMETERS:
+	-safe <String>
+		Safe name that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-platform <String>
+		PlatformID that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					2
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-username <String>
+		Username that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					3
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-address <String>
+		Address that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					4
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-AcctID <String>
+		Unique ID that maps to a single account, passing this variable will skip any query functions
+
+		Required?					false
+		Position?					5
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-Reason <String>
+		Purpose for opening this account request
+
+		Required?					true
+		Position?					6
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-MultipleAccess <SwitchParameter>
+		MultipleAccess type request gives the ability to use the account multiple times within a requested time frame
+
+		Required?					false
+		Position?					7
+		Default value					False
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-FromDateTime <String>
+		Start of the date range for the account request
+		Value should follow this format: MM/dd/yyyy HH:mm:ss
+
+		Required?					false
+		Position?					8
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-ToDateTime <String>
+		End of the date range for the account request
+		Value should follow this format: MM/dd/yyyy HH:mm:ss
+
+		Required?					false
+		Position?					9
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-UseConnect <SwitchParameter>
+		Gives this account request the ability to connect via PSM if approved
+
+		Required?					false
+		Position?					10
+		Default value					False
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-ConnectionComponent <String>
+		Specify the connection component that will be used if UseConnect is enabled
+		Example value: PSM-RDP, PSM-SSH, PSM-vSphere
+
+		Required?					false
+		Position?					11
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-Hostname <String>
+		Specify the hostname that will be connected to if the account request is for a domain account
+		This value will populate the PSMRemoteMachine parameter
+
+		Required?					false
+		Position?					12
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					13
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$AddAccountRequestJSON = Add-VPASAccountRequest -AcctID {ACCTID VALUE} -Reason {REASON VALUE} -MultipleAccess -FromDateTime "03/12/2024 9:00:00" -ToDateTime "03/12/2024 13:00:00" -UseConnect -ConnectionComponent PSM-RDP
+	$AddAccountRequestJSON = Add-VPASAccountRequest -AcctID {ACCTID VALUE} -Reason {REASON VALUE}
+RETURNS:
+	JSON Object (AccountRequestDetails) if successful
 	$false if failed
 
 ```
@@ -334,6 +482,50 @@ RETURNS:
 
 ```
 FUNCTION:
+	Add-VPASAllowedIP
+SYNOPSIS:
+	ADD ALLOWED IP
+DESCRIPTION:
+	USE THIS FUNCTION TO ADD AN ALLOWED IP FOR PRIVILEGE CLOUD SHARED SERVICES
+SYNTAX:
+	Add-VPASAllowedIP [-AllowedValue] <String> [[-token] <Hashtable>] [<CommonParameters>]
+PARAMETERS:
+	-AllowedValue <String>
+		Target value that will be whitelisted to allow cyberark cloud to communicate to
+		CIDR ranges (/22 netmask or /32 netmask) can be utilized to add a range of IP addresses to the allowlist
+
+		Required?					true
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					2
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$AddAllowedIPJSON = Add-VPASAllowedIP -AllowedValue {ALLOWEDVALUE VALUE}
+RETURNS:
+	JSON Object (Status) if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
 	Add-VPASAllowedReferrer
 SYNOPSIS:
 	ADD ALLOWED REFERRERS
@@ -392,7 +584,7 @@ SYNOPSIS:
 DESCRIPTION:
 	USE THIS FUNCTION TO ADD A NEW APPLICATION ID TO CYBERARK
 SYNTAX:
-	Add-VPASApplication [-AppID] <String> [[-Description] <String>] [[-Location] <String>] [[-AccessPermittedFrom] <String>] [[-AccessPermittedTo] <String>] [[-ExpirationDate] <String>] [[-Disabled]] [[-BusinessOwnerFName] <String>] [[-BusinessOwnerLName] <String>] [[-BusinessOwnerEmail] <String>] [[-BusinessOwnerPhone] <String>] [[-token] <Hashtable>] [[-HideWarnings]] [<CommonParameters>]
+	Add-VPASApplication [-AppID] <String> [[-Description] <String>] [[-Location] <String>] [[-AccessPermittedFrom] <String>] [[-AccessPermittedTo] <String>] [[-ExpirationDate] <String>] [[-Disabled]] [[-BusinessOwnerFName] <String>] [[-BusinessOwnerLName] <String>] [[-BusinessOwnerEmail] <String>] [[-BusinessOwnerPhone] <String>] [[-token] <Hashtable>] [<CommonParameters>]
 PARAMETERS:
 	-AppID <String>
 		Unique ApplicationID (or Application Name) that will be used by the credential provider(s) to retrieve credentials
@@ -504,15 +696,6 @@ PARAMETERS:
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
 
-	-HideWarnings <SwitchParameter>
-		Suppress any warning output to the console
-
-		Required?					false
-		Position?					13
-		Default value					False
-		Accept pipeline input?				true (ByPropertyName)
-		Accept wildcard characters?			false
-
 	<CommonParameters>
 		This cmdlet supports the common parameters: Verbose, Debug,
 		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
@@ -535,7 +718,7 @@ SYNOPSIS:
 DESCRIPTION:
 	USE THIS FUNCTION TO ADD AN AUTHENTICATION METHOD TO AN EXISTING APPLICATION ID
 SYNTAX:
-	Add-VPASApplicationAuthentication [-AppID] <String> [-AuthType] <String> [-AuthValue] <String> [[-IsFolder]] [[-AllowInternalScripts]] [[-token] <Hashtable>] [[-HideWarnings]] [<CommonParameters>]
+	Add-VPASApplicationAuthentication [-AppID] <String> [-AuthType] <String> [-AuthValue] <String> [[-IsFolder]] [[-AllowInternalScripts]] [[-token] <Hashtable>] [<CommonParameters>]
 PARAMETERS:
 	-AppID <String>
 		Unique ApplicationID (or Application Name) that will be used by the credential provider(s) to retrieve credentials
@@ -590,15 +773,6 @@ PARAMETERS:
 		Required?					false
 		Position?					6
 		Default value					
-		Accept pipeline input?				true (ByPropertyName)
-		Accept wildcard characters?			false
-
-	-HideWarnings <SwitchParameter>
-		Suppress any warning output to the console
-
-		Required?					false
-		Position?					7
-		Default value					False
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
 
@@ -1651,7 +1825,7 @@ SYNOPSIS:
 DESCRIPTION:
 	USE THIS FUNCTION TO CREATE A SAFE IN CYBERARK
 SYNTAX:
-	Add-VPASSafe [-safe] <String> [[-passwordManager] <String>] [[-numberOfVersionsRetention] <Int32>] [[-numberOfDaysRetention] <Int32>] [[-OLACEnabled]] [[-Description] <String>] [[-HideWarnings]] [[-token] <Hashtable>] [<CommonParameters>]
+	Add-VPASSafe [-safe] <String> [[-passwordManager] <String>] [[-numberOfVersionsRetention] <Int32>] [[-numberOfDaysRetention] <Int32>] [[-OLACEnabled]] [[-Description] <String>] [[-token] <Hashtable>] [<CommonParameters>]
 PARAMETERS:
 	-safe <String>
 		Target unique safe name
@@ -1709,21 +1883,12 @@ PARAMETERS:
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
 
-	-HideWarnings <SwitchParameter>
-		Suppress any warning output to the console
-
-		Required?					false
-		Position?					7
-		Default value					False
-		Accept pipeline input?				true (ByPropertyName)
-		Accept wildcard characters?			false
-
 	-token <Hashtable>
 		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
 		If -token is not passed, function will use last known hashtable generated by New-VPASToken
 
 		Required?					false
-		Position?					8
+		Position?					7
 		Default value					
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
@@ -2088,6 +2253,132 @@ RETURNS:
 
 ```
 FUNCTION:
+	Approve-VPASIncomingRequest
+SYNOPSIS:
+	APPROVE AN INCOMING REQUEST IN CYBERARK
+DESCRIPTION:
+	USE THIS FUNCTION TO APPROVE AN INCOMING REQUEST IN CYBERARK
+SYNTAX:
+	Approve-VPASIncomingRequest [[-RequestedSafe] <String>] [[-RequestedPlatform] <String>] [[-RequestedUsername] <String>] [[-RequestedAddress] <String>] [[-RequestedAcctID] <String>] [[-RequestedReason] <String>] [[-requestID] <String>] [-approveReason] <String> [[-token] <Hashtable>] [[-WhatIf]] [[-HideWhatIfOutput]] [<CommonParameters>]
+PARAMETERS:
+	-RequestedSafe <String>
+		Safe name that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedPlatform <String>
+		PlatformID that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					2
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedUsername <String>
+		Username that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					3
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedAddress <String>
+		Address that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					4
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedAcctID <String>
+		Unique ID that maps to a single account, passing this variable will skip query functions to find target account
+
+		Required?					false
+		Position?					5
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedReason <String>
+		Reason that will be used to query and find the target account request
+
+		Required?					false
+		Position?					6
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-requestID <String>
+		Unique ID that maps to a single account request, passing this variable will skip any query functions
+
+		Required?					false
+		Position?					7
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-approveReason <String>
+		Reason for approving the incoming request, will be saved for audit purposes
+
+		Required?					true
+		Position?					8
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					9
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-WhatIf <SwitchParameter>
+		Run code simulation to see what is affected by running the command as well as any possible implications
+		This is a code simulation flag, meaning the command will NOT actually run
+
+		Required?					false
+		Position?					10
+		Default value					False
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-HideWhatIfOutput <SwitchParameter>
+		Suppress any code simulation output from the console
+
+		Required?					false
+		Position?					11
+		Default value					False
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$WhatIfSimulation = Approve-VPASIncomingRequest -RequestedAcctID {ACCTID VALUE} -requestID {REQUESTID VALUE} -approveReason {REASON VALUE} -WhatIf
+	$ApproveIncomingRequestStatus = Approve-VPASIncomingRequest -RequestedAcctID {ACCTID VALUE} -requestID {REQUESTID VALUE} -approveReason {REASON VALUE}
+RETURNS:
+	$true if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
 	Confirm-VPASBulkFile
 SYNOPSIS:
 	VALIDATE CSV FILES FOR BULK OPERATIONS
@@ -2392,6 +2683,132 @@ EXAMPLES:
 	$NewUsagePlatformIDJSON = Copy-VPASUsagePlatform -DuplicateFromUsagePlatformID {DUPLICATE FROM USAGE PLATFORMID VALUE} -NewUsagePlatformID {NEW USAGE PLATFORMID VALUE} -Description {DESCRIPTION VALUE}
 RETURNS:
 	JSON Object (NewUsagePlatformID) if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
+	Deny-VPASIncomingRequest
+SYNOPSIS:
+	DENY AN INCOMING REQUEST IN CYBERARK
+DESCRIPTION:
+	USE THIS FUNCTION TO DENY AN INCOMING REQUEST IN CYBERARK
+SYNTAX:
+	Deny-VPASIncomingRequest [[-RequestedSafe] <String>] [[-RequestedPlatform] <String>] [[-RequestedUsername] <String>] [[-RequestedAddress] <String>] [[-RequestedAcctID] <String>] [[-RequestedReason] <String>] [[-requestID] <String>] [-denyReason] <String> [[-token] <Hashtable>] [[-WhatIf]] [[-HideWhatIfOutput]] [<CommonParameters>]
+PARAMETERS:
+	-RequestedSafe <String>
+		Safe name that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedPlatform <String>
+		PlatformID that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					2
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedUsername <String>
+		Username that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					3
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedAddress <String>
+		Address that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					4
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedAcctID <String>
+		Unique ID that maps to a single account, passing this variable will skip query functions to find target account
+
+		Required?					false
+		Position?					5
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedReason <String>
+		Reason that will be used to query and find the target account request
+
+		Required?					false
+		Position?					6
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-requestID <String>
+		Unique ID that maps to a single account request, passing this variable will skip any query functions
+
+		Required?					false
+		Position?					7
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-denyReason <String>
+		Reason for denying the incoming request, will be saved for audit purposes
+
+		Required?					true
+		Position?					8
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					9
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-WhatIf <SwitchParameter>
+		Run code simulation to see what is affected by running the command as well as any possible implications
+		This is a code simulation flag, meaning the command will NOT actually run
+
+		Required?					false
+		Position?					10
+		Default value					False
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-HideWhatIfOutput <SwitchParameter>
+		Suppress any code simulation output from the console
+
+		Required?					false
+		Position?					11
+		Default value					False
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$WhatIfSimulation = Deny-VPASIncomingRequest -RequestedAcctID {ACCTID VALUE} -requestID {REQUESTID VALUE} -denyReason {REASON VALUE} -WhatIf
+	$DenyIncomingRequestStatus = Deny-VPASIncomingRequest -RequestedAcctID {ACCTID VALUE} -requestID {REQUESTID VALUE} -denyReason {REASON VALUE}
+RETURNS:
+	$true if successful
 	$false if failed
 
 ```
@@ -2923,7 +3340,7 @@ SYNOPSIS:
 DESCRIPTION:
 	USE THIS FUNCTION TO GET DETAILS OF AN ACCOUNT IN CYBERARK
 SYNTAX:
-	Get-VPASAccountDetails [[-safe] <String>] [[-platform] <String>] [[-username] <String>] [[-address] <String>] [[-AcctID] <String>] [[-token] <Hashtable>] [[-SavedFilter] <String>] [[-HideWarnings]] [<CommonParameters>]
+	Get-VPASAccountDetails [[-safe] <String>] [[-platform] <String>] [[-username] <String>] [[-address] <String>] [[-AcctID] <String>] [[-token] <Hashtable>] [[-ExactMatch]] [[-SavedFilter] <String>] [<CommonParameters>]
 PARAMETERS:
 	-safe <String>
 		Safe name that will be used to query for the target account if no AcctID is passed
@@ -2980,22 +3397,22 @@ PARAMETERS:
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
 
+	-ExactMatch <SwitchParameter>
+		Returns accounts that match search query exactly (not a wildcard search)
+
+		Required?					false
+		Position?					7
+		Default value					False
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
 	-SavedFilter <String>
 		Returns accounts based on a prebuilt search query
 		Possible values: "Regular", "Recently", "New", "Link", "Deleted", "PolicyFailures", "AccessedByUsers", "ModifiedByUsers", "ModifiedByCPM", "DisabledPasswordByUser", "DisabledPasswordByCPM", "ScheduledForChange", "ScheduledForVerify", "ScheduledForReconcile", "SuccessfullyReconciled", "FailedChange", "FailedVerify", "FailedReconcile", "LockedOrNew", "Locked", "Favorites"
 
 		Required?					false
-		Position?					7
-		Default value					
-		Accept pipeline input?				true (ByPropertyName)
-		Accept wildcard characters?			false
-
-	-HideWarnings <SwitchParameter>
-		Suppress any warning output to the console
-
-		Required?					false
 		Position?					8
-		Default value					False
+		Default value					
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
 
@@ -3228,6 +3645,104 @@ RETURNS:
 
 ```
 FUNCTION:
+	Get-VPASAccountRequestDetails
+SYNOPSIS:
+	GET ACCOUNT REQUEST DETAILS
+DESCRIPTION:
+	USE THIS FUNCTION TO GET THE DETAILS OF AN EXISTING ACCOUNT REQUEST
+SYNTAX:
+	Get-VPASAccountRequestDetails [[-RequestedSafe] <String>] [[-RequestedPlatform] <String>] [[-RequestedUsername] <String>] [[-RequestedAddress] <String>] [[-RequestedAcctID] <String>] [[-RequestedReason] <String>] [[-requestID] <String>] [[-token] <Hashtable>] [<CommonParameters>]
+PARAMETERS:
+	-RequestedSafe <String>
+		Safe name that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedPlatform <String>
+		PlatformID that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					2
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedUsername <String>
+		Username that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					3
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedAddress <String>
+		Address that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					4
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedAcctID <String>
+		Unique ID that maps to a single account, passing this variable will skip query functions to find target account
+
+		Required?					false
+		Position?					5
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedReason <String>
+		Reason that will be used to query and find the target account request
+
+		Required?					false
+		Position?					6
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-requestID <String>
+		Unique ID that maps to a single account request, passing this variable will skip any query functions
+
+		Required?					false
+		Position?					7
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					8
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$AccountRequestDetailsJSON = Get-VPASAccountRequestDetails -RequestedUsername {USERNAME VALUE} -RequestedReason {REASON VALUE}
+	$AccountRequestDetailsJSON = Get-VPASAccountRequestDetails -requestID {REQUESTID VALUE}
+RETURNS:
+	JSON Object (AccountRequestDetails) if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
 	Get-VPASActiveSessionActivities
 SYNOPSIS:
 	GET ACTIVE SESSION ACTIVITIES
@@ -3376,6 +3891,58 @@ EXAMPLES:
 	$GetActiveSessionsJSON = Get-VPASActiveSessions -SearchQuery {SEARCHQUERY VALUE}
 RETURNS:
 	JSON Object (ActiveSessions) if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
+	Get-VPASAllAccountRequests
+SYNOPSIS:
+	GET ALL ACCOUNT REQUESTS
+DESCRIPTION:
+	USE THIS FUNCTION TO RETRIEVE ALL ACCOUNT REQUESTS MADE BY USER
+SYNTAX:
+	Get-VPASAllAccountRequests [[-IncludeExpiredRequests]] [[-OnlyPendingRequests]] [[-token] <Hashtable>] [<CommonParameters>]
+PARAMETERS:
+	-IncludeExpiredRequests <SwitchParameter>
+		Switch if to include account requests that have already expired
+
+		Required?					false
+		Position?					1
+		Default value					False
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-OnlyPendingRequests <SwitchParameter>
+		Switch if to only return account requests that are still pending an approval
+
+		Required?					false
+		Position?					2
+		Default value					False
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					3
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$AllAccountRequestsJSON = Get-VPASAllAccountRequests -IncludeExpiredRequests
+RETURNS:
+	JSON Object (AllAccountRequests) if successful
 	$false if failed
 
 ```
@@ -3595,6 +4162,40 @@ RETURNS:
 
 ```
 FUNCTION:
+	Get-VPASAllEPVUsers
+SYNOPSIS:
+	GET ALL EPV USERS
+DESCRIPTION:
+	USE THIS FUNCTION TO GET ALL EPV USERS
+SYNTAX:
+	Get-VPASAllEPVUsers [[-token] <Hashtable>] [<CommonParameters>]
+PARAMETERS:
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$AllEPVUsersJSON = Get-VPASAllEPVUsers
+RETURNS:
+	JSON Object (AllEPVUsers) if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
 	Get-VPASAllGroupPlatforms
 SYNOPSIS:
 	GET ALL GROUP PLATFORMS
@@ -3623,6 +4224,92 @@ EXAMPLES:
 	$AllGroupPlatformsJSON = Get-VPASAllGroupPlatforms
 RETURNS:
 	JSON Object (AllGroupPlatforms) if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
+	Get-VPASAllIncomingRequests
+SYNOPSIS:
+	GET ALL INCOMING REQUESTS
+DESCRIPTION:
+	USE THIS FUNCTION TO RETRIEVE ALL INCOMING REQUESTS MADE BY USERS
+SYNTAX:
+	Get-VPASAllIncomingRequests [[-IncludeExpiredRequests]] [[-OnlyPendingRequests]] [[-token] <Hashtable>] [<CommonParameters>]
+PARAMETERS:
+	-IncludeExpiredRequests <SwitchParameter>
+		Switch if to include incoming requests that have already expired
+
+		Required?					false
+		Position?					1
+		Default value					False
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-OnlyPendingRequests <SwitchParameter>
+		Switch if to only return incoming requests that are still pending an approval
+
+		Required?					false
+		Position?					2
+		Default value					False
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					3
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$AllIncomingRequestsJSON = Get-VPASAllIncomingRequests -IncludeExpiredRequests
+RETURNS:
+	JSON Object (AllIncomingRequests) if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
+	Get-VPASAllowedIPs
+SYNOPSIS:
+	GET ALLOWED IPS
+DESCRIPTION:
+	USE THIS FUNCTION TO GET ALLOWED IPS FROM PRIVILEGE CLOUD SHARED SERVICES
+SYNTAX:
+	Get-VPASAllowedIPs [[-token] <Hashtable>] [<CommonParameters>]
+PARAMETERS:
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$AllowedIPsJSON = Get-VPASAllowedIPs
+RETURNS:
+	JSON Object (AllowedIPs) if successful
 	$false if failed
 
 ```
@@ -3688,7 +4375,7 @@ PARAMETERS:
 		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
 
 EXAMPLES:
-	$AllPlatformDetailsJSON = Get-VPASPlatformDetails
+	$AllPlatformDetailsJSON = Get-VPASAllPlatforms
 RETURNS:
 	JSON Object (AllPlatforms) if successful
 	$false if failed
@@ -3836,6 +4523,40 @@ EXAMPLES:
 	$AllSafesJSON = Get-VPASAllSafes -IncludeAccounts
 RETURNS:
 	JSON Object (AllSafes) if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
+	Get-VPASAllTargetPlatforms
+SYNOPSIS:
+	GET ALL TARGET PLATFORMS DETAILS
+DESCRIPTION:
+	USE THIS FUNCTION TO GET DETAILS ABOUT ALL TARGET PLATFORMS IN CYBERARK
+SYNTAX:
+	Get-VPASAllTargetPlatforms [[-token] <Hashtable>] [<CommonParameters>]
+PARAMETERS:
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$AllTargetPlatformDetailsJSON = Get-VPASAllTargetPlatforms
+RETURNS:
+	JSON Object (AllTargetPlatforms) if successful
 	$false if failed
 
 ```
@@ -4311,7 +5032,7 @@ SYNOPSIS:
 DESCRIPTION:
 	USE THIS FUNCTION TO GET DISCOVERED ACCOUNTS DEPENDENCIES IN THE PENDING SAFE LIST
 SYNTAX:
-	Get-VPASDiscoveredAccountsDependencies [[-SearchQuery] <String>] [[-PlatformType] <String>] [[-Privileged] <String>] [[-Enabled] <String>] [[-AcctID] <String>] [[-token] <Hashtable>] [[-HideWarnings]] [[-Confirm]] [<CommonParameters>]
+	Get-VPASDiscoveredAccountsDependencies [[-SearchQuery] <String>] [[-PlatformType] <String>] [[-Privileged] <String>] [[-Enabled] <String>] [[-AcctID] <String>] [[-token] <Hashtable>] [[-Confirm]] [<CommonParameters>]
 PARAMETERS:
 	-SearchQuery <String>
 		Search string to find target resource via username, address, safe, platform, etc.
@@ -4372,20 +5093,11 @@ PARAMETERS:
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
 
-	-HideWarnings <SwitchParameter>
-		Suppress any warning output to the console
-
-		Required?					false
-		Position?					7
-		Default value					False
-		Accept pipeline input?				true (ByPropertyName)
-		Accept wildcard characters?			false
-
 	-Confirm <SwitchParameter>
 		Skip the confirmation prompt confirming to run against all discovered accounts
 
 		Required?					false
-		Position?					8
+		Position?					7
 		Default value					False
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
@@ -5096,6 +5808,104 @@ RETURNS:
 
 ```
 FUNCTION:
+	Get-VPASIncomingRequestDetails
+SYNOPSIS:
+	GET INCOMING REQUEST DETAILS
+DESCRIPTION:
+	USE THIS FUNCTION TO GET THE DETAILS OF AN EXISTING INCOMING REQUEST
+SYNTAX:
+	Get-VPASIncomingRequestDetails [[-RequestedSafe] <String>] [[-RequestedPlatform] <String>] [[-RequestedUsername] <String>] [[-RequestedAddress] <String>] [[-RequestedAcctID] <String>] [[-RequestedReason] <String>] [[-requestID] <String>] [[-token] <Hashtable>] [<CommonParameters>]
+PARAMETERS:
+	-RequestedSafe <String>
+		Safe name that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedPlatform <String>
+		PlatformID that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					2
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedUsername <String>
+		Username that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					3
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedAddress <String>
+		Address that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					4
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedAcctID <String>
+		Unique ID that maps to a single account, passing this variable will skip query functions to find target account
+
+		Required?					false
+		Position?					5
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedReason <String>
+		Reason that will be used to query and find the target account request
+
+		Required?					false
+		Position?					6
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-requestID <String>
+		Unique ID that maps to a single incoming request, passing this variable will skip any query functions
+
+		Required?					false
+		Position?					7
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					8
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$IncomingRequestDetailsJSON = Get-VPASIncomingRequestDetails -RequestedUsername {USERNAME VALUE} -RequestedReason {REASON VALUE}
+	$IncomingRequestDetailsJSON = Get-VPASIncomingRequestDetails -requestID {REQUESTID VALUE}
+RETURNS:
+	JSON Object (IncomingRequestDetails) if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
 	Get-VPASPasswordHistory
 SYNOPSIS:
 	GET PASSWORD HISTORY
@@ -5549,7 +6359,7 @@ SYNOPSIS:
 DESCRIPTION:
 	USE THIS FUNCTION TO GET PSM SESSIONS
 SYNTAX:
-	Get-VPASPSMSessions [-SearchQuery] <String> [[-token] <Hashtable>] [<CommonParameters>]
+	Get-VPASPSMSessions [-SearchQuery] <String> [[-FromTime] <String>] [[-ToTime] <String>] [[-token] <Hashtable>] [<CommonParameters>]
 PARAMETERS:
 	-SearchQuery <String>
 		Search string to find target resource via username, address, safe, platform, etc.
@@ -5561,12 +6371,32 @@ PARAMETERS:
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
 
+	-FromTime <String>
+		Optional parameter to find target recordings based by Date Range
+		Start date must be in epoch format
+
+		Required?					false
+		Position?					2
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-ToTime <String>
+		Optional parameter to find target recordings based by Date Range
+		End date must be in epoch format
+
+		Required?					false
+		Position?					3
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
 	-token <Hashtable>
 		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
 		If -token is not passed, function will use last known hashtable generated by New-VPASToken
 
 		Required?					false
-		Position?					2
+		Position?					4
 		Default value					
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
@@ -6304,9 +7134,52 @@ RETURNS:
 
 ```
 FUNCTION:
+	Import-VPASConnectionComponent
+SYNOPSIS:
+	IMPORT CONNECTION COMPONENT TO CYBERARK
+DESCRIPTION:
+	USE THIS FUNCTION TO IMPORT A CONNECTION COMPONENT TO CYBERARK
+SYNTAX:
+	Import-VPASConnectionComponent [-ZipPath] <String> [[-token] <Hashtable>] [<CommonParameters>]
+PARAMETERS:
+	-ZipPath <String>
+		The location of the zip file containing connection component details files
+
+		Required?					true
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					2
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$ImportConnectionComponentJSON = Import-VPASConnectionComponent -ZipPath {C:\ExampleDir\ExampleConnectionComponent.zip}
+RETURNS:
+	JSON Object (ImportConnectionComponent) if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
 	Import-VPASPlatform
 SYNOPSIS:
-	IMPORT PLATFORM FROM CYBERARK
+	IMPORT PLATFORM TO CYBERARK
 DESCRIPTION:
 	USE THIS FUNCTION TO IMPORT A PLATFORM FROM CYBERARK
 SYNTAX:
@@ -6353,7 +7226,7 @@ SYNOPSIS:
 DESCRIPTION:
 	USE THIS FUNCTION TO TRIGGER A VERIFY/RECONCILE/CHANGE/CHANGE SPECIFY NEXT PASSWORD/CHANGE ONLY IN VAULT/GENERATE PASSWORD ACTIONS ON AN ACCOUNT IN CYBERARK
 SYNTAX:
-	Invoke-VPASAccountPasswordAction [-action] <String> [[-newPass] <String>] [[-safe] <String>] [[-platform] <String>] [[-username] <String>] [[-address] <String>] [[-AcctID] <String>] [[-HideWarnings]] [[-token] <Hashtable>] [<CommonParameters>]
+	Invoke-VPASAccountPasswordAction [-action] <String> [[-newPass] <String>] [[-safe] <String>] [[-platform] <String>] [[-username] <String>] [[-address] <String>] [[-AcctID] <String>] [[-token] <Hashtable>] [<CommonParameters>]
 PARAMETERS:
 	-action <String>
 		Specify what action will be run on the account
@@ -6419,21 +7292,12 @@ PARAMETERS:
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
 
-	-HideWarnings <SwitchParameter>
-		Suppress any warning output to the console
-
-		Required?					false
-		Position?					8
-		Default value					False
-		Accept pipeline input?				true (ByPropertyName)
-		Accept wildcard characters?			false
-
 	-token <Hashtable>
 		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
 		If -token is not passed, function will use last known hashtable generated by New-VPASToken
 
 		Required?					false
-		Position?					9
+		Position?					8
 		Default value					
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
@@ -6548,6 +7412,273 @@ EXAMPLES:
 	$RunAuditSafeTests = Invoke-VPASAuditSafeTest
 RETURNS:
 	$true if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
+	Invoke-VPASMetricsAccounts
+SYNOPSIS:
+	RUN VARIOUS ACCOUNTS METRICS FROM CYBERARK
+DESCRIPTION:
+	USE THIS FUNCTION TO GENERATE VARIOUS ACCOUNT RELATED METRICS FROM CYBERARK
+SYNTAX:
+	Invoke-VPASMetricsAccounts [-TargetMetric] <String> [-MetricFormat] <String> [[-OutputDirectory] <String>] [[-HTMLChart] <String>] [[-DayRange] <String>] [[-AmtOfSets] <String>] [[-token] <Hashtable>] [<CommonParameters>]
+PARAMETERS:
+	-TargetMetric <String>
+		Specify which report will be run
+		Possible values: OnboardedAccountTypes, AccountsOnboardedXDays, AccountComplianceStatus
+
+		Required?					true
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-MetricFormat <String>
+		Specify the report output format
+		NONE will return the generated hashtable of data that can be assigned to a variable
+		Possible values: JSON, HTML, ALL, NONE
+
+		Required?					true
+		Position?					2
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-OutputDirectory <String>
+		Specify where the location for report output to be saved
+
+		Required?					false
+		Position?					3
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-HTMLChart <String>
+		Specify the HTML report type
+		Possible values: BarGraph, LineGraph, PieChart, ALL
+
+		Required?					false
+		Position?					4
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-DayRange <String>
+		Specify the date range for the selected metric report
+
+		Required?					false
+		Position?					5
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-AmtOfSets <String>
+		Specify the length of historic data to be included in the metric report
+
+		Required?					false
+		Position?					6
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					7
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$GenerateReport = Invoke-VPASMetricsAccounts -TargetMetric OnboardedAccountTypes -OutputDirectory "C:\temp\VPASMetrics" -MetricFormat ALL -HTMLChart ALL
+RETURNS:
+	HashTable object if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
+	Invoke-VPASMetricsCPM
+SYNOPSIS:
+	RUN VARIOUS CPM METRICS FROM CYBERARK
+DESCRIPTION:
+	USE THIS FUNCTION TO GENERATE VARIOUS CPM RELATED METRICS FROM CYBERARK
+SYNTAX:
+	Invoke-VPASMetricsCPM [-TargetMetric] <String> [-MetricFormat] <String> [[-OutputDirectory] <String>] [[-HTMLChart] <String>] [[-token] <Hashtable>] [<CommonParameters>]
+PARAMETERS:
+	-TargetMetric <String>
+		Specify which report will be run
+		Possible values: CPMAssignedToSafes, CPMAssignedToAccounts, CPMAccountManagementStatus
+
+		Required?					true
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-MetricFormat <String>
+		Specify the report output format
+		NONE will return the generated hashtable of data that can be assigned to a variable
+		Possible values: JSON, HTML, ALL, NONE
+
+		Required?					true
+		Position?					2
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-OutputDirectory <String>
+		Specify where the location for report output to be saved
+
+		Required?					false
+		Position?					3
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-HTMLChart <String>
+		Specify the HTML report type
+		Possible values: BarGraph, LineGraph, PieChart, ALL
+
+		Required?					false
+		Position?					4
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					5
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$GenerateReport = Invoke-VPASMetricsCPM -TargetMetric CPMAssignedToSafes -OutputDirectory "C:\temp\VPASMetrics" -MetricFormat ALL -HTMLChart ALL
+RETURNS:
+	HashTable object if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
+	Invoke-VPASMetricsPSM
+SYNOPSIS:
+	RUN VARIOUS PSM METRICS FROM CYBERARK
+DESCRIPTION:
+	USE THIS FUNCTION TO GENERATE VARIOUS PSM RELATED METRICS FROM CYBERARK
+SYNTAX:
+	Invoke-VPASMetricsPSM [-TargetMetric] <String> [-MetricFormat] <String> [[-OutputDirectory] <String>] [-DayRange] <String> [[-AmtOfSets] <String>] [[-HTMLChart] <String>] [[-AmtOfUsers] <String>] [[-token] <Hashtable>] [<CommonParameters>]
+PARAMETERS:
+	-TargetMetric <String>
+		Specify which report will be run
+		Possible values: PSMSessionsInXDays, PSMUtilizationForXDays, PSMConnectionComponentsInXDays, UsersConnectingWithPSMInXDays
+
+		Required?					true
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-MetricFormat <String>
+		Specify the report output format
+		NONE will return the generated hashtable of data that can be assigned to a variable
+		Possible values: JSON, HTML, ALL, NONE
+
+		Required?					true
+		Position?					2
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-OutputDirectory <String>
+		Specify where the location for report output to be saved
+
+		Required?					false
+		Position?					3
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-DayRange <String>
+		Specify the date range for the selected metric report
+
+		Required?					true
+		Position?					4
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-AmtOfSets <String>
+		Specify the length of historic data to be included in the metric report
+
+		Required?					false
+		Position?					5
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-HTMLChart <String>
+		Specify the HTML report type
+		Possible values: BarGraph, LineGraph, PieChart, ALL
+
+		Required?					false
+		Position?					6
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-AmtOfUsers <String>
+		Specify the amount of users to be included in the metric
+
+		Required?					false
+		Position?					7
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					8
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$GenerateReport = Invoke-VPASMetricsPSM -TargetMetric PSMSessionsInXDays -OutputDirectory "C:\temp\VPASMetrics" -MetricFormat ALL -HTMLChart ALL -DayRange 7 -AmtOfSets 8
+RETURNS:
+	HashTable object if successful
 	$false if failed
 
 ```
@@ -6709,6 +7840,40 @@ EXAMPLES:
 	$VReporting = Invoke-VPASReporting -ReportType {REPORTTYPE VALUE} -ReportFormat {REPORTFORMAT VALUE} -SearchQuery {SEARCHQUERY VALUE} -OutputDirectory {OUTPUTDIRECTORY VALUE}
 RETURNS:
 	$true if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
+	Invoke-VPASUserLicenseReport
+SYNOPSIS:
+	GET ACTIVE SESSIONS
+DESCRIPTION:
+	USE THIS FUNCTION TO GET ACTIVE PSM SESSIONS
+SYNTAX:
+	Invoke-VPASUserLicenseReport [[-token] <Hashtable>] [<CommonParameters>]
+PARAMETERS:
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$GetActiveSessionsJSON = Get-VPASActiveSessions -SearchQuery {SEARCHQUERY VALUE}
+RETURNS:
+	JSON Object (ActiveSessions) if successful
 	$false if failed
 
 ```
@@ -6891,7 +8056,7 @@ SYNOPSIS:
 DESCRIPTION:
 	USE THIS FUNCTION TO AUTHENTICATE INTO CYBERARK VIA ONPREM (RADIUS, CYBERARK, WINDOWS, SAML, LDAP) OR ISPSS (CYBERARK, OAUTH)
 SYNTAX:
-	New-VPASToken [-PVWA] <String> [-AuthType] <String> [[-creds] <PSCredential>] [[-HideAscii]] [[-NoSSL]] [[-InitiateCookie]] [[-IDPLogin] <String>] [[-IdentityURL] <String>] [[-EnableTextRecorder]] [<CommonParameters>]
+	New-VPASToken [-PVWA] <String> [-AuthType] <String> [[-creds] <PSCredential>] [[-HideAscii]] [[-NoSSL]] [[-InitiateCookie]] [[-IDPLogin] <String>] [[-IdentityURL] <String>] [[-EnableTextRecorder]] [[-HideWarnings]] [<CommonParameters>]
 PARAMETERS:
 	-PVWA <String>
 		The fully qualified domain name of the PVWA server for SelfHosted environments: server1.vman.com
@@ -6975,6 +8140,15 @@ PARAMETERS:
 
 		Required?					false
 		Position?					9
+		Default value					False
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-HideWarnings <SwitchParameter>
+		Hide any warning outputs from the console during the API session
+
+		Required?					false
+		Position?					10
 		Default value					False
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
@@ -7217,6 +8391,123 @@ EXAMPLES:
 	$WhatIfSimulation = Remove-VPASAccountFromAccountGroup -GroupID {GROUPID VALUE} -AcctID {ACCTID VALUE} -WhatIf
 	$DeleteAccountFromAccountGroupStatus = Remove-VPASAccountFromAccountGroup -GroupID {GROUPID VALUE} -AcctID {ACCTID VALUE}
 	$DeleteAccountFromAccountGroupStatus = Remove-VPASAccountFromAccountGroup -GroupID {GROUPID VALUE} -safe {SAFE VALUE} -platform {PLATFORM VALUE} -username {USERNAME VALUE} -address {ADDRESS VALUE}
+RETURNS:
+	$true if successful
+	$false if failed
+
+```
+
+```
+FUNCTION:
+	Remove-VPASAccountRequest
+SYNOPSIS:
+	DELETE AN ACCOUNT REQUEST IN CYBERARK
+DESCRIPTION:
+	USE THIS FUNCTION TO DELETE AN EXISTING ACCOUNT REQUEST IN CYBERARK
+SYNTAX:
+	Remove-VPASAccountRequest [[-RequestedSafe] <String>] [[-RequestedPlatform] <String>] [[-RequestedUsername] <String>] [[-RequestedAddress] <String>] [[-RequestedAcctID] <String>] [[-RequestedReason] <String>] [[-requestID] <String>] [[-token] <Hashtable>] [[-WhatIf]] [[-HideWhatIfOutput]] [<CommonParameters>]
+PARAMETERS:
+	-RequestedSafe <String>
+		Safe name that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					1
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedPlatform <String>
+		PlatformID that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					2
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedUsername <String>
+		Username that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					3
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedAddress <String>
+		Address that will be used to query for the target account if no AcctID is passed
+
+		Required?					false
+		Position?					4
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedAcctID <String>
+		Unique ID that maps to a single account, passing this variable will skip query functions to find target account
+
+		Required?					false
+		Position?					5
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-RequestedReason <String>
+		Reason that will be used to query and find the target account request
+
+		Required?					false
+		Position?					6
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-requestID <String>
+		Unique ID that maps to a single account request, passing this variable will skip any query functions
+
+		Required?					false
+		Position?					7
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-token <Hashtable>
+		HashTable of data containing various pieces of login information (PVWA, LoginToken, HeaderType, etc).
+		If -token is not passed, function will use last known hashtable generated by New-VPASToken
+
+		Required?					false
+		Position?					8
+		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-WhatIf <SwitchParameter>
+		Run code simulation to see what is affected by running the command as well as any possible implications
+		This is a code simulation flag, meaning the command will NOT actually run
+
+		Required?					false
+		Position?					9
+		Default value					False
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-HideWhatIfOutput <SwitchParameter>
+		Suppress any code simulation output from the console
+
+		Required?					false
+		Position?					10
+		Default value					False
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	<CommonParameters>
+		This cmdlet supports the common parameters: Verbose, Debug,
+		ErrorAction, ErrorVariable, WarningAction, WarningVariable,
+		OutBuffer, PipelineVariable, and OutVariable. For more information, see
+		about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
+
+EXAMPLES:
+	$WhatIfSimulation = Remove-VPASAccountRequest -RequestedAcctID {ACCTID VALUE} -requestID {REQUESTID VALUE} -WhatIf
+	$DeleteAccountRequestStatus = Remove-VPASAccountRequest -RequestedUsername {USERNAME VALUE} -RequestedReason {REASON VALUE}
 RETURNS:
 	$true if successful
 	$false if failed
@@ -10575,7 +11866,7 @@ SYNOPSIS:
 DESCRIPTION:
 	OUTPUTS MESSAGES
 SYNTAX:
-	Write-VPASOutput [-str] <String> [-type] <String> [<CommonParameters>]
+	Write-VPASOutput [-str] <String> [-type] <String> [[-Initialized]] [<CommonParameters>]
 PARAMETERS:
 	-str <String>
 		Target string that will be displayed
@@ -10593,6 +11884,15 @@ PARAMETERS:
 		Required?					true
 		Position?					2
 		Default value					
+		Accept pipeline input?				true (ByPropertyName)
+		Accept wildcard characters?			false
+
+	-Initialized <SwitchParameter>
+		Backend flag to not parse New-VPASToken variables
+
+		Required?					false
+		Position?					3
+		Default value					False
 		Accept pipeline input?				true (ByPropertyName)
 		Accept wildcard characters?			false
 
