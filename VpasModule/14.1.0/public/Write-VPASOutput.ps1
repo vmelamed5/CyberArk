@@ -9,6 +9,8 @@
 .PARAMETER type
    The type of the message (Red for errors, Yellow for user input, Magenta for extra information, etc.)
    Possible values: C, G, M, E, Y, S
+.PARAMETER Initialized
+   Backend flag to not parse New-VPASToken variables
 .EXAMPLE
    $str = Write-VPASOutput -str "EXAMPLE ERROR MESSAGE" -type E
 .EXAMPLE
