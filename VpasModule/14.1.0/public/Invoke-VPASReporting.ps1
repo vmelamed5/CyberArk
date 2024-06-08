@@ -218,10 +218,10 @@ function Invoke-VPASReporting{
                 Write-Verbose "QUERYING CYBERARK FOR ACCOUNTS IN TARGET SAFE(S)"
                 foreach($safe in $TargetSafes){
                     if($NoSSL){
-                        $FoundAccounts = Get-VPASAccountDetails -token $token -safe $safe -HideWarnings
+                        $FoundAccounts = Get-VPASAccountDetails -token $token -safe $safe
                     }
                     else{
-                        $FoundAccounts = Get-VPASAccountDetails -token $token -safe $safe -HideWarnings
+                        $FoundAccounts = Get-VPASAccountDetails -token $token -safe $safe
                     }
 
                     if(!$FoundAccounts){
