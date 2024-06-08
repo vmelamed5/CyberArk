@@ -102,7 +102,7 @@ function Remove-VPASApplication{
                     foreach($safe in $WhatIfAffectedSafes){
                         $miniHash = @{}
 
-                        $AffectedAccounts = Get-VPASAccountDetails -safe $safe -HideWarnings -token $token
+                        $AffectedAccounts = Get-VPASAccountDetails -safe $safe -HideWarning -token $token
 
                         foreach($AffectedAcct in $AffectedAccounts.value){
                             $AffectedAcctSafe = $AffectedAcct.safeName
