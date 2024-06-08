@@ -101,7 +101,7 @@ function Remove-VPASPlatform{
 
                             $WhatIfCounter = 0
                             $WhatIfAccountsAffected = @()
-                            $AffectedAccounts = Get-VPASAccountDetails -platform $WhatIfPlatPlatformID -HideWarnings -token $token
+                            $AffectedAccounts = Get-VPASAccountDetails -platform $WhatIfPlatPlatformID -HideWarning -token $token
                             foreach($AffectedAcct in $AffectedAccounts.value){
                                 $AffectedAcctPlatformID = $AffectedAcct.platformId
                                 if($AffectedAcctPlatformID -eq $WhatIfPlatPlatformID){
