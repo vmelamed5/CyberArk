@@ -99,7 +99,7 @@ function Remove-VPASSafeMember{
                     $WhatIfCounter = 0
                     $WhatIfAccountsAffected = @()
 
-                    $AffectedAccounts = Get-VPASAccountDetails -safe $safe -HideWarnings -token $token
+                    $AffectedAccounts = Get-VPASAccountDetails -safe $safe -HideWarning -token $token
 
                     foreach($AffectedAcct in $AffectedAccounts.value){
                         $AffectedAcctSafe = $AffectedAcct.safeName
