@@ -19,6 +19,8 @@
    Unique ID that maps to a single account, passing this variable will skip any query functions
 .PARAMETER ExactMatch
    Returns accounts that match search query exactly (not a wildcard search)
+.PARAMETER HideWarning
+   Hide any warning outputs from the console during the API session
 .PARAMETER SavedFilter
    Returns accounts based on a prebuilt search query
    Possible values: "Regular", "Recently", "New", "Link", "Deleted", "PolicyFailures", "AccessedByUsers", "ModifiedByUsers", "ModifiedByCPM", "DisabledPasswordByUser", "DisabledPasswordByCPM", "ScheduledForChange", "ScheduledForVerify", "ScheduledForReconcile", "SuccessfullyReconciled", "FailedChange", "FailedVerify", "FailedReconcile", "LockedOrNew", "Locked", "Favorites"
@@ -57,6 +59,9 @@ function Get-VPASAccountDetails{
         [Switch]$ExactMatch,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=7)]
+        [Switch]$HideWarning,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=8)]
         [ValidateSet('Regular','Recently','New','Link','Deleted','PolicyFailures','AccessedByUsers','ModifiedByUsers','ModifiedByCPM','DisabledPasswordByUser','DisabledPasswordByCPM','ScheduledForChange','ScheduledForVerify','ScheduledForReconcile','SuccessfullyReconciled','FailedChange','FailedVerify','FailedReconcile','LockedOrNew','Locked','Favorites')]
         [String]$SavedFilter
     )
@@ -231,12 +236,16 @@ function Get-VPASAccountDetails{
 
                     $counter = $result.count
                     if($counter -gt 1){
-                        Write-VPASOutput -str "MULTIPLE ENTRIES FOUND, ADD MORE SEARCH FIELDS TO NARROW DOWN RESULTS" -type M
+                        if(!$HideWarning){
+                            Write-VPASOutput -str "MULTIPLE ENTRIES FOUND, ADD MORE SEARCH FIELDS TO NARROW DOWN RESULTS" -type M
+                        }
                         Write-Verbose "MULTIPLE RECORDS WERE RETURNED, ADD MORE SEARCH FIELDS TO NARROW DOWN RESULTS"
                     }
                     elseif($counter -eq 0){
                         Write-Verbose "NO ACCOUNTS FOUND WITH SPECIFIED PARAMETERS"
-                        Write-VPASOutput -str "NO ACCOUNTS FOUND" -type M
+                        if(!$HideWarning){
+                            Write-VPASOutput -str "NO ACCOUNTS FOUND" -type M
+                        }
                         $log = Write-VPASTextRecorder -inputval "NO ACCOUNTS FOUND" -token $token -LogType MISC
                         $log = Write-VPASTextRecorder -inputval "REST API COMMAND RETURNED: FALSE" -token $token -LogType MISC
                         return $false
@@ -275,7 +284,9 @@ function Get-VPASAccountDetails{
             $log = Write-VPASTextRecorder -inputval $_ -token $token -LogType ERROR
             $log = Write-VPASTextRecorder -inputval "REST API COMMAND RETURNED: FALSE" -token $token -LogType MISC
             Write-Verbose "COULD NOT GET ACCOUNT DETAILS"
-            Write-VPASOutput -str $_ -type E
+            if(!$HideWarning){
+                Write-VPASOutput -str $_ -type E
+            }
             return $false
         }
     }
