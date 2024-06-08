@@ -119,7 +119,7 @@ function Remove-VPASAccount{
                     $WhatIfHash = @{}
                     Write-Verbose "INITIATING COMMAND SIMULATION"
 
-                    $WhatIfInfo = Get-VPASAccountDetails -AcctID $AcctID -token $token -HideWarnings
+                    $WhatIfInfo = Get-VPASAccountDetails -AcctID $AcctID -token $token -HideWarning
                     $WhatIfPlatformID = $WhatIfInfo.platformId
                     $WhatIfSafeName = $WhatIfInfo.safeName
                     $WhatIfID = $WhatIfInfo.id
