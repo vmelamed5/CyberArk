@@ -1,9 +1,11 @@
+# ***WORK IN PROGRESS***
+
 # VPasModule
 - CREATED BY: Vadim Melamed
 - EMAIL: vmelamed5@gmail.com
 
 # Version
-- 14.2.0 ***WORK IN PROGRESS***
+- 14.2.0
 
 # How To Use VPasModule
 - Step1: Install VPasModule from github or from Powershell Gallery https://www.powershellgallery.com/packages/VpasModule/14.2.0
