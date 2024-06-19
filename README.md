@@ -17,6 +17,7 @@
 - 13.2 (SelfHosted + PrivilegeCloud + Identity)
 - 14.0 (SelfHosted + PrivilegeCloud + Identity)
 - 14.1 (SelfHosted + PrivilegeCloud + Identity)
+- 14.2 (SelfHosted + PrivilegeCloudStandard + SharedServices (ISPSS) + Identity)
 
 # Documentation
 - Find version specific README.md inside a specific version for more documentation
