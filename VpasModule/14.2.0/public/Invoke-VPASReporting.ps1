@@ -12,7 +12,7 @@
    Comma separated for multiple fields, or to search all pass a blank value like so: " "
 .PARAMETER ReportType
    Specify which report will be run
-   Possible values: SafeContent, SafeMembers, PlatformDetails, EPVUsers
+   Possible values: SafeContent, SafeMembers, PlatformDetails, EPVUsers, PlatformLinkedAccounts, ApplicationIDAuthentications
 .PARAMETER ReportFormat
    Specify what format the report output should be
    Possible values: CSV, JSON, TXT, HTML, XML, ALL
@@ -41,7 +41,7 @@ function Invoke-VPASReporting{
     Param(
 
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,HelpMessage="Enter ReportType to be generated (SafeContent, SafeMembers, PlatformDetails, EPVUsers, ApplicationIDAuthentications, PlatformLinkedAccounts)",Position=0)]
-        [ValidateSet('SafeContent','SafeMembers','PlatformDetails','EPVUsers','ApplicationIDAuthentications')]
+        [ValidateSet('SafeContent','SafeMembers','PlatformDetails','EPVUsers','ApplicationIDAuthentications','PlatformLinkedAccounts')]
         [String]$ReportType,
 
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,HelpMessage="Enter ReportOutput type (CSV, JSON, TXT, HTML, XML, ALL)",Position=1)]
@@ -2299,7 +2299,7 @@ function Invoke-VPASReporting{
                         }
                     }
                 }
-                
+
                 $Data = @{}
                 $counter = 1
                 $uniqueIDs = @()
@@ -2426,6 +2426,198 @@ function Invoke-VPASReporting{
                 }
                 if($ReportFormat -eq "XML" -or $ReportFormat -eq "ALL"){
                     $targetFile = "$OutputDirectory\ApplicationIDAuthentications.xml"
+
+                    $xmloutput = $output | ConvertTo-Json
+                    $xmloutput = $xmloutput | ConvertFrom-Json
+                    $XML = ConvertTo-Xml -As Stream -InputObject $xmloutput -Depth 3 -NoTypeInformation
+                    Out-File -FilePath $targetFile -InputObject $XML
+
+                    if(!$HideOutput){ Write-VPASOutput -str "FINISHED EXPORTING XML FILE: $targetFile" -type C }
+                    Write-Verbose "FINISHED EXPORTING XML FILE: $targetFile"
+                }
+            }
+            if($ReportType -eq "PlatformLinkedAccounts"){
+                if([String]::IsNullOrEmpty($SearchQuery)){
+                    Write-VPASOutput -str "NO PLATFORM ID SUPPLIED, ENTER PLATFORM ID (To report on all Platforms type ALL): " -type Y
+                    $SearchQuery = Read-Host
+                }
+
+                $SearchQuery = $SearchQuery.ToLower()
+                Write-Verbose "QUERYING CYBERARK FOR TARGET PLATFORM ID(S)"
+                if($SearchQuery -eq "all"){
+                    if(!$Confirm){
+                        Write-VPASOutput -str "This report will run against ALL Platforms, and could take some time depending on environment size" -type M
+                        Write-VPASOutput -str "Continue? (Y/N) [Y]: " -type Y
+                        $contreport = Read-Host
+                        if([String]::IsNullOrEmpty($contreport)){$contreport = "Y"}
+                        $contreport = $contreport.ToLower()
+                        if($contreport -ne "y"){
+                            Write-VPASOutput -str "EXITING REPORT UTILITY" -type E
+                            Write-VPASOutput -str "RETURNING FALSE" -type E
+                            return $false
+                        }
+                    }
+
+                    $AllPlatformIDs = Get-VPASAllPlatforms -token $token
+                    if(!$AllPlatformIDs){
+                        Write-VPASOutput -str "UNABLE TO QUERY PLATFORM IDS" -type E
+                        Write-Verbose "UNABLE TO QUERY PLATFORM IDS...RETURNING FALSE"
+                        return $false
+                    }
+                    $targetPlatformIDs = $AllPlatformIDs.Platforms
+                }
+                else{
+                    $AllPlatformIDs = Get-VPASPlatformDetailsSearch -SearchQuery $SearchQuery -token $token
+                    if(!$AllPlatformIDs){
+                        Write-VPASOutput -str "UNABLE TO QUERY PLATFORM IDS" -type E
+                        Write-Verbose "UNABLE TO QUERY PLATFORM IDS...RETURNING FALSE"
+                        return $false
+                    }
+                    if($WildCardSearch){
+                        $targetPlatformIDs = $AllPlatformIDs.value
+                    }
+                    else{
+                        foreach($rec in $AllPlatformIDs.value){
+                            $recplatformid = $rec.general.id
+                            $recname = $rec.general.name
+                            if($recplatformid -eq $SearchQuery){
+                                $targetPlatformIDs = $rec
+                            }
+                        }
+                    }
+                }
+
+                $Data = @{}
+                $counter = 1
+                $uniqueIDs = @()
+                Write-Verbose "QUERYING CYBERARK FOR PLATFORM ID(S) LINKED ACCOUNT(S)"
+                foreach($rec in $targetPlatformIDs){
+                    $platformID = $rec.general.id
+                    $PlatformDetails = Get-VPASPlatformDetails -platformID $platformID -token $token
+                    if(!$PlatformDetails){
+                        Write-VPASOutput -str "UNABLE TO QUERY DETAILS FOR: $platformID...SKIPPING" -type M
+                        Write-Verbose "UNABLE TO QUERY DETAILS FOR: $platformID...SKIPPING"
+                    }
+                    else{
+                        $temparr = @{}
+                        $CurPlatformID = $PlatformDetails.PlatformID
+                        $LogonAccountSafe = $PlatformDetails.Details.LogonAccountSafe
+                        $LogonAccountName = $PlatformDetails.Details.LogonAccountName
+                        $LogonAccountFolder = $PlatformDetails.Details.LogonAccountFolder
+                        $ReconcileAccountSafe = $PlatformDetails.Details.ReconcileAccountSafe
+                        $ReconcileAccountName = $PlatformDetails.Details.ReconcileAccountName
+                        $ReconcileAccountFolder = $PlatformDetails.Details.ReconcileAccountFolder
+
+                        $temparr = @{
+                            PlatformID = $CurPlatformID
+                            LogonAccountSafe = $LogonAccountSafe
+                            LogonAccountName = $LogonAccountName
+                            LogonAccountFolder = $LogonAccountFolder
+                            ReconcileAccountSafe = $ReconcileAccountSafe
+                            ReconcileAccountName = $ReconcileAccountName
+                            ReconcileAccountFolder = $ReconcileAccountFolder
+                        }
+
+                        $label = "Record" + $counter
+                        $Data += @{
+                            $label = $temparr
+                        }
+                        $counter+=1
+                    }
+                }
+
+                $output = @()
+                $keys = $Data.Keys
+                foreach($key in $keys){
+                    $temphash = @{}
+                    $keyPlatformID = $Data.$key.PlatformID
+                    $keyLogonAccountSafe = $Data.$key.LogonAccountSafe
+                    $keyLogonAccountName = $Data.$key.LogonAccountName
+                    $keyLogonAccountFolder = $Data.$key.LogonAccountFolder
+                    $keyReconcileAccountSafe = $Data.$key.ReconcileAccountSafe
+                    $keyReconcileAccountName = $Data.$key.ReconcileAccountName
+                    $keyReconcileAccountFolder = $Data.$key.ReconcileAccountFolder
+
+                    $temphash = @{
+                        PlatformID = $keyPlatformID
+                        LogonAccountSafe = $keyLogonAccountSafe
+                        LogonAccountName = $keyLogonAccountName
+                        LogonAccountFolder = $keyLogonAccountFolder
+                        ReconcileAccountSafe = $keyReconcileAccountSafe
+                        ReconcileAccountName = $keyReconcileAccountName
+                        ReconcileAccountFolder = $keyReconcileAccountFolder
+                    }
+                    $output += $temphash
+                }
+
+                if($ReportFormat -eq "JSON" -or $ReportFormat -eq "ALL"){
+                    $targetFile = "$OutputDirectory\PlatformLinkedAccounts.json"
+                    $jsonoutput = $output | ConvertTo-Json
+                    Write-Output $jsonoutput | Set-Content $targetFile
+
+                    if(!$HideOutput){ Write-VPASOutput -str "FINISHED EXPORTING JSON FILE: $targetFile" -type C }
+                    Write-Verbose "FINISHED EXPORTING JSON FILE: $targetFile"
+                }
+                if($ReportFormat -eq "TXT" -or $ReportFormat -eq "ALL"){
+                    $targetFile = "$OutputDirectory\PlatformLinkedAccounts.txt"
+                    write-output "PLATFORM LINKED ACCOUNTS REPORT" | Set-Content $targetFile
+                    Write-Output "" | Add-Content $targetFile
+                    $keys = $Data.Keys
+                    foreach($key in $keys){
+                        $str = ""
+
+                        $keyPlatformID = $Data.$key.PlatformID
+                        $keyLogonAccountSafe = $Data.$key.LogonAccountSafe
+                        $keyLogonAccountName = $Data.$key.LogonAccountName
+                        $keyLogonAccountFolder = $Data.$key.LogonAccountFolder
+                        $keyReconcileAccountSafe = $Data.$key.ReconcileAccountSafe
+                        $keyReconcileAccountName = $Data.$key.ReconcileAccountName
+                        $keyReconcileAccountFolder = $Data.$key.ReconcileAccountFolder
+
+                        $str += "PlatformID: $keyPlatformID`r`n"
+                        $str += "LogonAccountSafe: $keyLogonAccountSafe`r`n"
+                        $str += "LogonAccountName: $keyLogonAccountName`r`n"
+                        $str += "LogonAccountFolder: $keyLogonAccountFolder`r`n"
+                        $str += "ReconcileAccountSafe: $keyReconcileAccountSafe`r`n"
+                        $str += "ReconcileAccountName: $keyReconcileAccountName`r`n"
+                        $str += "ReconcileAccountFolder: $keyReconcileAccountFolder`r`n"
+                        write-output $str | Add-Content $targetFile
+
+                    }
+                    if(!$HideOutput){ Write-VPASOutput -str "FINISHED EXPORTING TXT FILE: $targetFile" -type C }
+                    Write-Verbose "FINISHED EXPORTING TXT FILE: $targetFile"
+                }
+                if($ReportFormat -eq "CSV" -or $ReportFormat -eq "ALL"){
+                    $targetFile = "$OutputDirectory\PlatformLinkedAccounts.csv"
+                    write-output "PlatformID,LogonAccountSafe,LogonAccountName,LogonAccountFolder,ReconcileAccountSafe,ReconcileAccountName,ReconcileAccountFolder" | Set-Content $targetFile
+                    $keys = $Data.Keys
+                    foreach($key in $keys){
+                        $keyPlatformID = $Data.$key.PlatformID
+                        $keyLogonAccountSafe = $Data.$key.LogonAccountSafe
+                        $keyLogonAccountName = $Data.$key.LogonAccountName
+                        $keyLogonAccountFolder = $Data.$key.LogonAccountFolder
+                        $keyReconcileAccountSafe = $Data.$key.ReconcileAccountSafe
+                        $keyReconcileAccountName = $Data.$key.ReconcileAccountName
+                        $keyReconcileAccountFolder = $Data.$key.ReconcileAccountFolder
+
+                        $str = "$keyPlatformID,$keyLogonAccountSafe,$keyLogonAccountName,$keyLogonAccountFolder,$keyReconcileAccountSafe,$keyReconcileAccountName,$keyReconcileAccountFolder"
+                        write-output $str | Add-Content $targetFile
+                    }
+                    if(!$HideOutput){ Write-VPASOutput -str "FINISHED EXPORTING CSV FILE: $targetFile" -type C }
+                    Write-Verbose "FINISHED EXPORTING CSV FILE: $targetFile"
+                }
+                if($ReportFormat -eq "HTML" -or $ReportFormat -eq "ALL"){
+                    $targetFile = "$OutputDirectory\PlatformLinkedAccounts.html"
+
+                    $htmloutput = $output | ConvertTo-Json
+                    $htmloutput = $htmloutput | ConvertFrom-Json
+                    $htmloutput = $htmloutput | ConvertTo-Html -As List
+                    Write-Output $htmloutput | Set-Content $targetFile
+                    if(!$HideOutput){ Write-VPASOutput -str "FINISHED EXPORTING HTML FILE: $targetFile" -type C }
+                    Write-Verbose "FINISHED EXPORTING HTML FILE: $targetFile"
+                }
+                if($ReportFormat -eq "XML" -or $ReportFormat -eq "ALL"){
+                    $targetFile = "$OutputDirectory\PlatformLinkedAccounts.xml"
 
                     $xmloutput = $output | ConvertTo-Json
                     $xmloutput = $xmloutput | ConvertFrom-Json

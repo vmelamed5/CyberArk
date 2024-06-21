@@ -298,7 +298,7 @@ function Invoke-VPASMetricsPlatforms{
                             #GET PLATFORM DETAILS IN TERMS OF ROTATION
                             $AllPlatformDetails = Get-VPASPlatformDetails -platformID $targetPlatformID
                             $ChangeStyle = $AllPlatformDetails.Details.PerformPeriodicChange
-                            
+
                             if($ChangeStyle -eq "No"){
                                 if($OutputHash.Manual.$targetPlatformID){
                                     $OutputHash.Manual.counter += 1
@@ -471,7 +471,7 @@ function Invoke-VPASMetricsPlatforms{
                             #GET PLATFORM DETAILS IN TERMS OF ROTATION
                             $AllPlatformDetails = Get-VPASPlatformDetails -platformID $targetPlatformID
                             $VerifyStyle = $AllPlatformDetails.Details.VFPerformPeriodicVerification
-                            
+
                             if($VerifyStyle -eq "No"){
                                 if($OutputHash.Manual.$targetPlatformID){
                                     $OutputHash.Manual.counter += 1

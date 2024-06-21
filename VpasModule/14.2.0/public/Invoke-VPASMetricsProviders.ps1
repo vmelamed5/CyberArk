@@ -153,7 +153,7 @@ function Invoke-VPASMetricsProviders{
                         }
                     }
                 }
-                
+
 
                 $AllSafes = Get-VPASAllSafes
                 if(!$AllSafes){
@@ -332,7 +332,7 @@ function Invoke-VPASMetricsProviders{
                         }
                     }
                 }
-                
+
 
                 $AllSafes = Get-VPASAllSafes
                 if(!$AllSafes){

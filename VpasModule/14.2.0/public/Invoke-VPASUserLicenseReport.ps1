@@ -35,28 +35,36 @@ function Invoke-VPASUserLicenseReport{
         Write-Verbose "SUCCESSFULLY PARSED TOKEN VALUE"
 
         try{
-            if($NoSSL){
-                Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
-                $uri = "http://$PVWA/PasswordVault/api/licenses/pcloud/"
+            if(!$ISPSS -and ($PVWA -notmatch ".privilegecloud.cyberark.")){
+                Write-VPASOutput -str "SelfHosted solution does not support this API Call, returning false" -type E
+                $log = Write-VPASTextRecorder -inputval "SelfHosted solution does not support this API Call, returning false" -token $token -LogType MISC
+                $log = Write-VPASTextRecorder -inputval $false -token $token -LogType RETURN
+                return $false
             }
             else{
-                Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
-                $uri = "https://$PVWA/PasswordVault/api/licenses/pcloud/"
-            }
-            $log = Write-VPASTextRecorder -inputval $uri -token $token -LogType URI
-            $log = Write-VPASTextRecorder -inputval "GET" -token $token -LogType METHOD
-            write-verbose "MAKING API CALL TO CYBERARK"
+                if($NoSSL){
+                    Write-Verbose "NO SSL ENABLED, USING HTTP INSTEAD OF HTTPS"
+                    $uri = "http://$PVWA/PasswordVault/api/licenses/pcloud/"
+                }
+                else{
+                    Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
+                    $uri = "https://$PVWA/PasswordVault/api/licenses/pcloud/"
+                }
+                $log = Write-VPASTextRecorder -inputval $uri -token $token -LogType URI
+                $log = Write-VPASTextRecorder -inputval "GET" -token $token -LogType METHOD
+                write-verbose "MAKING API CALL TO CYBERARK"
 
-            if($sessionval){
-                $response = Invoke-RestMethod -Headers @{"Authorization"=$Header} -Uri $uri -Method GET -ContentType "application/json" -WebSession $sessionval
+                if($sessionval){
+                    $response = Invoke-RestMethod -Headers @{"Authorization"=$Header} -Uri $uri -Method GET -ContentType "application/json" -WebSession $sessionval
+                }
+                else{
+                    $response = Invoke-RestMethod -Headers @{"Authorization"=$Header} -Uri $uri -Method GET -ContentType "application/json"
+                }
+                $outputlog = $response
+                $log = Write-VPASTextRecorder -inputval $outputlog -token $token -LogType RETURNARRAY
+                Write-Verbose "RETURNING JSON OBJECT"
+                return $response
             }
-            else{
-                $response = Invoke-RestMethod -Headers @{"Authorization"=$Header} -Uri $uri -Method GET -ContentType "application/json"
-            }
-            $outputlog = $response
-            $log = Write-VPASTextRecorder -inputval $outputlog -token $token -LogType RETURNARRAY
-            Write-Verbose "RETURNING JSON OBJECT"
-            return $response
         }catch{
             $log = Write-VPASTextRecorder -inputval $_ -token $token -LogType ERROR
             $log = Write-VPASTextRecorder -inputval "REST API COMMAND RETURNED: FALSE" -token $token -LogType MISC
