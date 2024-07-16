@@ -4,6 +4,8 @@
    CREATED BY: Vadim Melamed, EMAIL: vmelamed5@gmail.com
 .DESCRIPTION
    USE THIS FUNCTION TO RETRIEVE ACCOUNT INFORMATION VIA CENTRAL CREDENTIAL PROVIDER
+.PARAMETER NoSSL
+   If the environment is not set up for SSL, API calls will be made via HTTP not HTTPS (Not Recommended!)
 .PARAMETER ApplicationID
    The application ID that has access to the safe that will retrieve the account information
 .PARAMETER Safe
@@ -22,6 +24,8 @@
    Thumbprint of the certificate being used to make the call for applications configured with certificate authentication
 .PARAMETER Certificate
    Certificate being used to make the call for applications configured with certificate authentication
+.PARAMETER Reason
+   Purpose for pulling the account, for auditing and master policy restriction
 .EXAMPLE
    $CCPResults = Invoke-VPASCentralCredentialProvider -ApplicationID {APPLICATION ID VALUE} -Safe {SAFE VALUE} -ObjectName {OBJECT NAME VALUE} -Folder {FOLDER VALUE} -CCPServer {CCPSERVER VALUE}
 .EXAMPLE
@@ -57,7 +61,13 @@ function Invoke-VPASCentralCredentialProvider{
         [String]$CertificateTP,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,HelpMessage="Certificate being used to make the call for applications configured with certificate authentication",Position=7)]
-        [X509Certificate]$Certificate
+        [X509Certificate]$Certificate,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,HelpMessage="Purpose for pulling the account, for auditing and master policy restriction",Position=8)]
+        [String]$Reason,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=9)]
+        [Switch]$NoSSL
     )
 
     Begin{
@@ -83,6 +93,10 @@ function Invoke-VPASCentralCredentialProvider{
                 Write-Verbose "SSL ENABLED BY DEFAULT, USING HTTPS"
                 $uri = "https://$CCPServer/$AIMIISAppPool/api/accounts?AppID=$ApplicationID&Safe=$Safe&Folder=$Folder&Object=$ObjectName"
             }
+
+            if($Reason){
+                $uri += "&Reason=$Reason"
+            }
             Write-Verbose "URI: $uri"
             write-verbose "MAKING API CALL TO CENTRAL CREDENTIAL PROVIDER"
 
@@ -103,7 +117,7 @@ function Invoke-VPASCentralCredentialProvider{
             }
         }catch{
             Write-Verbose "UNABLE TO RETRIEVE ACCOUNT DETAILS"
-            Write-VPASOutput -str $_ -type E
+            Write-host $_ -ForegroundColor Red
             return $false
         }
     }
