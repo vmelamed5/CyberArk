@@ -6,7 +6,7 @@
    HELPER FUNCTION TO RETRIEVE POLICY IDS FROM DPA
 #>
 function Get-VPASDPAStrongAccountIDHelper{
-    [OutputType([String])]
+    [OutputType([bool],'System.Int32')]
     [CmdletBinding()]
     Param(
 

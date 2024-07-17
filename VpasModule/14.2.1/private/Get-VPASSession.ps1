@@ -31,6 +31,7 @@ function Get-VPASSession{
                 $VaultVersion = $token.VaultVersion
                 $HideWarnings = $token.HideWarnings
                 $AuthenticatedAs = $token.AuthenticatedAs
+                $SubDomain = $token.SubDomain
             }
             else{
                 $tokenval = $Script:VPAStoken.token
@@ -45,6 +46,7 @@ function Get-VPASSession{
                 $VaultVersion = $Script:VPAStoken.VaultVersion
                 $HideWarnings = $Script:VPAStoken.HideWarnings
                 $AuthenticatedAs = $Script:VPAStoken.AuthenticatedAs
+                $SubDomain = $Script:VPAStoken.SubDomain
             }
 
             if([String]::IsNullOrEmpty($tokenval)){
@@ -54,7 +56,7 @@ function Get-VPASSession{
                 return $false
             }
             else{
-                return $tokenval,$sessionval,$PVWA,$Header,$ISPSS,$IdentityURL,$EnableTextRecorder,$AuditTimeStamp,$NoSSL,$VaultVersion,$HideWarnings,$AuthenticatedAs
+                return $tokenval,$sessionval,$PVWA,$Header,$ISPSS,$IdentityURL,$EnableTextRecorder,$AuditTimeStamp,$NoSSL,$VaultVersion,$HideWarnings,$AuthenticatedAs,$SubDomain
             }
         }catch{
             Write-Verbose "UNABLE TO FIND A SESSION TOKEN"
