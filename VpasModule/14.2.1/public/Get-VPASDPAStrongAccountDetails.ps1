@@ -23,7 +23,7 @@ function Get-VPASDPAStrongAccountDetails{
     [OutputType('System.Collections.Hashtable',[bool])]
     [CmdletBinding()]
     Param(
-        
+
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=0)]
         [String]$StrongAccountID,
 

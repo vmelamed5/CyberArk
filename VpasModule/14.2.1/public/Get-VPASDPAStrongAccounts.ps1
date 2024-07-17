@@ -19,7 +19,7 @@ function Get-VPASDPAStrongAccounts{
     [OutputType('System.Collections.Hashtable',[bool])]
     [CmdletBinding()]
     Param(
-        
+
         [Parameter(Mandatory=$true,ValueFromPipelineByPropertyName=$true,HelpMessage="Enter searchquery to find target strong accounts",Position=0)]
         [String]$SearchQuery,
 
@@ -58,7 +58,7 @@ function Get-VPASDPAStrongAccounts{
                 $response = Invoke-RestMethod -Headers @{"Authorization"=$Header} -Uri $uri -Method GET -ContentType "application/json"
             }
             $log = Write-VPASTextRecorder -inputval $response -token $token -LogType RETURNARRAY
-            
+
             $output = @()
             foreach($rec in $response){
                 $recName = $rec.secret_name
