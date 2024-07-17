@@ -28,7 +28,7 @@ function Remove-VPASDPAStrongAccount{
     [OutputType([bool],'System.Object')]
     [CmdletBinding()]
     Param(
-        
+
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=0)]
         [String]$StrongAccountID,
 

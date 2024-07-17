@@ -209,6 +209,7 @@ function New-VPASToken{
                         NoSSL = $NoSSL
                         VaultVersion = $VaultVersion
                         HideWarnings = $HideWarnings
+                        SubDomain = "N/A"
                     }
                     $outputCurUser = Get-VPASCurrentEPVUserDetailsHelper -token $output -APIUsername $username
                     $output += @{ AuthenticatedAs = $outputCurUser }
@@ -250,6 +251,7 @@ function New-VPASToken{
                         NoSSL = $NoSSL
                         VaultVersion = $VaultVersion
                         HideWarnings = $HideWarnings
+                        SubDomain = "N/A"
                     }
                     $outputCurUser = Get-VPASCurrentEPVUserDetailsHelper -token $output -APIUsername $username
                     $output += @{ AuthenticatedAs = $outputCurUser }
@@ -372,6 +374,7 @@ function New-VPASToken{
                         NoSSL = $NoSSL
                         VaultVersion = $VaultVersion
                         HideWarnings = $HideWarnings
+                        SubDomain = "N/A"
                     }
                     $outputCurUser = Get-VPASCurrentEPVUserDetailsHelper -token $output -APIUsername $username
                     $output += @{ AuthenticatedAs = $outputCurUser }
@@ -413,6 +416,7 @@ function New-VPASToken{
                         NoSSL = $NoSSL
                         VaultVersion = $VaultVersion
                         HideWarnings = $HideWarnings
+                        SubDomain = "N/A"
                     }
                     $outputCurUser = Get-VPASCurrentEPVUserDetailsHelper -token $output -APIUsername $username
                     $output += @{ AuthenticatedAs = $outputCurUser }
@@ -486,6 +490,7 @@ function New-VPASToken{
                         $response = Invoke-RestMethod -Headers @{"Authorization"="Bearer $tokenval"} -Uri $uriVaultVersion -Method GET -ContentType "application/json" -WebSession $session
                         $VaultVersion = $response.ExternalVersion
                     }
+                    $SubDomain = ($PVWA.split("."))[0]
 
                     $output = @{
                         token = $tokenval
@@ -499,6 +504,7 @@ function New-VPASToken{
                         NoSSL = $NoSSL
                         VaultVersion = $VaultVersion
                         HideWarnings = $HideWarnings
+                        SubDomain = $SubDomain
                     }
                     $outputCurUser = Get-VPASCurrentEPVUserDetailsHelper -token $output
                     $output += @{ AuthenticatedAs = $outputCurUser }
@@ -530,6 +536,7 @@ function New-VPASToken{
                         $response = Invoke-RestMethod -Headers @{"Authorization"="Bearer $tokenval"} -Uri $uriVaultVersion -Method GET -ContentType "application/json"
                         $VaultVersion = $response.ExternalVersion
                     }
+                    $SubDomain = ($PVWA.split("."))[0]
 
                     $output = @{
                         token = $tokenval
@@ -543,6 +550,7 @@ function New-VPASToken{
                         VaultVersion = $VaultVersion
                         session = $false
                         HideWarnings = $HideWarnings
+                        SubDomain = $SubDomain
                     }
                     $outputCurUser = Get-VPASCurrentEPVUserDetailsHelper -token $output
                     $output += @{ AuthenticatedAs = $outputCurUser }
@@ -735,6 +743,7 @@ function New-VPASToken{
                             $VaultVersion = $response.ExternalVersion
                         }
                     }
+                    $SubDomain = ($PVWA.split("."))[0]
 
                     $output += @{
                         token = $tokenval
@@ -747,6 +756,7 @@ function New-VPASToken{
                         NoSSL = $NoSSL
                         VaultVersion = $VaultVersion
                         HideWarnings = $HideWarnings
+                        SubDomain = $SubDomain
                     }
                     $outputCurUser = Get-VPASCurrentEPVUserDetailsHelper -token $output
                     $output += @{ AuthenticatedAs = $outputCurUser }

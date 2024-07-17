@@ -72,7 +72,7 @@ function Update-VPASAccountFields{
     )
 
     Begin{
-        $tokenval,$sessionval,$PVWA,$Header,$ISPSS,$IdentityURL,$EnableTextRecorder,$AuditTimeStamp,$NoSSL,$VaultVersion,$HideWarnings,$AuthenticatedAs = Get-VPASSession -token $token
+        $tokenval,$sessionval,$PVWA,$Header,$ISPSS,$IdentityURL,$EnableTextRecorder,$AuditTimeStamp,$NoSSL,$VaultVersion,$HideWarnings,$AuthenticatedAs,$SubDomain = Get-VPASSession -token $token
         $CommandName = $MyInvocation.MyCommand.Name
         $log = Write-VPASTextRecorder -inputval $CommandName -token $token -LogType COMMAND
     }

@@ -25,7 +25,7 @@
    $false if failed
 #>
 function Invoke-VPASCredentialProvider{
-    [OutputType([bool])]
+    [OutputType('System.Collections.Hashtable',[bool])]
     [CmdletBinding()]
     Param(
 

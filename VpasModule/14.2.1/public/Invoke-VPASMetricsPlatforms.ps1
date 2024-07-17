@@ -19,6 +19,9 @@
 .PARAMETER HTMLChart
    Specify the HTML report type
    Possible values: BarGraph, LineGraph, PieChart, ALL
+.PARAMETER HideRawData
+   Removes the RawData visual from the exported output
+   Helpful when exporting to a PDF or document to remove extra not needed information
 .EXAMPLE
    $GenerateReport = Invoke-VPASMetricsPlatforms -TargetMetric AccountsAssignedToPlatforms -OutputDirectory "C:\temp\VPASMetrics" -MetricFormat ALL -HTMLChart ALL
 .OUTPUTS
@@ -46,11 +49,14 @@ function Invoke-VPASMetricsPlatforms{
         [String]$HTMLChart,
 
         [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=4)]
+        [switch]$HideRawData,
+
+        [Parameter(Mandatory=$false,ValueFromPipelineByPropertyName=$true,Position=5)]
         [hashtable]$token
     )
 
     Begin{
-        $tokenval,$sessionval,$PVWA,$Header,$ISPSS,$IdentityURL,$EnableTextRecorder,$AuditTimeStamp,$NoSSL,$VaultVersion,$HideWarnings,$AuthenticatedAs = Get-VPASSession -token $token
+        $tokenval,$sessionval,$PVWA,$Header,$ISPSS,$IdentityURL,$EnableTextRecorder,$AuditTimeStamp,$NoSSL,$VaultVersion,$HideWarnings,$AuthenticatedAs,$SubDomain = Get-VPASSession -token $token
         $CommandName = $MyInvocation.MyCommand.Name
         $log = Write-VPASTextRecorder -inputval $CommandName -token $token -LogType COMMAND
     }
@@ -743,6 +749,9 @@ Write-Output "
 		</div>
 	</div>
 	<br>
+" | Add-Content $outputfile
+if(!$HideRawData){
+Write-Output "
 	<div style=`"max-width:95%; width: 95%; margin-right: 1%; margin-left: 1%`" class=`"metrics-container`">
 		<div class=`"metric`">
 			<span class=`"metric-label`">Raw Data:</span>
@@ -753,6 +762,10 @@ Write-Output "
 			</div>
 		</div>
 	</div>
+" | Add-Content $outputfile
+}
+
+Write-Output "
 </div>
 <script>
 " | Add-Content $outputfile
