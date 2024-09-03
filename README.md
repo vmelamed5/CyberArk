@@ -1,6 +1,6 @@
 # VPasModule
 - CREATED BY: Vadim Melamed
-- EMAIL: vmelamed5@gmail.com
+- EMAIL: vpasmodule@gmail.com
 
 # Supported Versions
 - v10.10 - SelfHosted
