@@ -36,14 +36,14 @@ Remove-VPASToken
 ```
 > v10.10 - SelfHosted
 > v11.X - SelfHosted
-> 12.X - SelfHosted
-> 13.X - SelfHosted + PrivilegeCloud
-> 14.0 - SelfHosted + PrivilegeCloud + Identity
-> 14.1 - SelfHosted + PrivilegeCloud + Identity
-> 14.2 - SelfHosted + PrivilegeCloud + Identity
+> v12.X - SelfHosted
+> v13.X - SelfHosted + PrivilegeCloud
+> v14.0 - SelfHosted + PrivilegeCloud + Identity
+> v14.1 - SelfHosted + PrivilegeCloud + Identity
+> v14.2 - SelfHosted + PrivilegeCloud + Identity
 ```
 ```
-14.3 (Current):
+> v14.3 (Current):
      - SelfHosted
      - PrivilegeCloudStandard
      - SharedServices (ISPSS)
