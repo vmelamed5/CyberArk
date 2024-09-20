@@ -1,6 +1,7 @@
 <p align="center">
-![alt text](https://github.com/vmelamed5/vmelamed5/blob/main/images/VpasModuleLOGO.png?raw=true)
+  <img src="https://github.com/vmelamed5/vmelamed5/blob/main/images/VpasModuleLOGO.png?raw=true" />
 </p>
+
 
 >A simplified PowerShell module to interact with CyberArk Web Services for Self Hosted, PrivilegeCloud Standard, and SharedServices (ISPSS) solutions as well as Identity/DPA/ConnectorManagement API suite
  
