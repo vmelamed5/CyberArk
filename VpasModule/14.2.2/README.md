@@ -1,24 +1,52 @@
-# VPasModule
-- CREATED BY: Vadim Melamed
-- EMAIL: vmelamed5@gmail.com
+<p align="center">
+  <a href="https://vpasmodule.com/index.html" target="_blank" rel="noopener noreferrer"><img src="https://github.com/vmelamed5/vmelamed5/blob/main/images/VpasModuleLOGO.png?raw=true" /></a>
+</p>
+
+<p align="center">
+A simplified PowerShell module to interact with CyberArk Web Services for Self Hosted, PrivilegeCloud Standard, and SharedServices (ISPSS) solutions as well as Identity/DPA/ConnectorManagement API suite
+</p>
+
+<p align="center">
+  Creator: <b>Vadim Melamed</b>
+  <br>
+  Email: <b>vpasmodule@gmail.com</b>
+</p>
 
 # Version
+```
 - 14.2.2
+	- SelfHosted
+	- PrivilegeCloudStandard
+	- SharedServices (ISPSS)
+	- Identity
+	- ConnectorManagement
+	- DynamicPrivilegedAccess
+```
+## Installation
+ 
+Install the module via [PowershellGallery](https://www.powershellgallery.com/packages/VpasModule/14.2.2)
+ 
+```powershell
+Install-Module VpasModule -RequiredVersion 14.2.2 -scope CurrentUser
+```
+ 
+## Usage
+ 
+```powershell
+# Step1) import vpasmodule
+Import-Module vpasmodule -RequiredVersion 14.2.2
+ 
+# Step2) Retrieve cyberark login token via New-VPASToken
+New-VPASToken -PVWA "MyPVWAServer.com" -AuthType cyberark
+ 
+# Step3) Run desired API calls
+$SafeDetails = Get-VPASSafes -searchQuery "TestSafe"
+$AllAccounts = Get-VPASAllAccounts
+ 
+# Step4: Invalidate cyberark login token via Remove-VPASToken
+Remove-VPASToken
+```
 
-# How To Use VPasModule
-- Step1: Install VPasModule from github or from Powershell Gallery https://www.powershellgallery.com/packages/VpasModule/14.2.2
-- Step2: Import VPasModule Required Version 14.2.2 into Powershell
-- Step3: Retrieve Cyberark Login Token via New-VPASToken
-- Step4: Run desired API calls
-- Step5: Invalidate Cyberark Login Token via Remove-VPASToken
-  - Example:
-    ```
-    Import-Module VPasModule
-    $PVWA = "MyPVWAServer.domain.com"
-    New-VPASToken -PVWA $PVWA -AuthType cyberark
-    Get-VPASSafes -searchQuery "TestSafe"
-    Remove-VPASToken
-    ```
 
 # Functions
 
