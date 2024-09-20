@@ -58,7 +58,6 @@ Remove-VPASToken
 ```
  
 ## Documentation
-```
 Find version specific README.md inside specific vpasmodule version for more documentation on function syntax, examples, usages, etc.\
 Please visit [VpasModule Website](https://vpasmodule.com/index.html) to stay up to date with any updates, changes, and various other features  
-```
+
