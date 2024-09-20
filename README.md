@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/vmelamed5/vmelamed5/blob/main/images/VpasModuleLOGO.png?raw=true" />
+  <a target="_blank" href="https://vpasmodule.com"><img src="https://github.com/vmelamed5/vmelamed5/blob/main/images/VpasModuleLOGO.png?raw=true" /></a>
 </p>
 
 <p align="center">
