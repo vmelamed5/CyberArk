@@ -3,7 +3,7 @@
 - EMAIL: vpasmodule@gmail.com
 
 # Version
-- 14.3
+- 14.3.0
 
 # How To Use VPasModule
 - Step1: Install VPasModule from github or from Powershell Gallery https://www.powershellgallery.com/packages/VpasModule/14.3.0
