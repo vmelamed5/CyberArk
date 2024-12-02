@@ -33,10 +33,6 @@
                                   "ID":  "PSM-ADUC",
                                   "DisplayName":  "ADUC"
                               },
-                              {
-                                  "ID":  "PSM-Dropbox",
-                                  "DisplayName":  "Dropbox"
-                              },
                               ...
                           ],
         "Total":  33
