@@ -39,7 +39,7 @@ function VBulkValidateFile{
     try{
         $processrun = $true
         if(Test-Path -Path $CSVFile){
-            $input = Import-Csv -Path $CSVFile
+            $inputcsv = Import-Csv -Path $CSVFile
         }
         else{
             write-verbose "$CSVFile DOES NOT EXIST, RETURNING FALSE"
@@ -52,7 +52,7 @@ function VBulkValidateFile{
 
         if($BulkOperation -eq "BulkSafeCreation"){
             $counter = 1
-            foreach($line in $input){
+            foreach($line in $inputcsv){
                 $errorflag = $false
                 $errorstr = ""
                 if(!$HideOutput){
@@ -130,7 +130,7 @@ function VBulkValidateFile{
         }
         elseif($BulkOperation -eq "BulkAccountCreation"){
             $counter = 1
-            foreach($line in $input){
+            foreach($line in $inputcsv){
                 $errorflag = $false
                 $errorstr = ""
                 if(!$HideOutput){
@@ -239,7 +239,7 @@ function VBulkValidateFile{
         }
         elseif($BulkOperation -eq "BulkSafeMembers"){
             $counter = 1
-            foreach($line in $input){
+            foreach($line in $inputcsv){
                 $requestlvl = 0
 
                 $errorflag = $false
