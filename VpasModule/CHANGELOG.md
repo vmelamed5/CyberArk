@@ -13,6 +13,8 @@ A simplified PowerShell module to interact with CyberArk Web Services for Self H
 </p>
 
 ## ChangeLog
+
+<!-- v11.1 -->
 <details>
 <summary>VpasModule v11.1</summary>
   
@@ -36,6 +38,7 @@ A simplified PowerShell module to interact with CyberArk Web Services for Self H
   ```
 </details>
 
+<!-- v10.10 -->
 <details>
 <summary>VpasModule v10.10</summary>
   
@@ -46,57 +49,57 @@ A simplified PowerShell module to interact with CyberArk Web Services for Self H
   
   ### Important Notes
   ```
-    VpasModule debut!
+    - VpasModule debut!
   ```
 
   ### New Commands
   ```
-    VAccountPasswordAction
-    VActivateEPVUser
-    VAddAccountGroup
-    VAddAccountToAccountGroup
-    VAddApplication
-    VAddApplicationAuthentication
-    VAddEPVUser
-    VAddMemberEPVGroup
-    VAddSafeMember
-    VCheckInAccount
-    VCreateAccount
-    VCreateSafe
-    VDeleteAccount
-    VDeleteAccountFromAccountGroup
-    VDeleteApplication
-    VDeleteApplicationAuthentication
-    VDeleteEPVUser
-    VDeleteMemberEPVGroup
-    VDeleteSafe
-    VDeleteSafeMember
-    VExportPlatform
-    VGetAccountActivity
-    VGetAccountDetails
-    VGetAccountGroupMembers
-    VGetAccountGroups
-    VGetAllApplications
-    VGetApplicationAuthentications
-    VGetApplicationDetails
-    VGetEPVGroupDetails
-    VGetEPVUserDetails
-    VGetPasswordValue
-    VGetPlatformDetails
-    VGetSafeAccountGroups
-    VGetSafeDetails
-    VGetSafeMembers
-    VGetSafes
-    VLogin
-    VLogoff
-    Vout
-    VResetEPVUserPassword
-    VSystemComponents
-    VSystemHealth
-    VUpdateAccountFields
-    VUpdateEPVUser
-    VUpdateSafe
-    VUpdateSafeMember
+    - VAccountPasswordAction
+    - VActivateEPVUser
+    - VAddAccountGroup
+    - VAddAccountToAccountGroup
+    - VAddApplication
+    - VAddApplicationAuthentication
+    - VAddEPVUser
+    - VAddMemberEPVGroup
+    - VAddSafeMember
+    - VCheckInAccount
+    - VCreateAccount
+    - VCreateSafe
+    - VDeleteAccount
+    - VDeleteAccountFromAccountGroup
+    - VDeleteApplication
+    - VDeleteApplicationAuthentication
+    - VDeleteEPVUser
+    - VDeleteMemberEPVGroup
+    - VDeleteSafe
+    - VDeleteSafeMember
+    - VExportPlatform
+    - VGetAccountActivity
+    - VGetAccountDetails
+    - VGetAccountGroupMembers
+    - VGetAccountGroups
+    - VGetAllApplications
+    - VGetApplicationAuthentications
+    - VGetApplicationDetails
+    - VGetEPVGroupDetails
+    - VGetEPVUserDetails
+    - VGetPasswordValue
+    - VGetPlatformDetails
+    - VGetSafeAccountGroups
+    - VGetSafeDetails
+    - VGetSafeMembers
+    - VGetSafes
+    - VLogin
+    - VLogoff
+    - Vout
+    - VResetEPVUserPassword
+    - VSystemComponents
+    - VSystemHealth
+    - VUpdateAccountFields
+    - VUpdateEPVUser
+    - VUpdateSafe
+    - VUpdateSafeMember
   ```
 </details>
 
