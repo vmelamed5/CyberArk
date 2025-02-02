@@ -12,6 +12,19 @@ A simplified PowerShell module to interact with CyberArk Web Services for Self H
   Email: <b>vpasmodule@gmail.com</b>
 </p>
 
+<div align="center">
+  
+|  PSGallery       | CodeFactor                |
+|---------------------------|---------------------------|
+| [![downloads][]][psgallery-site] | [![codefactor][]][codefactor-site]|
+
+[downloads]:https://img.shields.io/powershellgallery/dt/vpasmodule.svg?color=darkblue
+[psgallery-site]:https://www.powershellgallery.com/packages/VpasModule
+[codefactor-site]:https://www.codefactor.io/repository/github/vmelamed5/cyberark
+[codefactor]:https://www.codefactor.io/repository/github/vmelamed5/cyberark/badge
+
+</div>
+
 ## Installation
  
 Install the module via [PowershellGallery](https://www.powershellgallery.com/packages/VpasModule/)
