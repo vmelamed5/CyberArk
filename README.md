@@ -56,9 +56,7 @@ Remove-VPASToken
 > v11.X - SelfHosted
 > v12.X - SelfHosted
 > v13.X - SelfHosted + PrivilegeCloud
-> v14.0 - SelfHosted + PrivilegeCloud + Identity
-> v14.1 - SelfHosted + PrivilegeCloud + Identity
-> v14.2 - SelfHosted + PrivilegeCloud + Identity
+> v14.X - SelfHosted + PrivilegeCloud + Identity
 ```
 ```
 > v14.3 (Current):
