@@ -39,6 +39,9 @@ VLogoff -PVWA $PVWA -token $token
  
 ## Supported Versions
 ```
+> v10.X: SelfHosted
+```
+```
 > v10.10 (Current):
      - SelfHosted
 ```
