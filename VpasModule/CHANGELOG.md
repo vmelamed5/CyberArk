@@ -14,6 +14,110 @@ A simplified PowerShell module to interact with CyberArk Web Services for Self H
 
 ## ChangeLog
 
+<!-- v13.2.0 -->
+<details>
+<summary>VpasModule v13.2.0</summary>
+  
+  ### Published Date
+  ```
+    November 12th 2023
+  ```
+  
+  ### Important Notes
+  ```
+    -WhatIf/-HideWhatIfOutput parameters added to every Remove command to simulate what would happen if the target API call is invoked and what implications that call would have (*WORK IN PROGRESS - will build on this in future releases)
+	-APITextRecording parameter added to New-VPASToken command to enable a text recording of every command run, return values, and outputs for the duration of the APIToken. Output is saved to a LOG file to the user's AppData directory
+	-NoSSL parameter removed from every command and will only need to be initiated via New-VPASToken command and the preference will be carried over for the duration of the APIToken
+	- Update-VPASAccountFields: added -LogonDomain and -CustomField parameters to better handle optional platform properties
+	- Add-VPASEPVUser and Update-VPASEPVUser: added -AuthenticationMethod and -DistinguishedName parameters as more optional parameters when creating or updating an EPVUser
+	- Add-VPASSafe: fixed bug where -NumberOfDaysRetention and -NumberOfVersionRetention parameters would clash and overwrite each other
+	- Get-VPASAccountGroupMembers: fixed bug where -NoSSL preference would enable https instead of http
+  ```
+
+  ### New Commands
+  ```
+    - Add-VPASIdentityRole
+	- Get-VPASIdentityTenantDetails
+	- Get-VPASIdentityUserSecurityQuestions
+	- Reset-VPASIdentityUserSecurityQuestions
+	- Add-VPASIdentityUserSecurityQuestions
+	- Get-VPASIdentityRoles
+	- Get-VPASIdentityRoleDetails
+  ```
+</details>
+
+<!-- v13.1.1 -->
+<details>
+<summary>VpasModule v13.1.1</summary>
+  
+  ### Published Date
+  ```
+    June 28th 2023
+  ```
+  
+  ### Important Notes
+  ```
+    - Changed every command in VpasModule to follow powershell best practice verb-noun naming ***BIG CHANGE***
+	- Reworked the way a login token is generated and stored, removing the need to pass -token to every command ***BIG CHANGE***
+	- New-VPASToken: added the ability to authenticate into ISPSS via internal authentication "ispss_cyberark"
+	- Added parameter descriptions to ever parameter in VpasModule to better understand information if "get-help" is run
+	- Fixed several bugs discovered in commands
+	- Updated verbose comments to better log what is happening if ocmmands are run with the -verbose flag
+	- Many QOL updates on VpasModule itself to better conform to powershell "best practice"
+  ```
+
+  ### New Commands
+  ```
+    - Add-VPASIdentityRole
+	- Add-VPASIdentitySecurityQuestionAdmin
+	- Get-VPASIdentityAdminSecurityQuestion
+	- Get-VPASIdentityAllAdminSecurityQuestions
+	- Get-VPASIdentityAllUsers
+	- Get-VPASIdentityCurrentUserDetails
+	- Get-VPASIdentityCurrentUserSecurityQuestions
+	- Get-VPASIdentityUserDetails
+	- New-VPASIdentityGenerateUserPassword
+	- Remove-VPASIdentityAdminSecurityQuestion
+	- Remove-VPASIdentityRole
+	- Set-VPASIdentityUserState
+	- Set-VPASIdentityUserStatus
+	- Test-VPASIdentityUserLocked
+	- Update-VPASIdentityCurrentUserPassword
+	- Update-VPASIdentityRole
+  ```
+</details>
+
+<!-- v13.0.0 -->
+<details>
+<summary>VpasModule v13.0.0</summary>
+  
+  ### Published Date
+  ```
+    February 19th 2023
+  ```
+  
+  ### Important Notes
+  ```
+    - VLogin: added "ISPSS" as an option to authenticate into PrivilegeCloud Shared Services via Oauth. Added "IdentityURL" parameter to facilitate this. To set this authentication up, please view this article by CyberArk: https://docs.cyberark.com/Product-Doc/OnlineHelp/PrivCloud-SS/Latest/en/Content/ISPSS/ISPSS-API-Authentication.htm
+	- VAddSafeMember: added [String]$MemberType parameter as optional, possible values: User, Group, Role to handle the api change in PrivilegeCloud
+	- VGetDirectoryDetails + VDeleteDirectory + VGetAllDirectories + VGetDirectoryMappings + VGetDirectoryMappingDetails + VGetDirectoryMappingIDHelper: commands work properly for SelfHosted environments, but due to the lack of vault authorizations (ManageDirectoryMapping) in PrivilegeCloud, these commands will NOT work in SharedServices environments
+	- VDeleteApplicationAuthentication + VGetAllApplications + VGetApplicationDetails + VGetApplicationAuthIDHelper + VGetApplicationAuthentications + VDeleteApplication + VAddApplication + AddApplicationAuthentication: commands work properly for SelfHosted environments, currently unavailable in PrivilegedCloud Shared Services
+	- VGetBulkTemplateFiles: added [Switch]$ISPSS as optional to account for memberType in PrivilegeCloud Shared Services add safe member API call
+	- VBulkValidateFile: added [Switch]$ISPSS as optional to account for memberType in PrivilegeCloud Shared Services add safe member api call
+	- VGetPasswordValue: added [Switch]$HideOutput as optional to hide messages if needed
+	- VGetPlatformDetailsSearch: fixed the blank searchQuery to find all platforms (bug fix)
+	- VReporting: added [Switch]$HideOutput as optional to hide messages if needed
+	- VGetDiscoveredAccounts: removed $Limit and $Offset as parameters, added [String]$PlatformType('Windows Server Local','Windows Desktop Local','Windows Domain','Unix','Unix SSH Key','AWS','AWS - Access Keys','Azure Password Management'), [String]$Privileged('true','false'), [String]$Enabled('true','false') to better query discovered accounts
+  ```
+
+  ### New Commands
+  ```
+    - VDisableEPVUser
+	- VEnableEPVUser
+	- VUpdateEPVGroup
+  ```
+</details>
+
 <!-- v12.6.1 -->
 <details>
 <summary>VpasModule v12.6.1</summary>
