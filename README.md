@@ -42,9 +42,10 @@ Remove-VPASToken
 > v10.10 - SelfHosted
 > v11.X - SelfHosted
 > v12.X - SelfHosted
+> v13.X - SelfHosted
 ```
 ```
-> v13.X (Current):
+> v13.2.0 (Current):
      - SelfHosted
      - PrivilegeCloudStandard
      - SharedServices (ISPSS)
