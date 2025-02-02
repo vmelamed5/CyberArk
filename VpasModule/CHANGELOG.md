@@ -14,6 +14,63 @@ A simplified PowerShell module to interact with CyberArk Web Services for Self H
 
 ## ChangeLog
 
+<!-- v14.3.0 -->
+<details>
+<summary>VpasModule v14.3.0</summary>
+  
+  ### Published Date
+  ```
+    November 20th 2024
+  ```
+  
+  ### Potential Script Breakers
+  ```
+	- REMOVED flags -LookupBy + -LookupVal and replaced with -EPVUsername + -EPVUserID
+		- For any scripts using the commands below remove:
+			- "-LookupBy Username -LookupVal TargetUsername" with "-EPVUsername TargetUsername"
+		- For any scripts using the commands below remove:
+			- "-LookupBy UserID -LookupVal 55" with "-EPVUserID 55"
+		- Affected Commands:
+			- Enable-VPASEPVUser
+			- Disable-VPASEPVUser
+			- Get-VPASEPVUserDetails
+			- Reset-VPASEPVUserPassword
+			- Remove-VPASEPVUser
+			- Update-VPASEPVUser
+	- REMOVED flags -GroupLookupBy + -GroupLookupVal and replaced with -GroupName + -GroupID
+		- For any scripts using the commands below remove:
+			- "-GroupLookupBy GroupName -GroupLookupVal TargetGroupName" with "-GroupName TargetGroupName"
+		- For any scripts using the commands below remove:
+			- "-GroupLookupBy GroupID -GroupLookupVal 22" with "-GroupID 22"
+		- Affected Commands:
+			- Add-VPASMemberEPVGroup
+			- Remove-VPASEPVGroup
+			- Update-VPASEPVGroup
+			- Remove-VPASMemberEPVGroup
+  ```
+  
+  ### Important Notes
+  ```
+	- ***BIG CHANGE: Added ParameterSets to every command to help avoid adding unnecessary parameters to an API call
+		- *Should NOT effect any current functionality, but please test
+	- ***BIG CHANGE: Added -InputParameters flag to every command to support passing an object directly to the API call containing required parameters
+		- *No effect on current functionality
+	- Update-VPASSafe: Removed OLACEnabled as an editable field, this field can not be updated and should not have been functioning to begin with
+	- New-VPASToken: Added new AuthTypes (Added new flag -AuthToken to support two new AuthTypes):
+		- ispss_AuthToken: support the ability to provide an Identity login token generated externally
+		- AuthToken: support the ability to provide a token generated externally
+	- Update-VPASAccountFields: Added AutomaticManagementEnabled and ManualManagementReason as editable fields (same fields as Status and StatusReason)
+		- *Status and StatusReason will still work, but recommended to switch to AutomaticManagementEnabled (status) and ManualManagementReason (StatusReason) sooner rather then later
+	- Add-VPASSafeMember: -MemberType parameter flipped to MANDATORY to reflect the change in the API call
+		- *Add -MemberType and a value to any script using Add-VPASSafeMember
+  ```
+
+  ### New Commands
+  ```
+    - None
+  ```
+</details>
+
 <!-- v14.2.2 -->
 <details>
 <summary>VpasModule v14.2.2</summary>
