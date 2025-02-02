@@ -41,9 +41,10 @@ VLogoff -PVWA $PVWA -token $token
 ```
 > v10.10 - SelfHosted
 > v11.X - SelfHosted
+> v12.X - SelfHosted
 ```
 ```
-> v12.X(Current):
+> v12.6(Current):
      - SelfHosted
 ```
  
