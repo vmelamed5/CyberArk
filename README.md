@@ -27,34 +27,24 @@ Install-Module VpasModule -scope CurrentUser
 Import-Module vpasmodule
  
 # Step2) Retrieve cyberark login token via New-VPASToken
-New-VPASToken -PVWA "MyPVWAServer.com" -AuthType cyberark
+$token = VLogin -PVWA "MyPVWAServer.com" -AuthType cyberark
  
 # Step3) Run desired API calls
-$SafeDetails = Get-VPASSafes -searchQuery "TestSafe"
-$AllAccounts = Get-VPASAllAccounts
+$SafeDetails = VSafeDetails -PVWA $PVWA -token $token -searchQuery "TestSafe"
+$AccountDetails = VAccountDetails -PVWA $PVWA -token $token -safe TestSafe01 -username testusername
  
 # Step4: Invalidate cyberark login token via Remove-VPASToken
-Remove-VPASToken
+VLogoff -PVWA $PVWA -token $token
 ```
  
 ## Supported Versions
 ```
 > v10.10 - SelfHosted
 > v11.X - SelfHosted
-> v12.X - SelfHosted
-> v13.X - SelfHosted + PrivilegeCloud
-> v14.0 - SelfHosted + PrivilegeCloud + Identity
-> v14.1 - SelfHosted + PrivilegeCloud + Identity
-> v14.2 - SelfHosted + PrivilegeCloud + Identity
 ```
 ```
-> v14.3 (Current):
+> v12.X(Current):
      - SelfHosted
-     - PrivilegeCloudStandard
-     - SharedServices (ISPSS)
-     - Identity (WORK IN PROGRESS)
-     - ConnectorManagement (WORK IN PROGRESS)
-     - DynamicPrivilegedAccess (WORK IN PROGRESS)
 ```
  
 ## Documentation
