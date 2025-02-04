@@ -14,6 +14,170 @@ A simplified PowerShell module to interact with CyberArk Web Services for Self H
 
 ## ChangeLog
 
+<!-- v14.4.0 -->
+<details>
+<summary>VpasModule v14.4.0</summary>
+  
+  ### Published Date
+  ```
+    February 5th 2024
+  ```
+  
+  ### New Commands
+  ```
+	- Find-VPASTargetValue: queries the environment to find a target value
+		- currently set up to query the following:
+			- Safes: name, description, and creator
+			- SafeMembers: member name
+			- Accounts: name, address, username, required properties, optional properties
+			- Platforms: ID, name, description, required properties, optional properties
+			- EPVUsers: username, firstname, lastname
+			- EPVGroups: name, description
+			- ApplicationIDs: ID, owner email, owner first name, owner last name
+			- ApplicationID Authentications: auth value
+			- Roles: ID, name, description
+			- Identities: display name, name, mail, description
+	- Get-VPASSearchProperties: retrieve the search properties that can be used to search for an account (SelfHosted only at this time)
+	- Get-VPASAllCustomThemes: retrieve all custom themes in the environment
+	- Get-VPASCustomTheme: retrieve details for a custom theme
+	- Enable-VPASCustomTheme: enable a custom theme
+	- Disable-VPASCustomTheme: disable custom theme and revert back to default theme
+	- Get-VPASCurrentCustomTheme: retrieve details for the currently enabled custom theme
+	- Remove-VPASCustomTheme: deletes a custom theme in the environment
+	- Update-VPASCustomThemeDraft: update a custom themes isDraft property
+	- Get-VPASEmptySafes: returns a list of safes that do not have any accounts stored inside (based on safe permissions)
+	- Get-VPASEmptyPlatforms: returns a list of platforms that do not have any accounts attached to it
+	- Get-VPASAccountDetailsExtended: returns extended data for an account object such as compliance, dependencies, etc.
+	- Get-VPASAccountCompliance: returns the compliance status for accounts in cyberark based on a search query
+	- Invoke-VPASHealthCheck: runs several checks on an environment and prints out recommendations (READ ONLY, does not make any changes)
+		- currently set up to run the following checks:
+			- Account Compliance: reports on accounts that are non compliant
+			- Component Status: reports on any disconnected components
+			- Empty Safes: reports on any safes that do not contain accounts
+			- Inactive Platforms: reports on accounts that are assigned to inactive platforms
+			- Inactive User: reports on any users that have not logged into the system in the last 365 days
+			- Application Authentications: reports on any appIDs that have been created with no authentication methods
+			- Unused Assets:
+				- reports on unused providers that have not been added to any safes
+				- reports on unused appIDs that have been created but not assigned to any safes
+				- reports on active platforms that have no accounts assigned to them
+				- reports on active CPMs that are not assigned to any safe
+				- reports on unused or unknown connection components (psm connectors)
+				- reports on unused or unknown PSMServerIDs that have not been assigned to any platform
+			- Version Check: reports on components that do not match the vault version
+  ```
+  
+  ### Important Notes
+  ```
+	- Invoke-VPASMetricsAccounts: reworked the logic for AccountCompliance metric to utilize Get-VPASAccountCompliance
+	- Get-VPASIncomingRequestDetails: changed return type from a hashtable to an array for consistency purposes
+	- Get-VPASAccountRequestDetails: changed return type from a hashtable to an array for consistency purposes
+	- New flags added -ExportToCSV and -CSVDirectory to export the results to a csv file:
+		- Disable-VPASCustomTheme
+		- Enable-VPASCustomTheme
+		- Find-VPASTargetValue
+		- Get-VPASAccountActivity
+		- Get-VPASAccountCompliance
+		- Get-VPASAccountDetails
+		- Get-VPASAccountDetailsExtended
+		- Get-VPASAccountGroupMembers
+		- Get-VPASAccountGroups
+		- Get-VPASAccountRequestDetails
+		- Get-VPASActiveSessionActivities
+		- Get-VPASActiveSessionProperties
+		- Get-VPASActiveSessions
+		- Get-VPASAllAccountRequests
+		- Get-VPASAllAccounts
+		- Get-VPASAllActiveSessions
+		- Get-VPASAllApplications
+		- Get-VPASAllConnectionComponents
+		- Get-VPASAllCustomThemes
+		- Get-VPASAllDirectories
+		- Get-VPASAllEPVGroups
+		- Get-VPASAllEPVUsers
+		- Get-VPASAllGroupPlatforms
+		- Get-VPASAllIncomingRequests
+		- Get-VPASAllowedIPs
+		- Get-VPASAllowedReferrer
+		- Get-VPASAllPlatforms
+		- Get-VPASAllPSMServers
+		- Get-VPASAllPSMSessions
+		- Get-VPASAllRotationalPlatforms
+		- Get-VPASAllSafes
+		- Get-VPASAllTargetPlatforms
+		- Get-VPASAllUsagePlatforms
+		- Get-VPASApplicationAuthentications
+		- Get-VPASApplicationDetails
+		- Get-VPASAuthenticationMethods
+		- Get-VPASCMAllComponents
+		- Get-VPASCMAllConnectorComponents
+		- Get-VPASCMAllConnectorPools
+		- Get-VPASCMAllConnectors
+		- Get-VPASCMComponentLogList
+		- Get-VPASCMConnectorComponentDetails
+		- Get-VPASCMConnectorDetails
+		- Get-VPASCMConnectorPoolDetails
+		- Get-VPASCMConnectors
+		- Get-VPASCurrentCustomTheme
+		- Get-VPASCurrentEPVUserDetails
+		- Get-VPASCustomTheme
+		- Get-VPASDirectoryDetails
+		- Get-VPASDirectoryMappingDetails
+		- Get-VPASDirectoryMappings
+		- Get-VPASDPAAllPolicies
+		- Get-VPASDPAAllStrongAccounts
+		- Get-VPASDPAAllStrongAccountSets
+		- Get-VPASDPAPolicies
+		- Get-VPASDPASettings
+		- Get-VPASDPAStrongAccountDetails
+		- Get-VPASDPAStrongAccounts
+		- Get-VPASEmptyPlatforms
+		- Get-VPASEmptySafes
+		- Get-VPASEPVGroupDetails
+		- Get-VPASEPVUserDetails
+		- Get-VPASEPVUserDetailsSearch
+		- Get-VPASEPVUserTypes
+		- Get-VPASGroupPlatformDetails
+		- Get-VPASIdentityAdminSecurityQuestion
+		- Get-VPASIdentityAllAdminSecurityQuestions
+		- Get-VPASIdentityAllRoles
+		- Get-VPASIdentityAllUsers
+		- Get-VPASIdentityCurrentUserDetails
+		- Get-VPASIdentityCurrentUserSecurityQuestions
+		- Get-VPASIdentityRoleDetails
+		- Get-VPASIdentityRoles
+		- Get-VPASIdentityTenantDetails
+		- Get-VPASIdentityUserDetails
+		- Get-VPASIdentityUserSecurityQuestions
+		- Get-VPASIncomingRequestDetails
+		- Get-VPASPasswordHistory
+		- Get-VPASPlatformDetails
+		- Get-VPASPlatformDetailsSearch
+		- Get-VPASPSMSessionActivities
+		- Get-VPASPSMSessionDetails
+		- Get-VPASPSMSessionProperties
+		- Get-VPASPSMSessions
+		- Get-VPASPSMSettingsByPlatformID
+		- Get-VPASRotationalPlatformDetails
+		- Get-VPASSafeDetails
+		- Get-VPASSafeMembers
+		- Get-VPASSafeMemberSearch
+		- Get-VPASSafes
+		- Get-VPASSafesByPlatformID
+		- Get-VPASSearchProperties
+		- Get-VPASSpecificAuthenticationMethod
+		- Get-VPASSystemComponents
+		- Get-VPASSystemHealth
+		- Get-VPASUsagePlatformDetails
+		- Get-VPASVaultDetails
+		- Get-VPASVaultVersion
+		- Invoke-VPASHealthCheck
+		- Remove-VPASCustomTheme
+		- Update-VPASCustomThemeDraft
+  ```
+
+</details>
+
 <!-- v14.3.0 -->
 <details>
 <summary>VpasModule v14.3.0</summary>
