@@ -20,7 +20,7 @@ A simplified PowerShell module to interact with CyberArk Web Services for Self H
   
   ### Published Date
   ```
-    February 5th 2024
+    February 5th 2025
   ```
   
   ### New Commands
