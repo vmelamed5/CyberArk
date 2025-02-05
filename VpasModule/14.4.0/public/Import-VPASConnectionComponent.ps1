@@ -27,7 +27,7 @@
 .OUTPUTS
    If successful:
    {
-        "ConnectionComponentID":  "PSM-Dropbox"
+        "ConnectionComponentID":  "PSM-VPASConnector"
    }
    ---
    $false if failed
