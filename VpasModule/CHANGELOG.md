@@ -14,9 +14,9 @@ A simplified PowerShell module to interact with CyberArk Web Services for Self H
 
 ## ChangeLog
 
-<!-- v14.4.0 -->
+<!-- v14.4.1 -->
 <details>
-<summary>VpasModule v14.4.0</summary>
+<summary>VpasModule v14.4.1</summary>
   
   ### Published Date
   ```
