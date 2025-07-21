@@ -14,6 +14,67 @@ A simplified PowerShell module to interact with CyberArk Web Services for Self H
 
 ## ChangeLog
 
+<!-- v14.6.0 -->
+<details>
+<summary>VpasModule v14.6.0</summary>
+  
+  ### Published Date
+  ```
+    July 20th 2025
+  ```
+  
+  ### New Commands
+  ```
+	- PAM:
+		- New-VPASMFACacheSSHKey: Generate a new MFA Cache SSH Key for current user or on behalf of another user
+		- Remove-VPASMFACacheSSHKey: Remove an MFA cache SSH Key for current user, on behalf of a user, or for all users
+		- Get-VPASStoredPlatformDetails: Retrieve details for a temporarily stored platform
+		- Remove-VPASStoredPlatform: Delete a temporarily stored platform
+		- Set-VPASStoredPlatform: Overwrites a platform with the temporarily stored platform
+		- Import-VPASStoredPlatform: Import a stored platform with new values to clear platform conflict
+		- Get-VPASMasterPolicySettings: Retrieve Master Policy settings for a target platform
+		- Update-VPASMasterPolicySettings: Update Master Policy setting for a target platform
+		- Get-VPASAllMasterPolicySettings: Retrieve Master Policy settings for all target platforms
+		- Get-VPASAllDependentAccounts: Retrieve all dependent accounts (usages) in the environment
+		- Get-VPASDependentAccounts: Retrieve dependent accounts (usages) attached to an account
+		- Get-VPASDependentAccountDetails: Retrieve details for a dependent account (usages)
+		- Add-VPASDependentAccount: Add a dependent account (usage)
+		- Remove-VPASDependentAccount: Remove a dependent account (usage)
+		- Resume-VPASDependentAccount: Resume a dependent account (usage) that has been disabled by either CPM or user
+		- Push-VPASDependentAccountSecret: Push or Sync a secret to a dependent account (usage)
+		- Update-VPASDependentAccount: update a property for a dependent account (usage)
+		- Add-VPASOnboardingRule: Add an onboarding rule for automatic onboarding
+		- Get-VPASAllOnboardingRules: Retrieve all onboarding rules for automatic onboarding in the environment
+		- Get-VPASOnboardingRules: Retrieve onboarding rules for automatic onboarding in the environment via search query
+		- Remove-VPASOnboardingRule: delete an existing onboarding rule for automatic onboarding in the environment
+		- Get-VPASAllReports: Retrieve all reports available to the current user
+		- Get-VPASAllTasks: Retrieve all scheduled reports available to the current user
+	- Identity:
+		- Get-VPASIdentityAllApplicationTemplates: Retrieve all application templates from Identity
+		- Get-VPASIdentityApplicationTemplates: Retrieve application templates from Identity based on a search query
+		- Get-VPASIdentityApplicationDetails: Retrieve details for an application in Identity
+		- Get-VPASIdentityAllApplications: Retrieve details for all applications in Identity
+		- Get-VPASIdentityApplications: Retrieve details for an application in Identity based on a search query
+		- Test-VPASIdentityApplicationCatalog: Tests to see if the application is still available in the application catalog
+
+  ```
+  
+  ### Important Notes
+  ```
+	- Invoke-VPASCredentialProvider: fixed bug if password being pulled contained a comma would return incorrect values
+	- Update-VPASAccountFields: fixed case sensitivity issue that prevented updating "RemoteMachinesAccess" parameter for an account
+	- Updated the metrics output and graphs for the following commands:
+		- Invoke-VPASMetricsAccounts
+		- Invoke-VPASMetricsCPM
+		- Invoke-VPASMetricsPlatforms
+		- Invoke-VPASMetricsProviders
+		- Invoke-VPASMetricsPSM
+	- Get-VPASAllPlatforms: fixed bug where -ExportToCSV would display incorrect information if Get-VPASAllTargetPlatforms was run instead
+	- Remove-VPASAuthenticationMethod: fixed bug where -WhatIf did not function correctly if the target authentication method does not exist
+  ```
+
+</details>
+
 <!-- v14.4.1 -->
 <details>
 <summary>VpasModule v14.4.1</summary>
