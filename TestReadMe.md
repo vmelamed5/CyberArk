@@ -11,7 +11,8 @@
   <br>
   Email: <b>vpasmodule@gmail.com</b>
 </p>
-<br></br>
+
+
 ![PSGallery Version](https://img.shields.io/powershellgallery/v/VpasModule)
 ![Downloads](https://img.shields.io/powershellgallery/dt/VpasModule)
 ![License](https://img.shields.io/github/license/vmelamed5/CyberArk)
