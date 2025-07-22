@@ -1,186 +1,75 @@
-# VpasModule
+<p align="center">
+  <a href="https://vpasmodule.com/index.html" target="_blank" rel="noopener noreferrer"><img src="https://github.com/vmelamed5/vmelamed5/blob/main/images/VpasModuleLOGO.png?raw=true" /></a>
+</p>
 
-![PSGallery Version](https://img.shields.io/powershellgallery/v/VpasModule)
-![Downloads](https://img.shields.io/powershellgallery/dt/VpasModule)
-![License](https://img.shields.io/github/license/vmelamed5/CyberArk)
-![Build Status](https://github.com/vmelamed5/CyberArk/actions/workflows/ci.yml/badge.svg)
-![Code Quality](https://img.shields.io/codefactor/grade/github/vmelamed5/CyberArk)
+<p align="center">
+A simplified PowerShell module to interact with CyberArk Web Services for Self Hosted, PrivilegeCloud Standard, and SharedServices (ISPSS) solutions as well as Identity/DPA/ConnectorManagement API suite
+</p>
 
-## 📖 Overview
+<p align="center">
+  Creator: <b>Vadim Melamed</b>
+  <br>
+  Email: <b>vpasmodule@gmail.com</b>
+</p>
 
-**VpasModule** is a PowerShell toolkit that integrates with CyberArk’s REST API, enabling automated management of privileged accounts, safes, and authentication tokens. Ideal for DevOps workflows, PAM automation, and scripting administrative tasks.
+<div align="center">
+  
+|  PSGallery       | CodeFactor                |
+|---------------------------|---------------------------|
+| [![downloads][]][psgallery-site] | [![codefactor][]][codefactor-site]|
 
-## 🧭 Table of Contents
+[downloads]:https://img.shields.io/powershellgallery/dt/vpasmodule.svg?color=darkblue
+[psgallery-site]:https://www.powershellgallery.com/packages/VpasModule
+[codefactor-site]:https://www.codefactor.io/repository/github/vmelamed5/cyberark
+[codefactor]:https://www.codefactor.io/repository/github/vmelamed5/cyberark/badge
 
-- [Features](#features)  
-- [Requirements](#requirements)  
-- [Installation](#installation)  
-- [Authentication](#authentication)  
-- [Usage Examples](#usage-examples)  
-- [Cmdlet Reference](#cmdlet-reference)  
-- [Development & Testing](#development--testing)  
-- [Contributing](#contributing)  
-- [License](#license)  
+</div>
 
----
-
-## ✨ Features
-
-- Secure logout via `Invoke-VPASLogoff`
-- List and manage safes: `Get-VPASSafe`, `New-VPASSafe`
-- Onboard and update privileged accounts: `New-VPASAccount`, `Set-VPASAccount`
-- Password rotation and retrieval
-- Full support for CyberArk auth tokens
-- Secure-by-design (SecureString, no plaintext passwords stored)
-
----
-
-## 🧩 Requirements
-
-- PowerShell **5.1+** or **7.x**
-- CyberArk PVWA **v11.7+ / v12.x**
-- Optional: `Microsoft.PowerShell.SecretManagement` for secret handling
-
----
-
-## 🚀 Installation
-
-Install from PowerShell Gallery:
-
+## Installation
+ 
+Install the module via [PowershellGallery](https://www.powershellgallery.com/packages/VpasModule/)
+ 
 ```powershell
-Install-Module -Name VpasModule -Scope CurrentUser -Force
-Import-Module VpasModule
+Install-Module VpasModule -scope CurrentUser
 ```
-
----
-
-## 🔐 Authentication
-
-Authenticate and store your auth token:
-
+ 
+## Usage
+ 
 ```powershell
-$Token = New-VPASToken `
-    -PVWAUrl 'https://pvwa.mycompany.com' `
-    -Username 'cyberarkadmin' `
-    -Password (Read-Host -AsSecureString)
+# Step1) import vpasmodule
+Import-Module vpasmodule
+ 
+# Step2) Retrieve cyberark login token via New-VPASToken
+New-VPASToken -PVWA "MyPVWAServer.com" -AuthType cyberark
+ 
+# Step3) Run desired API calls
+$SafeDetails = Get-VPASSafes -searchQuery "TestSafe"
+$AllAccounts = Get-VPASAllAccounts
+ 
+# Step4: Invalidate cyberark login token via Remove-VPASToken
+Remove-VPASToken
 ```
-
-Always log off to revoke the token:
-
-```powershell
-Invoke-VPASLogoff -AuthToken $Token
+ 
+## Supported Versions
 ```
-
----
-
-## 🛠 Usage Examples
-
-### ✅ Get a list of safes
-```powershell
-$Safes = Get-VPASSafe -AuthToken $Token
+> v10.10 - SelfHosted
+> v11.X - SelfHosted
+> v12.X - SelfHosted
+> v13.X - SelfHosted + PrivilegeCloud
+> v14.X - SelfHosted + PrivilegeCloud + Identity
 ```
-
-### 📥 Onboard a new account
-```powershell
-New-VPASAccount `
-  -AuthToken $Token `
-  -SafeName 'AppSafe' `
-  -PlatformId 'WinDomain' `
-  -Address 'SERVER01' `
-  -UserName 'svc-app' `
-  -Password (ConvertTo-SecureString 'P@ssw0rd!' -AsPlainText -Force)
 ```
-
-### 🔄 Rotate a password
-```powershell
-Invoke-VPASRotatePassword `
-  -AuthToken $Token `
-  -SafeName 'AppSafe' `
-  -Address 'SERVER01' `
-  -UserName 'svc-app'
+> v14.6.0 (Current):
+     - SelfHosted
+     - PrivilegeCloudStandard
+     - SharedServices (ISPSS)
+     - Identity (WORK IN PROGRESS)
+     - ConnectorManagement (WORK IN PROGRESS)
+     - DynamicPrivilegedAccess (WORK IN PROGRESS)
 ```
+ 
+## Documentation
+Find version specific README.md inside specific vpasmodule versions for more documentation on function syntax, examples, usages, etc.\
+\
+Please visit [VpasModule Website](https://vpasmodule.com/index.html) to stay up to date with any updates, changes, and various other features  
 
-### 🎯 Combined workflow
-```powershell
-$Token = New-VPASToken -PVWAUrl 'https://pvwa.mycompany.com' -Username 'admin' -Password (Read-Host -AsSecureString)
-
-Get-VPASSafe -AuthToken $Token | Where-Object Name -Match 'Prod' |
-  ForEach-Object { Write-Host "Safe: $($_.Name)" }
-
-Invoke-VPASLogoff -AuthToken $Token
-```
-
----
-
-## 📚 Cmdlet Reference
-
-| Cmdlet                        | Description                                            |
-|------------------------------|--------------------------------------------------------|
-| `New-VPASToken`              | Authenticate and retrieve a session token             |
-| `Invoke-VPASLogoff`          | Log off and revoke session token                      |
-| `Get-VPASSafe`               | List CyberArk safes                                   |
-| `New-VPASSafe`               | Create a new CyberArk safe                            |
-| `Get-VPASAccount`            | Retrieve account details                              |
-| `New-VPASAccount`            | Onboard a privileged account                          |
-| `Set-VPASAccount`            | Update account metadata                               |
-| `Invoke-VPASRotatePassword`  | Rotate account password                               |
-| `Invoke-VPASDeleteAccount`   | Remove an account from CyberArk                       |
-
-*(Each cmdlet includes full `-WhatIf`, `-Confirm`, and `[CmdletBinding()]` support.)*
-
----
-
-## 🧪 Development & Testing
-
-- **Lint your code** with `PSScriptAnalyzer`
-- **Unit test** with `Pester`: run `Invoke-Pester` locally
-- CI runs on push/PR via GitHub Actions
-- Publish modules via CI on successful main merges
-
----
-
-## 🤝 Contributing
-
-Contributions welcome! Please:
-
-1. Fork the repo  
-2. Create a feature branch (`feat/<your-feature>`)  
-3. Run & add tests for new functionality  
-4. Submit PR with detailed description
-
-Please follow the style guidelines in `.editorconfig`.
-
----
-
-## 📝 Changelog
-
-View the latest updates in [`CHANGELOG.md`](./CHANGELOG.md), detailing each release and enhancements.
-
----
-
-## 🛡️ License
-
-Licensed under the MIT License. See [LICENSE](./LICENSE) for details.
-
----
-
-## 📊 Visual Overview
-
-```text
-+------------------+      +------------------+      +------------------+
-| Client / Script  | ---> |   VpasModule     | ---> | CyberArk REST API|
-+------------------+      +------------------+      +------------------+
-```
-
----
-
-## 🎯 What’s Next?
-
-* Wizard-style safe/account onboarding  
-* Support for CPM operations and DNA scanning  
-* Integration with `SecretManagement` & `SecretStore`  
-* More Pester coverage and automated benchmarking
-
----
-
-_Last updated: July 2025_
