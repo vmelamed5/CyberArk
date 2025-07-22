@@ -3,27 +3,26 @@
 </p>
 
 <p align="center">
-A simplified PowerShell module to interact with CyberArk Web Services for Self Hosted, PrivilegeCloud Standard, and SharedServices (ISPSS) solutions as well as Identity/DPA/ConnectorManagement API suite
+<b>VpasModule</b> is a simplified PowerShell module to interact with CyberArk Web Services for Self Hosted, PrivilegeCloud Standard, and SharedServices (ISPSS) solutions as well as Identity/DPA/ConnectorManagement API suite
 </p>
 
 <p align="center">
   Creator: <b>Vadim Melamed</b>
   <br>
   Email: <b>vpasmodule@gmail.com</b>
+  <br>
 </p>
 
 <div align="center">
+<br>
   
-|  PSGallery       | CodeFactor                |
-|---------------------------|---------------------------|
-| [![downloads][]][psgallery-site] | [![codefactor][]][codefactor-site]|
-
-[downloads]:https://img.shields.io/powershellgallery/dt/vpasmodule.svg?color=darkblue
-[psgallery-site]:https://www.powershellgallery.com/packages/VpasModule
-[codefactor-site]:https://www.codefactor.io/repository/github/vmelamed5/cyberark
-[codefactor]:https://www.codefactor.io/repository/github/vmelamed5/cyberark/badge
+![PSGallery Version](https://img.shields.io/powershellgallery/v/VpasModule)
+![Downloads](https://img.shields.io/powershellgallery/dt/VpasModule)
+![License](https://img.shields.io/github/license/vmelamed5/CyberArk)
+![Code Quality](https://img.shields.io/codefactor/grade/github/vmelamed5/CyberArk)
 
 </div>
+
 
 ## Installation
  
