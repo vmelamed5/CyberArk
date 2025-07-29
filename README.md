@@ -18,8 +18,8 @@
   
 ![PSGallery Version](https://img.shields.io/powershellgallery/v/VpasModule)
 ![Downloads](https://img.shields.io/powershellgallery/dt/VpasModule)
-![License](https://img.shields.io/github/license/vmelamed5/CyberArk)
-![Code Quality](https://img.shields.io/codefactor/grade/github/vmelamed5/CyberArk)
+![License](https://img.shields.io/github/license/vmelamed5/VpasModule)
+![Code Quality](https://img.shields.io/codefactor/grade/github/vmelamed5/VpasModule)
 
 </div>
 
