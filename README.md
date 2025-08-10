@@ -20,8 +20,8 @@ A simplified PowerShell module to interact with CyberArk Web Services for Self H
 
 [downloads]:https://img.shields.io/powershellgallery/dt/vpasmodule.svg?color=darkblue
 [psgallery-site]:https://www.powershellgallery.com/packages/VpasModule
-[codefactor-site]:https://www.codefactor.io/repository/github/vmelamed5/cyberark
-[codefactor]:https://www.codefactor.io/repository/github/vmelamed5/cyberark/badge
+[codefactor-site]:https://www.codefactor.io/repository/github/vmelamed5/VpasModule
+[codefactor]:https://www.codefactor.io/repository/github/vmelamed5/VpasModule/badge
 
 </div>
 
