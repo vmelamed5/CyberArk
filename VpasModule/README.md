@@ -55,7 +55,7 @@ Remove-VPASToken
 > v14.X - SelfHosted + PrivilegeCloud + Identity
 ```
 ```
-> v14.4.1 (Current):
+> v14.6.0 (Current):
      - SelfHosted
      - PrivilegeCloudStandard
      - SharedServices (ISPSS)
