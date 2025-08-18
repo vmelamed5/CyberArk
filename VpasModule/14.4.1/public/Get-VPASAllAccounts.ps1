@@ -198,7 +198,7 @@ function Get-VPASAllAccounts{
                 Write-Verbose "RETURNING ALL ACCOUNTS"
                 $outputlog = $response
                 if($ExportToCSV){
-	                $runexport = Write-VPASExportCSV -Data $response.value -CommandName $CommandName -CSVDirectory $CSVDirectory
+	                $runexport = Write-VPASExportCSV -Data $result.value -CommandName $CommandName -CSVDirectory $CSVDirectory
                 }
                 return $result
             }
@@ -214,3 +214,4 @@ function Get-VPASAllAccounts{
         $log = Write-VPASTextRecorder -inputval $CommandName -token $token -LogType DIVIDER
     }
 }
+
