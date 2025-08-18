@@ -198,7 +198,7 @@ function Get-VPASAllAccounts{
                 Write-Verbose "RETURNING ALL ACCOUNTS"
                 $outputlog = $response
                 if($ExportToCSV){
-	                $runexport = Write-VPASExportCSV -Data $response.value -CommandName $CommandName -CSVDirectory $CSVDirectory
+	                $runexport = Write-VPASExportCSV -Data $result.value -CommandName $CommandName -CSVDirectory $CSVDirectory
                 }
                 return $result
             }
@@ -450,3 +450,4 @@ function Get-VPASAllAccounts{
 # IRhfeLY4SNy7RKsYaJAlCpnRHXZG2wW9CEp7t48j0XEwMDZ3OigOdeOMeJjj/YAI
 # ayycUwNeHpJ0Dz7fmOzkmWU9o9p6eTZWJHwSbe6f4gzYWbnZPKrWcS7F
 # SIG # End signature block
+
