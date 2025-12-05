@@ -20,6 +20,7 @@
 ![Downloads](https://img.shields.io/powershellgallery/dt/VpasModule)
 ![License](https://img.shields.io/github/license/vmelamed5/VpasModule)
 ![Code Quality](https://img.shields.io/codefactor/grade/github/vmelamed5/VpasModule)
+![GitHub Last Commit](https://img.shields.io/github/last-commit/vmelamed5/vpasmodule?style=flat-square)
 
 </div>
 
