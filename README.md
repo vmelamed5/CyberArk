@@ -21,6 +21,7 @@
 ![License](https://img.shields.io/github/license/vmelamed5/VpasModule)
 ![Code Quality](https://img.shields.io/codefactor/grade/github/vmelamed5/VpasModule)
 ![GitHub Last Commit](https://img.shields.io/github/last-commit/vmelamed5/vpasmodule?style=flat-square)
+![GitHub issues by-label](https://img.shields.io/github/issues/vmelamed5/vpasmodule/bugs?style=flat-square)
 
 </div>
 
