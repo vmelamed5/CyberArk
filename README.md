@@ -58,15 +58,17 @@ Remove-VPASToken
 > v12.X - SelfHosted
 > v13.X - SelfHosted + PrivilegeCloud
 > v14.X - SelfHosted + PrivilegeCloud + Identity
+> v15.X - SelfHosted + PrivilegeCloud + Identity + SIA + ConnectorManagement + SRS
 ```
 ```
-> v14.6.0 (Current):
+> v15.0.0 (Current):
      - SelfHosted
      - PrivilegeCloudStandard
      - SharedServices (ISPSS)
+     - SRS
      - Identity (WORK IN PROGRESS)
      - ConnectorManagement (WORK IN PROGRESS)
-     - DynamicPrivilegedAccess (WORK IN PROGRESS)
+     - SecureInfrastructureAccess (WORK IN PROGRESS)
 ```
  
 ## Documentation
