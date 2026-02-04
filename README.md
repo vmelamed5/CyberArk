@@ -65,7 +65,7 @@ Remove-VPASToken
      - SelfHosted
      - PrivilegeCloudStandard
      - SharedServices (ISPSS)
-     - SRS
+     - SRS (WORK IN PROGRESS)
      - Identity (WORK IN PROGRESS)
      - ConnectorManagement (WORK IN PROGRESS)
      - SecureInfrastructureAccess (WORK IN PROGRESS)
