@@ -37,13 +37,13 @@ Install-Module VpasModule -scope CurrentUser
 ## Usage
  
 ```powershell
-# Step1) import vpasmodule
+# Step1: import vpasmodule
 Import-Module vpasmodule
  
-# Step2) Retrieve cyberark login token via New-VPASToken
+# Step2: Retrieve cyberark login token via New-VPASToken
 New-VPASToken -PVWA "MyPVWAServer.com" -AuthType cyberark
  
-# Step3) Run desired API calls
+# Step3: Run desired API calls
 $SafeDetails = Get-VPASSafes -searchQuery "TestSafe"
 $AllAccounts = Get-VPASAllAccounts
  
