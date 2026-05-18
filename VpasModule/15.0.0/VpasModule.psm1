@@ -4,7 +4,15 @@ $folders = 'Classes', 'Includes', 'Internal', 'Private', 'Public', 'Bin'
 foreach ($folder in $folders)
 {
     $root = Join-Path -Path $PSScriptRoot -ChildPath $folder
-    if (Test-Path -Path $root)
+    if (-not (Test-Path -Path $root))
+    {
+        # Resolve folder names case-insensitively for non-Windows file systems.
+        $root = Get-ChildItem -Path $PSScriptRoot -Directory |
+            Where-Object Name -eq $folder |
+            Select-Object -First 1 -ExpandProperty FullName
+    }
+
+    if (![String]::IsNullOrEmpty($root) -and (Test-Path -Path $root))
     {
         Write-Verbose -Message "Importing files from [$folder]..."
         $files = Get-ChildItem -Path $root -Filter '*.ps1' -Recurse |
@@ -17,8 +25,19 @@ foreach ($folder in $folders)
     }
 }
 Write-Verbose -Message 'Exporting Public functions...'
-$functions = Get-ChildItem -Path "$PSScriptRoot\Public" -Filter '*.ps1'
-Export-ModuleMember -Function $functions.BaseName -alias *
+$publicRoot = Join-Path -Path $PSScriptRoot -ChildPath 'Public'
+if (-not (Test-Path -Path $publicRoot))
+{
+    # Resolve folder names case-insensitively for non-Windows file systems.
+    $publicRoot = Get-ChildItem -Path $PSScriptRoot -Directory |
+        Where-Object Name -eq 'Public' |
+        Select-Object -First 1 -ExpandProperty FullName
+}
+if (![String]::IsNullOrEmpty($publicRoot) -and (Test-Path -Path $publicRoot))
+{
+    $functions = Get-ChildItem -Path $publicRoot -Filter '*.ps1'
+    Export-ModuleMember -Function $functions.BaseName -alias *
+}
 # SIG # Begin signature block
 # MIIrpgYJKoZIhvcNAQcCoIIrlzCCK5MCAQExCzAJBgUrDgMCGgUAMGkGCisGAQQB
 # gjcCAQSgWzBZMDQGCisGAQQBgjcCAR4wJgIDAQAABBAfzDtgWUsITrck0sYpfvNR
